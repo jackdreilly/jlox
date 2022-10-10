@@ -146,21 +146,3 @@ extension Truthy on Object? {
     return false;
   }
 }
-
-extension OpExt on TokenType {
-  op(Object? a, [Object? b]) => {
-        TT.MINUS: (a, b) => a - b,
-        TT.PLUS: (a, b) => a + b,
-        TT.SLASH: (a, b) => a / b,
-        TT.STAR: (a, b) => a * b,
-        TT.BANG: (Object? a, Object? b) => !(a.truth),
-        TT.BANG_EQUAL: (a, b) => a != b,
-        TT.EQUAL_EQUAL: (a, b) => a == b,
-        TT.GREATER: (a, b) => a > b,
-        TT.GREATER_EQUAL: (a, b) => a >= b,
-        TT.LESS: (a, b) => a < b,
-        TT.LESS_EQUAL: (a, b) => a <= b,
-        TT.COMMA: (a, b) => b,
-      }[this]
-          ?.call(a, b);
-}

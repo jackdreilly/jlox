@@ -21,10 +21,9 @@ mixin _$Expression {
     required TResult Function(
             Expression predicate, Expression yes, Expression no)
         ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
+    required TResult Function(Token token, Expression left, Expression right)
         binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(Token token, Expression expression) unary,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) =>
@@ -33,9 +32,8 @@ mixin _$Expression {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) =>
@@ -44,9 +42,8 @@ mixin _$Expression {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
@@ -208,10 +205,9 @@ class _$Ternary implements Ternary {
     required TResult Function(
             Expression predicate, Expression yes, Expression no)
         ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
+    required TResult Function(Token token, Expression left, Expression right)
         binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(Token token, Expression expression) unary,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
@@ -223,9 +219,8 @@ class _$Ternary implements Ternary {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
@@ -237,9 +232,8 @@ class _$Ternary implements Ternary {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
@@ -309,8 +303,9 @@ abstract class Ternary implements Expression {
 abstract class _$$BinaryCopyWith<$Res> {
   factory _$$BinaryCopyWith(_$Binary value, $Res Function(_$Binary) then) =
       __$$BinaryCopyWithImpl<$Res>;
-  $Res call({TokenType tokenType, Expression left, Expression right});
+  $Res call({Token token, Expression left, Expression right});
 
+  $TokenCopyWith<$Res> get token;
   $ExpressionCopyWith<$Res> get left;
   $ExpressionCopyWith<$Res> get right;
 }
@@ -326,15 +321,15 @@ class __$$BinaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? tokenType = freezed,
+    Object? token = freezed,
     Object? left = freezed,
     Object? right = freezed,
   }) {
     return _then(_$Binary(
-      tokenType: tokenType == freezed
-          ? _value.tokenType
-          : tokenType // ignore: cast_nullable_to_non_nullable
-              as TokenType,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as Token,
       left: left == freezed
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
@@ -344,6 +339,13 @@ class __$$BinaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
           : right // ignore: cast_nullable_to_non_nullable
               as Expression,
     ));
+  }
+
+  @override
+  $TokenCopyWith<$Res> get token {
+    return $TokenCopyWith<$Res>(_value.token, (value) {
+      return _then(_value.copyWith(token: value));
+    });
   }
 
   @override
@@ -365,10 +367,10 @@ class __$$BinaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
 
 class _$Binary implements Binary {
   const _$Binary(
-      {required this.tokenType, required this.left, required this.right});
+      {required this.token, required this.left, required this.right});
 
   @override
-  final TokenType tokenType;
+  final Token token;
   @override
   final Expression left;
   @override
@@ -376,7 +378,7 @@ class _$Binary implements Binary {
 
   @override
   String toString() {
-    return 'Expression.binary(tokenType: $tokenType, left: $left, right: $right)';
+    return 'Expression.binary(token: $token, left: $left, right: $right)';
   }
 
   @override
@@ -384,7 +386,7 @@ class _$Binary implements Binary {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Binary &&
-            const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
             const DeepCollectionEquality().equals(other.left, left) &&
             const DeepCollectionEquality().equals(other.right, right));
   }
@@ -392,7 +394,7 @@ class _$Binary implements Binary {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(tokenType),
+      const DeepCollectionEquality().hash(token),
       const DeepCollectionEquality().hash(left),
       const DeepCollectionEquality().hash(right));
 
@@ -407,14 +409,13 @@ class _$Binary implements Binary {
     required TResult Function(
             Expression predicate, Expression yes, Expression no)
         ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
+    required TResult Function(Token token, Expression left, Expression right)
         binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(Token token, Expression expression) unary,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
-    return binary(tokenType, left, right);
+    return binary(token, left, right);
   }
 
   @override
@@ -422,13 +423,12 @@ class _$Binary implements Binary {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
-    return binary?.call(tokenType, left, right);
+    return binary?.call(token, left, right);
   }
 
   @override
@@ -436,15 +436,14 @@ class _$Binary implements Binary {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
     if (binary != null) {
-      return binary(tokenType, left, right);
+      return binary(token, left, right);
     }
     return orElse();
   }
@@ -492,11 +491,11 @@ class _$Binary implements Binary {
 
 abstract class Binary implements Expression {
   const factory Binary(
-      {required final TokenType tokenType,
+      {required final Token token,
       required final Expression left,
       required final Expression right}) = _$Binary;
 
-  TokenType get tokenType;
+  Token get token;
   Expression get left;
   Expression get right;
   @JsonKey(ignore: true)
@@ -508,8 +507,9 @@ abstract class Binary implements Expression {
 abstract class _$$UnaryCopyWith<$Res> {
   factory _$$UnaryCopyWith(_$Unary value, $Res Function(_$Unary) then) =
       __$$UnaryCopyWithImpl<$Res>;
-  $Res call({TokenType tokenType, Expression expression});
+  $Res call({Token token, Expression expression});
 
+  $TokenCopyWith<$Res> get token;
   $ExpressionCopyWith<$Res> get expression;
 }
 
@@ -524,19 +524,26 @@ class __$$UnaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? tokenType = freezed,
+    Object? token = freezed,
     Object? expression = freezed,
   }) {
     return _then(_$Unary(
-      tokenType: tokenType == freezed
-          ? _value.tokenType
-          : tokenType // ignore: cast_nullable_to_non_nullable
-              as TokenType,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as Token,
       expression: expression == freezed
           ? _value.expression
           : expression // ignore: cast_nullable_to_non_nullable
               as Expression,
     ));
+  }
+
+  @override
+  $TokenCopyWith<$Res> get token {
+    return $TokenCopyWith<$Res>(_value.token, (value) {
+      return _then(_value.copyWith(token: value));
+    });
   }
 
   @override
@@ -550,16 +557,16 @@ class __$$UnaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Unary implements Unary {
-  const _$Unary({required this.tokenType, required this.expression});
+  const _$Unary({required this.token, required this.expression});
 
   @override
-  final TokenType tokenType;
+  final Token token;
   @override
   final Expression expression;
 
   @override
   String toString() {
-    return 'Expression.unary(tokenType: $tokenType, expression: $expression)';
+    return 'Expression.unary(token: $token, expression: $expression)';
   }
 
   @override
@@ -567,7 +574,7 @@ class _$Unary implements Unary {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Unary &&
-            const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
+            const DeepCollectionEquality().equals(other.token, token) &&
             const DeepCollectionEquality()
                 .equals(other.expression, expression));
   }
@@ -575,7 +582,7 @@ class _$Unary implements Unary {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(tokenType),
+      const DeepCollectionEquality().hash(token),
       const DeepCollectionEquality().hash(expression));
 
   @JsonKey(ignore: true)
@@ -589,14 +596,13 @@ class _$Unary implements Unary {
     required TResult Function(
             Expression predicate, Expression yes, Expression no)
         ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
+    required TResult Function(Token token, Expression left, Expression right)
         binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(Token token, Expression expression) unary,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
-    return unary(tokenType, expression);
+    return unary(token, expression);
   }
 
   @override
@@ -604,13 +610,12 @@ class _$Unary implements Unary {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
-    return unary?.call(tokenType, expression);
+    return unary?.call(token, expression);
   }
 
   @override
@@ -618,15 +623,14 @@ class _$Unary implements Unary {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
     if (unary != null) {
-      return unary(tokenType, expression);
+      return unary(token, expression);
     }
     return orElse();
   }
@@ -674,10 +678,10 @@ class _$Unary implements Unary {
 
 abstract class Unary implements Expression {
   const factory Unary(
-      {required final TokenType tokenType,
+      {required final Token token,
       required final Expression expression}) = _$Unary;
 
-  TokenType get tokenType;
+  Token get token;
   Expression get expression;
   @JsonKey(ignore: true)
   _$$UnaryCopyWith<_$Unary> get copyWith => throw _privateConstructorUsedError;
@@ -745,10 +749,9 @@ class _$Literal implements Literal {
     required TResult Function(
             Expression predicate, Expression yes, Expression no)
         ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
+    required TResult Function(Token token, Expression left, Expression right)
         binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(Token token, Expression expression) unary,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
@@ -760,9 +763,8 @@ class _$Literal implements Literal {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
@@ -774,9 +776,8 @@ class _$Literal implements Literal {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
@@ -913,10 +914,9 @@ class _$Grouping implements Grouping {
     required TResult Function(
             Expression predicate, Expression yes, Expression no)
         ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
+    required TResult Function(Token token, Expression left, Expression right)
         binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(Token token, Expression expression) unary,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
@@ -928,9 +928,8 @@ class _$Grouping implements Grouping {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
@@ -942,9 +941,8 @@ class _$Grouping implements Grouping {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression predicate, Expression yes, Expression no)?
         ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),

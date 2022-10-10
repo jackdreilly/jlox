@@ -59,8 +59,7 @@ class _Parser {
   Expression term() => starred(factor, {TT.PLUS, TT.MINUS});
   Expression factor() => starred(unary, {TT.STAR, TT.SLASH});
   Expression unary() => match({TT.MINUS, TT.BANG})
-      ? Expression.unary(
-          tokenType: tokenType.and(() => eat), expression: unary())
+      ? Expression.unary(token: token.and(() => eat), expression: unary())
       : primary();
   Expression primary() {
     final maybeExpression = token.expression;
@@ -88,7 +87,7 @@ class _Parser {
 
     while (match(tokens)) {
       c = Expression.binary(
-          tokenType: tokenType.and(() => eat), left: c, right: maker());
+          token: token.and(() => eat), left: c, right: maker());
     }
     return c;
   }

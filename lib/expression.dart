@@ -16,11 +16,11 @@ class Expression with _$Expression {
       required Expression yes,
       required Expression no}) = Ternary;
   const factory Expression.binary(
-      {required TokenType tokenType,
+      {required Token token,
       required Expression left,
       required Expression right}) = Binary;
   const factory Expression.unary({
-    required TokenType tokenType,
+    required Token token,
     required Expression expression,
   }) = Unary;
   const factory Expression.literal(value) = Literal;
@@ -31,14 +31,6 @@ extension on Iterable {
   String get paren => '($unwords)';
 }
 
-String expand(Expression e, Star<Expression> es) => es.isEmpty
-    ? e.pretty
-    : [
-        es.last.item1.string,
-        expand(e, es.take(es.length - 1)),
-        es.last.item2.pretty,
-      ].paren;
-
 extension ExpressionString on Expression {
   String get pretty => when(
         ternary: (predicate, yes, no) => [
@@ -48,57 +40,41 @@ extension ExpressionString on Expression {
           TT.COLON.string,
           no.pretty
         ].paren,
-        binary: (tokenType, left, right) =>
-            [tokenType.string, left.pretty, right.pretty].paren,
+        binary: (token, left, right) =>
+            [token.pretty, left.pretty, right.pretty].paren,
         grouping: (expression) => ['group', expression.pretty].paren,
         literal: (value) => value is String
             ? '"$value"'
             : value == null
                 ? 'nil'
                 : value.toString(),
-        unary: (tokenType, expression) =>
-            [tokenType.string, expression.pretty].paren,
+        unary: (token, expression) => [token.pretty, expression.pretty].paren,
       );
 
   List<String> get rpn => maybeWhen(
         ternary: (predicate, yes, no) =>
             [predicate, yes, no].expand((element) => element.rpn).list,
-        binary: (tokenType, left, right) =>
-            [...left.rpn, ...right.rpn, tokenType.string],
+        binary: (token, left, right) =>
+            [...left.rpn, ...right.rpn, token.pretty],
         grouping: (expression) => expression.rpn,
-        unary: (tokenType, expression) => [...expression.rpn, tokenType.string],
+        unary: (token, expression) => [...expression.rpn, token.pretty],
         orElse: () => [pretty],
       );
 }
 
-extension NumExt on num {
-  Expression get expression => Expression.literal(this);
-  Expression get neg => TT.MINUS.unary(expression);
-  Expression plus(Expression other) => expression.plus(other);
-  Expression times(Expression other) => expression.times(other);
-  Expression minus(Expression other) => expression.minus(other);
+extension NumExt on Object? {
+  Expression get literal => Expression.literal(this);
 }
 
-extension TTExt on TT {
-  Expression unary(Expression expression) =>
-      Expression.unary(expression: expression, tokenType: this);
-  Expression binary(Expression left, Expression right) =>
-      Expression.binary(left: left, right: right, tokenType: this);
-}
-
-extension ExpressionExt on Expression {
+extension ExpExt on Expression {
   Expression get grouping => Expression.grouping(this);
-  Expression times(Expression other) => TT.STAR.binary(this, other);
-  Expression plus(Expression other) => TT.PLUS.binary(this, other);
-  Expression minus(Expression other) => TT.MINUS.binary(this, other);
 }
 
-extension StrExt on String {
-  Expression get expression => Expression.literal(this);
-}
-
-extension BoolExt on bool {
-  Expression get expression => Expression.literal(this);
+extension TTExt on Token {
+  Expression unary(Expression expression) =>
+      Expression.unary(expression: expression, token: this);
+  Expression binary(Expression left, Expression right) =>
+      Expression.binary(left: left, right: right, token: this);
 }
 
 extension TokenExpressionExtension on Token {
@@ -110,4 +86,8 @@ extension TokenExpressionExtension on Token {
         TT.FALSE: () => Expression.literal(false),
       }[tokenType]
           ?.call();
+}
+
+extension on Token {
+  String get pretty => tokenType.string;
 }
