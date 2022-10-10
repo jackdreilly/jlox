@@ -17,9 +17,7 @@ IOSink myStderr = stderr;
 
 extension DumpString on String {
   get dump => stdout..add(codeUnits);
-  get err => myStderr
-    ..add(codeUnits)
-    ..nl;
+  get err => myStderr..add(codeUnits);
   String slice(int start, int end) => substring(safe(start), safe(end));
   int safe(int v) => v >= 0 ? min(length, v) : max(0, length - v);
   int count(String s) => s.allMatches(this).length;
@@ -30,10 +28,6 @@ extension DumpString on String {
   RegExp get re => RegExp(this);
   String? get read => file?.readAsStringSync();
   File? get file => File(this).existsSync() ? File(this) : null;
-}
-
-extension on IOSink {
-  get nl => add(['\n'.char]);
 }
 
 extension on int {

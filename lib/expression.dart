@@ -53,7 +53,7 @@ extension ExpressionString on Expression {
 
   List<String> get rpn => maybeWhen(
         ternary: (predicate, yes, no) =>
-            [predicate, yes, no].expand((element) => element.rpn).list,
+            [predicate, yes, no].expand((e) => e.rpn).list,
         binary: (token, left, right) =>
             [...left.rpn, ...right.rpn, token.pretty],
         grouping: (expression) => expression.rpn,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:jlox/base.dart';
 import 'package:jlox/interpreter.dart';
+import 'package:jlox/token.dart';
 
 import 'errors.dart';
 
@@ -21,7 +22,11 @@ int runProgram(String last) {
 }
 
 int run(String program) {
-  program.interpret.toString().dump;
+  try {
+    program.interpret.toString().dump;
+  } on CheckTokenError catch (e) {
+    e.message.err;
+  }
   newline;
   if (hadError) {
     return 65;
