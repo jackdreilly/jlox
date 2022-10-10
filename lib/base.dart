@@ -16,9 +16,7 @@ extension NullIter<T> on Iterable<T?> {
 IOSink myStderr = stderr;
 
 extension DumpString on String {
-  get dump => stdout
-    ..add(codeUnits)
-    ..nl;
+  get dump => stdout..add(codeUnits);
   get err => myStderr
     ..add(codeUnits)
     ..nl;

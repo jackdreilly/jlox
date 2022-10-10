@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:jlox/base.dart';
-import 'package:jlox/expression.dart';
-import 'package:jlox/parser.dart';
+import 'package:jlox/interpreter.dart';
 
 import 'errors.dart';
 
@@ -22,7 +21,8 @@ int runProgram(String last) {
 }
 
 int run(String program) {
-  program.parse.pretty.log;
+  program.interpret.toString().dump;
+  newline;
   if (hadError) {
     return 65;
   }
@@ -32,7 +32,6 @@ int run(String program) {
 int runPrompt() {
   '> '.dump;
   final input = stdin.readLineSync();
-  newline;
   if (input == null) {
     return 0;
   }

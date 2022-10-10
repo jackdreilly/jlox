@@ -129,13 +129,31 @@ extension TTExt on TokenType {
   String get string => ttMap[this] ?? name;
 }
 
+extension Truthy on Object? {
+  bool get truth {
+    if (this is String) {
+      return (this as String).isNotEmpty;
+    }
+    if (this is num) {
+      return this != 0;
+    }
+    if (this is bool) {
+      return this as bool;
+    }
+    if (this == null) {
+      return false;
+    }
+    return false;
+  }
+}
+
 extension OpExt on TokenType {
-  op(a, [b]) => {
+  op(Object? a, [Object? b]) => {
         TT.MINUS: (a, b) => a - b,
         TT.PLUS: (a, b) => a + b,
         TT.SLASH: (a, b) => a / b,
         TT.STAR: (a, b) => a * b,
-        TT.BANG: (a, b) => a + b,
+        TT.BANG: (Object? a, Object? b) => !(a.truth),
         TT.BANG_EQUAL: (a, b) => a != b,
         TT.EQUAL_EQUAL: (a, b) => a == b,
         TT.GREATER: (a, b) => a > b,

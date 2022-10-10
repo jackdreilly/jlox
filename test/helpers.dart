@@ -16,7 +16,7 @@ final progs = 'test' / 'programs';
 
 Token get eof => Token(tokenType: TT.EOF, lexeme: '', line: 0, literal: '');
 
-extension TestE<T> on T {
+extension TestE on Object? {
   equals(dynamic value) => expect(this, value);
   shouldBe(dynamic value) => () => equals(value);
 }
