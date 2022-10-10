@@ -18,73 +18,73 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Expression {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
     required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(num number) number,
+    required TResult Function(String string) string,
+    required TResult Function(bool boolean) boolean,
+    required TResult Function() nil,
+    required TResult Function(Expression expression) grouping,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Number value) number,
+    required TResult Function(StringExpression value) string,
+    required TResult Function(Bool value) boolean,
+    required TResult Function(Nil value) nil,
+    required TResult Function(Grouping value) grouping,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,1000 +107,147 @@ class _$ExpressionCopyWithImpl<$Res> implements $ExpressionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$ExpCopyWith<$Res> {
-  factory _$$ExpCopyWith(_$Exp value, $Res Function(_$Exp) then) =
-      __$$ExpCopyWithImpl<$Res>;
-  $Res call({Equality equality});
+abstract class _$$BinaryCopyWith<$Res> {
+  factory _$$BinaryCopyWith(_$Binary value, $Res Function(_$Binary) then) =
+      __$$BinaryCopyWithImpl<$Res>;
+  $Res call({TokenType tokenType, Expression left, Expression right});
+
+  $ExpressionCopyWith<$Res> get left;
+  $ExpressionCopyWith<$Res> get right;
 }
 
 /// @nodoc
-class __$$ExpCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$ExpCopyWith<$Res> {
-  __$$ExpCopyWithImpl(_$Exp _value, $Res Function(_$Exp) _then)
-      : super(_value, (v) => _then(v as _$Exp));
+class __$$BinaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$BinaryCopyWith<$Res> {
+  __$$BinaryCopyWithImpl(_$Binary _value, $Res Function(_$Binary) _then)
+      : super(_value, (v) => _then(v as _$Binary));
 
   @override
-  _$Exp get _value => super._value as _$Exp;
+  _$Binary get _value => super._value as _$Binary;
 
   @override
   $Res call({
-    Object? equality = freezed,
+    Object? tokenType = freezed,
+    Object? left = freezed,
+    Object? right = freezed,
   }) {
-    return _then(_$Exp(
-      equality == freezed
-          ? _value.equality
-          : equality // ignore: cast_nullable_to_non_nullable
-              as Equality,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Exp implements Exp {
-  const _$Exp(this.equality);
-
-  @override
-  final Equality equality;
-
-  @override
-  String toString() {
-    return 'Expression.expression(equality: $equality)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Exp &&
-            const DeepCollectionEquality().equals(other.equality, equality));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(equality));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$ExpCopyWith<_$Exp> get copyWith =>
-      __$$ExpCopyWithImpl<_$Exp>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
-    required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return expression(this.equality);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return expression?.call(this.equality);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (expression != null) {
-      return expression(this.equality);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
-  }) {
-    return expression(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-  }) {
-    return expression?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-    required TResult orElse(),
-  }) {
-    if (expression != null) {
-      return expression(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Exp implements Expression {
-  const factory Exp(final Equality equality) = _$Exp;
-
-  Equality get equality;
-  @JsonKey(ignore: true)
-  _$$ExpCopyWith<_$Exp> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$EqualityCopyWith<$Res> {
-  factory _$$EqualityCopyWith(
-          _$Equality value, $Res Function(_$Equality) then) =
-      __$$EqualityCopyWithImpl<$Res>;
-  $Res call({Comparison comparison, Star<Comparison> comparisons});
-}
-
-/// @nodoc
-class __$$EqualityCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$EqualityCopyWith<$Res> {
-  __$$EqualityCopyWithImpl(_$Equality _value, $Res Function(_$Equality) _then)
-      : super(_value, (v) => _then(v as _$Equality));
-
-  @override
-  _$Equality get _value => super._value as _$Equality;
-
-  @override
-  $Res call({
-    Object? comparison = freezed,
-    Object? comparisons = freezed,
-  }) {
-    return _then(_$Equality(
-      comparison == freezed
-          ? _value.comparison
-          : comparison // ignore: cast_nullable_to_non_nullable
-              as Comparison,
-      comparisons == freezed
-          ? _value.comparisons
-          : comparisons // ignore: cast_nullable_to_non_nullable
-              as Star<Comparison>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Equality implements Equality {
-  const _$Equality(this.comparison, [this.comparisons = const []]);
-
-  @override
-  final Comparison comparison;
-  @override
-  @JsonKey()
-  final Star<Comparison> comparisons;
-
-  @override
-  String toString() {
-    return 'Expression.equality(comparison: $comparison, comparisons: $comparisons)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Equality &&
-            const DeepCollectionEquality()
-                .equals(other.comparison, comparison) &&
-            const DeepCollectionEquality()
-                .equals(other.comparisons, comparisons));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(comparison),
-      const DeepCollectionEquality().hash(comparisons));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$EqualityCopyWith<_$Equality> get copyWith =>
-      __$$EqualityCopyWithImpl<_$Equality>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
-    required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return equality(this.comparison, comparisons);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return equality?.call(this.comparison, comparisons);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (equality != null) {
-      return equality(this.comparison, comparisons);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
-  }) {
-    return equality(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-  }) {
-    return equality?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-    required TResult orElse(),
-  }) {
-    if (equality != null) {
-      return equality(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Equality implements Expression {
-  const factory Equality(final Comparison comparison,
-      [final Star<Comparison> comparisons]) = _$Equality;
-
-  Comparison get comparison;
-  Star<Comparison> get comparisons;
-  @JsonKey(ignore: true)
-  _$$EqualityCopyWith<_$Equality> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ComparisonCopyWith<$Res> {
-  factory _$$ComparisonCopyWith(
-          _$Comparison value, $Res Function(_$Comparison) then) =
-      __$$ComparisonCopyWithImpl<$Res>;
-  $Res call({Term term, Star<Term> terms});
-}
-
-/// @nodoc
-class __$$ComparisonCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$ComparisonCopyWith<$Res> {
-  __$$ComparisonCopyWithImpl(
-      _$Comparison _value, $Res Function(_$Comparison) _then)
-      : super(_value, (v) => _then(v as _$Comparison));
-
-  @override
-  _$Comparison get _value => super._value as _$Comparison;
-
-  @override
-  $Res call({
-    Object? term = freezed,
-    Object? terms = freezed,
-  }) {
-    return _then(_$Comparison(
-      term == freezed
-          ? _value.term
-          : term // ignore: cast_nullable_to_non_nullable
-              as Term,
-      terms == freezed
-          ? _value.terms
-          : terms // ignore: cast_nullable_to_non_nullable
-              as Star<Term>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Comparison implements Comparison {
-  const _$Comparison(this.term, [this.terms = const []]);
-
-  @override
-  final Term term;
-  @override
-  @JsonKey()
-  final Star<Term> terms;
-
-  @override
-  String toString() {
-    return 'Expression.comparison(term: $term, terms: $terms)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Comparison &&
-            const DeepCollectionEquality().equals(other.term, term) &&
-            const DeepCollectionEquality().equals(other.terms, terms));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(term),
-      const DeepCollectionEquality().hash(terms));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$ComparisonCopyWith<_$Comparison> get copyWith =>
-      __$$ComparisonCopyWithImpl<_$Comparison>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
-    required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return comparison(this.term, terms);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return comparison?.call(this.term, terms);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (comparison != null) {
-      return comparison(this.term, terms);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
-  }) {
-    return comparison(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-  }) {
-    return comparison?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-    required TResult orElse(),
-  }) {
-    if (comparison != null) {
-      return comparison(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Comparison implements Expression {
-  const factory Comparison(final Term term, [final Star<Term> terms]) =
-      _$Comparison;
-
-  Term get term;
-  Star<Term> get terms;
-  @JsonKey(ignore: true)
-  _$$ComparisonCopyWith<_$Comparison> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$TermCopyWith<$Res> {
-  factory _$$TermCopyWith(_$Term value, $Res Function(_$Term) then) =
-      __$$TermCopyWithImpl<$Res>;
-  $Res call({Factor factor, Star<Factor> factors});
-}
-
-/// @nodoc
-class __$$TermCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$TermCopyWith<$Res> {
-  __$$TermCopyWithImpl(_$Term _value, $Res Function(_$Term) _then)
-      : super(_value, (v) => _then(v as _$Term));
-
-  @override
-  _$Term get _value => super._value as _$Term;
-
-  @override
-  $Res call({
-    Object? factor = freezed,
-    Object? factors = freezed,
-  }) {
-    return _then(_$Term(
-      factor == freezed
-          ? _value.factor
-          : factor // ignore: cast_nullable_to_non_nullable
-              as Factor,
-      factors == freezed
-          ? _value.factors
-          : factors // ignore: cast_nullable_to_non_nullable
-              as Star<Factor>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Term implements Term {
-  const _$Term(this.factor, [this.factors = const []]);
-
-  @override
-  final Factor factor;
-  @override
-  @JsonKey()
-  final Star<Factor> factors;
-
-  @override
-  String toString() {
-    return 'Expression.term(factor: $factor, factors: $factors)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Term &&
-            const DeepCollectionEquality().equals(other.factor, factor) &&
-            const DeepCollectionEquality().equals(other.factors, factors));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(factor),
-      const DeepCollectionEquality().hash(factors));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$TermCopyWith<_$Term> get copyWith =>
-      __$$TermCopyWithImpl<_$Term>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
-    required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return term(this.factor, factors);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return term?.call(this.factor, factors);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (term != null) {
-      return term(this.factor, factors);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
-  }) {
-    return term(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-  }) {
-    return term?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-    required TResult orElse(),
-  }) {
-    if (term != null) {
-      return term(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Term implements Expression {
-  const factory Term(final Factor factor, [final Star<Factor> factors]) =
-      _$Term;
-
-  Factor get factor;
-  Star<Factor> get factors;
-  @JsonKey(ignore: true)
-  _$$TermCopyWith<_$Term> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$FactorCopyWith<$Res> {
-  factory _$$FactorCopyWith(_$Factor value, $Res Function(_$Factor) then) =
-      __$$FactorCopyWithImpl<$Res>;
-  $Res call({UnaryExp unary, Star<UnaryExp> unaries});
-}
-
-/// @nodoc
-class __$$FactorCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$FactorCopyWith<$Res> {
-  __$$FactorCopyWithImpl(_$Factor _value, $Res Function(_$Factor) _then)
-      : super(_value, (v) => _then(v as _$Factor));
-
-  @override
-  _$Factor get _value => super._value as _$Factor;
-
-  @override
-  $Res call({
-    Object? unary = freezed,
-    Object? unaries = freezed,
-  }) {
-    return _then(_$Factor(
-      unary == freezed
-          ? _value.unary
-          : unary // ignore: cast_nullable_to_non_nullable
-              as UnaryExp,
-      unaries == freezed
-          ? _value.unaries
-          : unaries // ignore: cast_nullable_to_non_nullable
-              as Star<UnaryExp>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Factor implements Factor {
-  const _$Factor(this.unary, [this.unaries = const []]);
-
-  @override
-  final UnaryExp unary;
-  @override
-  @JsonKey()
-  final Star<UnaryExp> unaries;
-
-  @override
-  String toString() {
-    return 'Expression.factor(unary: $unary, unaries: $unaries)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Factor &&
-            const DeepCollectionEquality().equals(other.unary, unary) &&
-            const DeepCollectionEquality().equals(other.unaries, unaries));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(unary),
-      const DeepCollectionEquality().hash(unaries));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$FactorCopyWith<_$Factor> get copyWith =>
-      __$$FactorCopyWithImpl<_$Factor>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
-    required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return factor(this.unary, unaries);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return factor?.call(this.unary, unaries);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (factor != null) {
-      return factor(this.unary, unaries);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
-  }) {
-    return factor(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-  }) {
-    return factor?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-    required TResult orElse(),
-  }) {
-    if (factor != null) {
-      return factor(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Factor implements Expression {
-  const factory Factor(final UnaryExp unary, [final Star<UnaryExp> unaries]) =
-      _$Factor;
-
-  UnaryExp get unary;
-  Star<UnaryExp> get unaries;
-  @JsonKey(ignore: true)
-  _$$FactorCopyWith<_$Factor> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UnaryExpCopyWith<$Res> {
-  factory _$$UnaryExpCopyWith(
-          _$UnaryExp value, $Res Function(_$UnaryExp) then) =
-      __$$UnaryExpCopyWithImpl<$Res>;
-  $Res call({Unary unary});
-
-  $UnaryCopyWith<$Res> get unary;
-}
-
-/// @nodoc
-class __$$UnaryExpCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$UnaryExpCopyWith<$Res> {
-  __$$UnaryExpCopyWithImpl(_$UnaryExp _value, $Res Function(_$UnaryExp) _then)
-      : super(_value, (v) => _then(v as _$UnaryExp));
-
-  @override
-  _$UnaryExp get _value => super._value as _$UnaryExp;
-
-  @override
-  $Res call({
-    Object? unary = freezed,
-  }) {
-    return _then(_$UnaryExp(
-      unary == freezed
-          ? _value.unary
-          : unary // ignore: cast_nullable_to_non_nullable
-              as Unary,
+    return _then(_$Binary(
+      tokenType: tokenType == freezed
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as TokenType,
+      left: left == freezed
+          ? _value.left
+          : left // ignore: cast_nullable_to_non_nullable
+              as Expression,
+      right: right == freezed
+          ? _value.right
+          : right // ignore: cast_nullable_to_non_nullable
+              as Expression,
     ));
   }
 
   @override
-  $UnaryCopyWith<$Res> get unary {
-    return $UnaryCopyWith<$Res>(_value.unary, (value) {
-      return _then(_value.copyWith(unary: value));
+  $ExpressionCopyWith<$Res> get left {
+    return $ExpressionCopyWith<$Res>(_value.left, (value) {
+      return _then(_value.copyWith(left: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get right {
+    return $ExpressionCopyWith<$Res>(_value.right, (value) {
+      return _then(_value.copyWith(right: value));
     });
   }
 }
 
 /// @nodoc
 
-class _$UnaryExp implements UnaryExp {
-  const _$UnaryExp(this.unary);
+class _$Binary implements Binary {
+  const _$Binary(
+      {required this.tokenType, required this.left, required this.right});
 
   @override
-  final Unary unary;
+  final TokenType tokenType;
+  @override
+  final Expression left;
+  @override
+  final Expression right;
 
   @override
   String toString() {
-    return 'Expression.unary(unary: $unary)';
+    return 'Expression.binary(tokenType: $tokenType, left: $left, right: $right)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UnaryExp &&
-            const DeepCollectionEquality().equals(other.unary, unary));
+            other is _$Binary &&
+            const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
+            const DeepCollectionEquality().equals(other.left, left) &&
+            const DeepCollectionEquality().equals(other.right, right));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(unary));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(tokenType),
+      const DeepCollectionEquality().hash(left),
+      const DeepCollectionEquality().hash(right));
 
   @JsonKey(ignore: true)
   @override
-  _$$UnaryExpCopyWith<_$UnaryExp> get copyWith =>
-      __$$UnaryExpCopyWithImpl<_$UnaryExp>(this, _$identity);
+  _$$BinaryCopyWith<_$Binary> get copyWith =>
+      __$$BinaryCopyWithImpl<_$Binary>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
     required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(num number) number,
+    required TResult Function(String string) string,
+    required TResult Function(bool boolean) boolean,
+    required TResult Function() nil,
+    required TResult Function(Expression expression) grouping,
   }) {
-    return unary(this.unary);
+    return binary(tokenType, left, right);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
   }) {
-    return unary?.call(this.unary);
+    return binary?.call(tokenType, left, right);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
-    if (unary != null) {
-      return unary(this.unary);
+    if (binary != null) {
+      return binary(tokenType, left, right);
     }
     return orElse();
   }
@@ -1108,13 +255,203 @@ class _$UnaryExp implements UnaryExp {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Number value) number,
+    required TResult Function(StringExpression value) string,
+    required TResult Function(Bool value) boolean,
+    required TResult Function(Nil value) nil,
+    required TResult Function(Grouping value) grouping,
+  }) {
+    return binary(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
+  }) {
+    return binary?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
+    required TResult orElse(),
+  }) {
+    if (binary != null) {
+      return binary(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Binary implements Expression {
+  const factory Binary(
+      {required final TokenType tokenType,
+      required final Expression left,
+      required final Expression right}) = _$Binary;
+
+  TokenType get tokenType;
+  Expression get left;
+  Expression get right;
+  @JsonKey(ignore: true)
+  _$$BinaryCopyWith<_$Binary> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnaryCopyWith<$Res> {
+  factory _$$UnaryCopyWith(_$Unary value, $Res Function(_$Unary) then) =
+      __$$UnaryCopyWithImpl<$Res>;
+  $Res call({TokenType tokenType, Expression expression});
+
+  $ExpressionCopyWith<$Res> get expression;
+}
+
+/// @nodoc
+class __$$UnaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$UnaryCopyWith<$Res> {
+  __$$UnaryCopyWithImpl(_$Unary _value, $Res Function(_$Unary) _then)
+      : super(_value, (v) => _then(v as _$Unary));
+
+  @override
+  _$Unary get _value => super._value as _$Unary;
+
+  @override
+  $Res call({
+    Object? tokenType = freezed,
+    Object? expression = freezed,
+  }) {
+    return _then(_$Unary(
+      tokenType: tokenType == freezed
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as TokenType,
+      expression: expression == freezed
+          ? _value.expression
+          : expression // ignore: cast_nullable_to_non_nullable
+              as Expression,
+    ));
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get expression {
+    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
+      return _then(_value.copyWith(expression: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Unary implements Unary {
+  const _$Unary({required this.tokenType, required this.expression});
+
+  @override
+  final TokenType tokenType;
+  @override
+  final Expression expression;
+
+  @override
+  String toString() {
+    return 'Expression.unary(tokenType: $tokenType, expression: $expression)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Unary &&
+            const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
+            const DeepCollectionEquality()
+                .equals(other.expression, expression));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(tokenType),
+      const DeepCollectionEquality().hash(expression));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$UnaryCopyWith<_$Unary> get copyWith =>
+      __$$UnaryCopyWithImpl<_$Unary>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(num number) number,
+    required TResult Function(String string) string,
+    required TResult Function(bool boolean) boolean,
+    required TResult Function() nil,
+    required TResult Function(Expression expression) grouping,
+  }) {
+    return unary(tokenType, expression);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
+  }) {
+    return unary?.call(tokenType, expression);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
+    required TResult orElse(),
+  }) {
+    if (unary != null) {
+      return unary(tokenType, expression);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Number value) number,
+    required TResult Function(StringExpression value) string,
+    required TResult Function(Bool value) boolean,
+    required TResult Function(Nil value) nil,
+    required TResult Function(Grouping value) grouping,
   }) {
     return unary(this);
   }
@@ -1122,13 +459,13 @@ class _$UnaryExp implements UnaryExp {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
   }) {
     return unary?.call(this);
   }
@@ -1136,13 +473,13 @@ class _$UnaryExp implements UnaryExp {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) {
     if (unary != null) {
@@ -1152,617 +489,15 @@ class _$UnaryExp implements UnaryExp {
   }
 }
 
-abstract class UnaryExp implements Expression {
-  const factory UnaryExp(final Unary unary) = _$UnaryExp;
-
-  Unary get unary;
-  @JsonKey(ignore: true)
-  _$$UnaryExpCopyWith<_$UnaryExp> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$PrimaryExpCopyWith<$Res> {
-  factory _$$PrimaryExpCopyWith(
-          _$PrimaryExp value, $Res Function(_$PrimaryExp) then) =
-      __$$PrimaryExpCopyWithImpl<$Res>;
-  $Res call({Primary primary});
-
-  $PrimaryCopyWith<$Res> get primary;
-}
-
-/// @nodoc
-class __$$PrimaryExpCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$PrimaryExpCopyWith<$Res> {
-  __$$PrimaryExpCopyWithImpl(
-      _$PrimaryExp _value, $Res Function(_$PrimaryExp) _then)
-      : super(_value, (v) => _then(v as _$PrimaryExp));
-
-  @override
-  _$PrimaryExp get _value => super._value as _$PrimaryExp;
-
-  @override
-  $Res call({
-    Object? primary = freezed,
-  }) {
-    return _then(_$PrimaryExp(
-      primary == freezed
-          ? _value.primary
-          : primary // ignore: cast_nullable_to_non_nullable
-              as Primary,
-    ));
-  }
-
-  @override
-  $PrimaryCopyWith<$Res> get primary {
-    return $PrimaryCopyWith<$Res>(_value.primary, (value) {
-      return _then(_value.copyWith(primary: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$PrimaryExp implements PrimaryExp {
-  const _$PrimaryExp(this.primary);
-
-  @override
-  final Primary primary;
-
-  @override
-  String toString() {
-    return 'Expression.primary(primary: $primary)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PrimaryExp &&
-            const DeepCollectionEquality().equals(other.primary, primary));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(primary));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$PrimaryExpCopyWith<_$PrimaryExp> get copyWith =>
-      __$$PrimaryExpCopyWithImpl<_$PrimaryExp>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Equality equality) expression,
-    required TResult Function(
-            Comparison comparison, Star<Comparison> comparisons)
-        equality,
-    required TResult Function(Term term, Star<Term> terms) comparison,
-    required TResult Function(Factor factor, Star<Factor> factors) term,
-    required TResult Function(UnaryExp unary, Star<UnaryExp> unaries) factor,
-    required TResult Function(Unary unary) unary,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return primary(this.primary);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return primary?.call(this.primary);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Equality equality)? expression,
-    TResult Function(Comparison comparison, Star<Comparison> comparisons)?
-        equality,
-    TResult Function(Term term, Star<Term> terms)? comparison,
-    TResult Function(Factor factor, Star<Factor> factors)? term,
-    TResult Function(UnaryExp unary, Star<UnaryExp> unaries)? factor,
-    TResult Function(Unary unary)? unary,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (primary != null) {
-      return primary(this.primary);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Exp value) expression,
-    required TResult Function(Equality value) equality,
-    required TResult Function(Comparison value) comparison,
-    required TResult Function(Term value) term,
-    required TResult Function(Factor value) factor,
-    required TResult Function(UnaryExp value) unary,
-    required TResult Function(PrimaryExp value) primary,
-  }) {
-    return primary(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-  }) {
-    return primary?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Exp value)? expression,
-    TResult Function(Equality value)? equality,
-    TResult Function(Comparison value)? comparison,
-    TResult Function(Term value)? term,
-    TResult Function(Factor value)? factor,
-    TResult Function(UnaryExp value)? unary,
-    TResult Function(PrimaryExp value)? primary,
-    required TResult orElse(),
-  }) {
-    if (primary != null) {
-      return primary(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class PrimaryExp implements Expression {
-  const factory PrimaryExp(final Primary primary) = _$PrimaryExp;
-
-  Primary get primary;
-  @JsonKey(ignore: true)
-  _$$PrimaryExpCopyWith<_$PrimaryExp> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$Unary {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(TokenType tokenType, Unary unary) base,
-    required TResult Function(Primary primary) primary,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TokenType tokenType, Unary unary)? base,
-    TResult Function(Primary primary)? primary,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TokenType tokenType, Unary unary)? base,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UnaryValue value) base,
-    required TResult Function(PrimaryValue value) primary,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UnaryValue value)? base,
-    TResult Function(PrimaryValue value)? primary,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UnaryValue value)? base,
-    TResult Function(PrimaryValue value)? primary,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UnaryCopyWith<$Res> {
-  factory $UnaryCopyWith(Unary value, $Res Function(Unary) then) =
-      _$UnaryCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$UnaryCopyWithImpl<$Res> implements $UnaryCopyWith<$Res> {
-  _$UnaryCopyWithImpl(this._value, this._then);
-
-  final Unary _value;
-  // ignore: unused_field
-  final $Res Function(Unary) _then;
-}
-
-/// @nodoc
-abstract class _$$UnaryValueCopyWith<$Res> {
-  factory _$$UnaryValueCopyWith(
-          _$UnaryValue value, $Res Function(_$UnaryValue) then) =
-      __$$UnaryValueCopyWithImpl<$Res>;
-  $Res call({TokenType tokenType, Unary unary});
-
-  $UnaryCopyWith<$Res> get unary;
-}
-
-/// @nodoc
-class __$$UnaryValueCopyWithImpl<$Res> extends _$UnaryCopyWithImpl<$Res>
-    implements _$$UnaryValueCopyWith<$Res> {
-  __$$UnaryValueCopyWithImpl(
-      _$UnaryValue _value, $Res Function(_$UnaryValue) _then)
-      : super(_value, (v) => _then(v as _$UnaryValue));
-
-  @override
-  _$UnaryValue get _value => super._value as _$UnaryValue;
-
-  @override
-  $Res call({
-    Object? tokenType = freezed,
-    Object? unary = freezed,
-  }) {
-    return _then(_$UnaryValue(
-      tokenType == freezed
-          ? _value.tokenType
-          : tokenType // ignore: cast_nullable_to_non_nullable
-              as TokenType,
-      unary == freezed
-          ? _value.unary
-          : unary // ignore: cast_nullable_to_non_nullable
-              as Unary,
-    ));
-  }
-
-  @override
-  $UnaryCopyWith<$Res> get unary {
-    return $UnaryCopyWith<$Res>(_value.unary, (value) {
-      return _then(_value.copyWith(unary: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$UnaryValue implements UnaryValue {
-  const _$UnaryValue(this.tokenType, this.unary);
-
-  @override
-  final TokenType tokenType;
-  @override
-  final Unary unary;
-
-  @override
-  String toString() {
-    return 'Unary.base(tokenType: $tokenType, unary: $unary)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UnaryValue &&
-            const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
-            const DeepCollectionEquality().equals(other.unary, unary));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(tokenType),
-      const DeepCollectionEquality().hash(unary));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$UnaryValueCopyWith<_$UnaryValue> get copyWith =>
-      __$$UnaryValueCopyWithImpl<_$UnaryValue>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(TokenType tokenType, Unary unary) base,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return base(tokenType, unary);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TokenType tokenType, Unary unary)? base,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return base?.call(tokenType, unary);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TokenType tokenType, Unary unary)? base,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (base != null) {
-      return base(tokenType, unary);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UnaryValue value) base,
-    required TResult Function(PrimaryValue value) primary,
-  }) {
-    return base(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UnaryValue value)? base,
-    TResult Function(PrimaryValue value)? primary,
-  }) {
-    return base?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UnaryValue value)? base,
-    TResult Function(PrimaryValue value)? primary,
-    required TResult orElse(),
-  }) {
-    if (base != null) {
-      return base(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UnaryValue implements Unary {
-  const factory UnaryValue(final TokenType tokenType, final Unary unary) =
-      _$UnaryValue;
+abstract class Unary implements Expression {
+  const factory Unary(
+      {required final TokenType tokenType,
+      required final Expression expression}) = _$Unary;
 
   TokenType get tokenType;
-  Unary get unary;
+  Expression get expression;
   @JsonKey(ignore: true)
-  _$$UnaryValueCopyWith<_$UnaryValue> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$PrimaryValueCopyWith<$Res> {
-  factory _$$PrimaryValueCopyWith(
-          _$PrimaryValue value, $Res Function(_$PrimaryValue) then) =
-      __$$PrimaryValueCopyWithImpl<$Res>;
-  $Res call({Primary primary});
-
-  $PrimaryCopyWith<$Res> get primary;
-}
-
-/// @nodoc
-class __$$PrimaryValueCopyWithImpl<$Res> extends _$UnaryCopyWithImpl<$Res>
-    implements _$$PrimaryValueCopyWith<$Res> {
-  __$$PrimaryValueCopyWithImpl(
-      _$PrimaryValue _value, $Res Function(_$PrimaryValue) _then)
-      : super(_value, (v) => _then(v as _$PrimaryValue));
-
-  @override
-  _$PrimaryValue get _value => super._value as _$PrimaryValue;
-
-  @override
-  $Res call({
-    Object? primary = freezed,
-  }) {
-    return _then(_$PrimaryValue(
-      primary == freezed
-          ? _value.primary
-          : primary // ignore: cast_nullable_to_non_nullable
-              as Primary,
-    ));
-  }
-
-  @override
-  $PrimaryCopyWith<$Res> get primary {
-    return $PrimaryCopyWith<$Res>(_value.primary, (value) {
-      return _then(_value.copyWith(primary: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$PrimaryValue implements PrimaryValue {
-  const _$PrimaryValue(this.primary);
-
-  @override
-  final Primary primary;
-
-  @override
-  String toString() {
-    return 'Unary.primary(primary: $primary)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PrimaryValue &&
-            const DeepCollectionEquality().equals(other.primary, primary));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(primary));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$PrimaryValueCopyWith<_$PrimaryValue> get copyWith =>
-      __$$PrimaryValueCopyWithImpl<_$PrimaryValue>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(TokenType tokenType, Unary unary) base,
-    required TResult Function(Primary primary) primary,
-  }) {
-    return primary(this.primary);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(TokenType tokenType, Unary unary)? base,
-    TResult Function(Primary primary)? primary,
-  }) {
-    return primary?.call(this.primary);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TokenType tokenType, Unary unary)? base,
-    TResult Function(Primary primary)? primary,
-    required TResult orElse(),
-  }) {
-    if (primary != null) {
-      return primary(this.primary);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UnaryValue value) base,
-    required TResult Function(PrimaryValue value) primary,
-  }) {
-    return primary(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UnaryValue value)? base,
-    TResult Function(PrimaryValue value)? primary,
-  }) {
-    return primary?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UnaryValue value)? base,
-    TResult Function(PrimaryValue value)? primary,
-    required TResult orElse(),
-  }) {
-    if (primary != null) {
-      return primary(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class PrimaryValue implements Unary {
-  const factory PrimaryValue(final Primary primary) = _$PrimaryValue;
-
-  Primary get primary;
-  @JsonKey(ignore: true)
-  _$$PrimaryValueCopyWith<_$PrimaryValue> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$Primary {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
-    required TResult Function(Expression expression) grouping,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Number value) number,
-    required TResult Function(StringP value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
-    required TResult Function(Grouping value) grouping,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PrimaryCopyWith<$Res> {
-  factory $PrimaryCopyWith(Primary value, $Res Function(Primary) then) =
-      _$PrimaryCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$PrimaryCopyWithImpl<$Res> implements $PrimaryCopyWith<$Res> {
-  _$PrimaryCopyWithImpl(this._value, this._then);
-
-  final Primary _value;
-  // ignore: unused_field
-  final $Res Function(Primary) _then;
+  _$$UnaryCopyWith<_$Unary> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1773,7 +508,7 @@ abstract class _$$NumberCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$NumberCopyWithImpl<$Res> extends _$PrimaryCopyWithImpl<$Res>
+class __$$NumberCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
     implements _$$NumberCopyWith<$Res> {
   __$$NumberCopyWithImpl(_$Number _value, $Res Function(_$Number) _then)
       : super(_value, (v) => _then(v as _$Number));
@@ -1804,7 +539,7 @@ class _$Number implements Number {
 
   @override
   String toString() {
-    return 'Primary.number(number: $number)';
+    return 'Expression.number(number: $number)';
   }
 
   @override
@@ -1827,6 +562,10 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
     required TResult Function(num number) number,
     required TResult Function(String string) string,
     required TResult Function(bool boolean) boolean,
@@ -1839,6 +578,9 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -1851,6 +593,9 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -1867,8 +612,10 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
-    required TResult Function(StringP value) string,
+    required TResult Function(StringExpression value) string,
     required TResult Function(Bool value) boolean,
     required TResult Function(Nil value) nil,
     required TResult Function(Grouping value) grouping,
@@ -1879,8 +626,10 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -1891,8 +640,10 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -1905,7 +656,7 @@ class _$Number implements Number {
   }
 }
 
-abstract class Number implements Primary {
+abstract class Number implements Expression {
   const factory Number(final num number) = _$Number;
 
   num get number;
@@ -1915,26 +666,29 @@ abstract class Number implements Primary {
 }
 
 /// @nodoc
-abstract class _$$StringPCopyWith<$Res> {
-  factory _$$StringPCopyWith(_$StringP value, $Res Function(_$StringP) then) =
-      __$$StringPCopyWithImpl<$Res>;
+abstract class _$$StringExpressionCopyWith<$Res> {
+  factory _$$StringExpressionCopyWith(
+          _$StringExpression value, $Res Function(_$StringExpression) then) =
+      __$$StringExpressionCopyWithImpl<$Res>;
   $Res call({String string});
 }
 
 /// @nodoc
-class __$$StringPCopyWithImpl<$Res> extends _$PrimaryCopyWithImpl<$Res>
-    implements _$$StringPCopyWith<$Res> {
-  __$$StringPCopyWithImpl(_$StringP _value, $Res Function(_$StringP) _then)
-      : super(_value, (v) => _then(v as _$StringP));
+class __$$StringExpressionCopyWithImpl<$Res>
+    extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$StringExpressionCopyWith<$Res> {
+  __$$StringExpressionCopyWithImpl(
+      _$StringExpression _value, $Res Function(_$StringExpression) _then)
+      : super(_value, (v) => _then(v as _$StringExpression));
 
   @override
-  _$StringP get _value => super._value as _$StringP;
+  _$StringExpression get _value => super._value as _$StringExpression;
 
   @override
   $Res call({
     Object? string = freezed,
   }) {
-    return _then(_$StringP(
+    return _then(_$StringExpression(
       string == freezed
           ? _value.string
           : string // ignore: cast_nullable_to_non_nullable
@@ -1945,22 +699,22 @@ class __$$StringPCopyWithImpl<$Res> extends _$PrimaryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StringP implements StringP {
-  const _$StringP(this.string);
+class _$StringExpression implements StringExpression {
+  const _$StringExpression(this.string);
 
   @override
   final String string;
 
   @override
   String toString() {
-    return 'Primary.string(string: $string)';
+    return 'Expression.string(string: $string)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StringP &&
+            other is _$StringExpression &&
             const DeepCollectionEquality().equals(other.string, string));
   }
 
@@ -1970,12 +724,16 @@ class _$StringP implements StringP {
 
   @JsonKey(ignore: true)
   @override
-  _$$StringPCopyWith<_$StringP> get copyWith =>
-      __$$StringPCopyWithImpl<_$StringP>(this, _$identity);
+  _$$StringExpressionCopyWith<_$StringExpression> get copyWith =>
+      __$$StringExpressionCopyWithImpl<_$StringExpression>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
     required TResult Function(num number) number,
     required TResult Function(String string) string,
     required TResult Function(bool boolean) boolean,
@@ -1988,6 +746,9 @@ class _$StringP implements StringP {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2000,6 +761,9 @@ class _$StringP implements StringP {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2016,8 +780,10 @@ class _$StringP implements StringP {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
-    required TResult Function(StringP value) string,
+    required TResult Function(StringExpression value) string,
     required TResult Function(Bool value) boolean,
     required TResult Function(Nil value) nil,
     required TResult Function(Grouping value) grouping,
@@ -2028,8 +794,10 @@ class _$StringP implements StringP {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2040,8 +808,10 @@ class _$StringP implements StringP {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2054,12 +824,12 @@ class _$StringP implements StringP {
   }
 }
 
-abstract class StringP implements Primary {
-  const factory StringP(final String string) = _$StringP;
+abstract class StringExpression implements Expression {
+  const factory StringExpression(final String string) = _$StringExpression;
 
   String get string;
   @JsonKey(ignore: true)
-  _$$StringPCopyWith<_$StringP> get copyWith =>
+  _$$StringExpressionCopyWith<_$StringExpression> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2071,7 +841,7 @@ abstract class _$$BoolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$BoolCopyWithImpl<$Res> extends _$PrimaryCopyWithImpl<$Res>
+class __$$BoolCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
     implements _$$BoolCopyWith<$Res> {
   __$$BoolCopyWithImpl(_$Bool _value, $Res Function(_$Bool) _then)
       : super(_value, (v) => _then(v as _$Bool));
@@ -2102,7 +872,7 @@ class _$Bool implements Bool {
 
   @override
   String toString() {
-    return 'Primary.boolean(boolean: $boolean)';
+    return 'Expression.boolean(boolean: $boolean)';
   }
 
   @override
@@ -2125,6 +895,10 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
     required TResult Function(num number) number,
     required TResult Function(String string) string,
     required TResult Function(bool boolean) boolean,
@@ -2137,6 +911,9 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2149,6 +926,9 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2165,8 +945,10 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
-    required TResult Function(StringP value) string,
+    required TResult Function(StringExpression value) string,
     required TResult Function(Bool value) boolean,
     required TResult Function(Nil value) nil,
     required TResult Function(Grouping value) grouping,
@@ -2177,8 +959,10 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2189,8 +973,10 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2203,7 +989,7 @@ class _$Bool implements Bool {
   }
 }
 
-abstract class Bool implements Primary {
+abstract class Bool implements Expression {
   const factory Bool(final bool boolean) = _$Bool;
 
   bool get boolean;
@@ -2218,7 +1004,7 @@ abstract class _$$NilCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$NilCopyWithImpl<$Res> extends _$PrimaryCopyWithImpl<$Res>
+class __$$NilCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
     implements _$$NilCopyWith<$Res> {
   __$$NilCopyWithImpl(_$Nil _value, $Res Function(_$Nil) _then)
       : super(_value, (v) => _then(v as _$Nil));
@@ -2234,7 +1020,7 @@ class _$Nil implements Nil {
 
   @override
   String toString() {
-    return 'Primary.nil()';
+    return 'Expression.nil()';
   }
 
   @override
@@ -2249,6 +1035,10 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
     required TResult Function(num number) number,
     required TResult Function(String string) string,
     required TResult Function(bool boolean) boolean,
@@ -2261,6 +1051,9 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2273,6 +1066,9 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2289,8 +1085,10 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
-    required TResult Function(StringP value) string,
+    required TResult Function(StringExpression value) string,
     required TResult Function(Bool value) boolean,
     required TResult Function(Nil value) nil,
     required TResult Function(Grouping value) grouping,
@@ -2301,8 +1099,10 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2313,8 +1113,10 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2327,7 +1129,7 @@ class _$Nil implements Nil {
   }
 }
 
-abstract class Nil implements Primary {
+abstract class Nil implements Expression {
   const factory Nil() = _$Nil;
 }
 
@@ -2342,7 +1144,7 @@ abstract class _$$GroupingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$GroupingCopyWithImpl<$Res> extends _$PrimaryCopyWithImpl<$Res>
+class __$$GroupingCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
     implements _$$GroupingCopyWith<$Res> {
   __$$GroupingCopyWithImpl(_$Grouping _value, $Res Function(_$Grouping) _then)
       : super(_value, (v) => _then(v as _$Grouping));
@@ -2380,7 +1182,7 @@ class _$Grouping implements Grouping {
 
   @override
   String toString() {
-    return 'Primary.grouping(expression: $expression)';
+    return 'Expression.grouping(expression: $expression)';
   }
 
   @override
@@ -2404,6 +1206,10 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
     required TResult Function(num number) number,
     required TResult Function(String string) string,
     required TResult Function(bool boolean) boolean,
@@ -2416,6 +1222,9 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2428,6 +1237,9 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
     TResult Function(num number)? number,
     TResult Function(String string)? string,
     TResult Function(bool boolean)? boolean,
@@ -2444,8 +1256,10 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
-    required TResult Function(StringP value) string,
+    required TResult Function(StringExpression value) string,
     required TResult Function(Bool value) boolean,
     required TResult Function(Nil value) nil,
     required TResult Function(Grouping value) grouping,
@@ -2456,8 +1270,10 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2468,8 +1284,10 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
-    TResult Function(StringP value)? string,
+    TResult Function(StringExpression value)? string,
     TResult Function(Bool value)? boolean,
     TResult Function(Nil value)? nil,
     TResult Function(Grouping value)? grouping,
@@ -2482,7 +1300,7 @@ class _$Grouping implements Grouping {
   }
 }
 
-abstract class Grouping implements Primary {
+abstract class Grouping implements Expression {
   const factory Grouping(final Expression expression) = _$Grouping;
 
   Expression get expression;

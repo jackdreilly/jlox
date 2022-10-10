@@ -132,6 +132,11 @@ class _$_Token implements _Token {
   final int line;
 
   @override
+  String toString() {
+    return 'Token(tokenType: $tokenType, lexeme: $lexeme, literal: $literal, line: $line)';
+  }
+
+  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

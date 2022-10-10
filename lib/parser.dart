@@ -1,11 +1,10 @@
 import 'package:jlox/base.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/token.dart';
-import 'package:tuple/tuple.dart';
 
 import 'expression.dart';
-import 'token_type.dart';
 import 'scanner.dart';
+import 'token_type.dart';
 
 extension Parser on Iterable<Token> {
   Expression get parse => _Parser(list).parse;
@@ -20,33 +19,31 @@ class _Parser {
   _Parser(this.tokens);
 
   Expression get parse => expression();
-  Expression expression() => Expression.expression(equality());
-  Equality equality() =>
-      starred(comparison, Equality.new, {TT.BANG_EQUAL, TT.EQUAL_EQUAL});
-  Comparison comparison() => starred(term, Comparison.new,
-      {TT.LESS, TT.GREATER, TT.LESS_EQUAL, TT.GREATER_EQUAL});
-  Term term() => starred(factor, Term.new, {TT.PLUS, TT.MINUS});
-  Factor factor() =>
-      starred(() => unary().exp, Factor.new, {TT.STAR, TT.SLASH});
-  Unary unary() => match({TT.MINUS, TT.BANG})
-      ? Unary.base(tokenType.and(() => eat), unary())
-      : Unary.primary(primary());
-  get logit => [current, token.string].log;
-  Primary primary() {
+  Expression expression() => equality();
+  Expression equality() => starred(comparison, {TT.BANG_EQUAL, TT.EQUAL_EQUAL});
+  Expression comparison() =>
+      starred(term, {TT.LESS, TT.GREATER, TT.LESS_EQUAL, TT.GREATER_EQUAL});
+  Expression term() => starred(factor, {TT.PLUS, TT.MINUS});
+  Expression factor() => starred(() => unary(), {TT.STAR, TT.SLASH});
+  Expression unary() => match({TT.MINUS, TT.BANG})
+      ? Expression.unary(
+          tokenType: tokenType.and(() => eat), expression: unary())
+      : primary();
+  Expression primary() {
     final callbacks = {
       TT.LEFT_PAREN: () {
         eat;
-        final exp = Primary.grouping(expression());
+        final exp = Expression.grouping(expression());
         if (!match({TT.RIGHT_PAREN})) {
           report("Expected ) ${token.string}");
         }
         return exp;
       },
-      TT.STRING: () => Primary.string(literal),
-      TT.NUMBER: () => Primary.number(literal),
-      TT.FALSE: () => Primary.boolean(false),
-      TT.TRUE: () => Primary.boolean(true),
-      TT.NIL: () => Primary.nil()
+      TT.STRING: () => Expression.string(literal),
+      TT.NUMBER: () => Expression.number(literal),
+      TT.FALSE: () => Expression.boolean(false),
+      TT.TRUE: () => Expression.boolean(true),
+      TT.NIL: () => Expression.nil()
     };
     if (match(callbacks.keys)) {
       final value = callbacks[tokenType]!();
@@ -54,20 +51,17 @@ class _Parser {
       return value;
     }
     report("Unexpected token ${token.string}");
-    return Primary.nil();
+    return Expression.nil();
   }
 
-  T starred<T, C extends Expression>(C Function() maker,
-      T Function(C c, [Star<C> star]) creator, Set<TT> tokens) {
-    var c = maker();
-    final pieces = <Tuple2<TT, C>>[];
+  Expression starred(Expression Function() maker, Set<TT> tokens) {
+    Expression c = maker();
 
     while (match(tokens)) {
-      final tt = tokenType;
-      eat;
-      pieces.add(tt.tupe(maker()));
+      c = Expression.binary(
+          tokenType: tokenType.and(() => eat), left: c, right: maker());
     }
-    return creator(c, pieces);
+    return c;
   }
 
   bool match(Iterable<TT> tokens) => tokens.contains(tokenType);
