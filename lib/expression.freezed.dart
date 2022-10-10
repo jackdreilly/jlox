@@ -19,6 +19,9 @@ mixin _$Expression {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -31,6 +34,8 @@ mixin _$Expression {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -43,6 +48,8 @@ mixin _$Expression {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -56,6 +63,7 @@ mixin _$Expression {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -67,6 +75,7 @@ mixin _$Expression {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -78,6 +87,7 @@ mixin _$Expression {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -104,6 +114,231 @@ class _$ExpressionCopyWithImpl<$Res> implements $ExpressionCopyWith<$Res> {
   final Expression _value;
   // ignore: unused_field
   final $Res Function(Expression) _then;
+}
+
+/// @nodoc
+abstract class _$$TernaryCopyWith<$Res> {
+  factory _$$TernaryCopyWith(_$Ternary value, $Res Function(_$Ternary) then) =
+      __$$TernaryCopyWithImpl<$Res>;
+  $Res call({Expression predicate, Expression yes, Expression no});
+
+  $ExpressionCopyWith<$Res> get predicate;
+  $ExpressionCopyWith<$Res> get yes;
+  $ExpressionCopyWith<$Res> get no;
+}
+
+/// @nodoc
+class __$$TernaryCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$TernaryCopyWith<$Res> {
+  __$$TernaryCopyWithImpl(_$Ternary _value, $Res Function(_$Ternary) _then)
+      : super(_value, (v) => _then(v as _$Ternary));
+
+  @override
+  _$Ternary get _value => super._value as _$Ternary;
+
+  @override
+  $Res call({
+    Object? predicate = freezed,
+    Object? yes = freezed,
+    Object? no = freezed,
+  }) {
+    return _then(_$Ternary(
+      predicate: predicate == freezed
+          ? _value.predicate
+          : predicate // ignore: cast_nullable_to_non_nullable
+              as Expression,
+      yes: yes == freezed
+          ? _value.yes
+          : yes // ignore: cast_nullable_to_non_nullable
+              as Expression,
+      no: no == freezed
+          ? _value.no
+          : no // ignore: cast_nullable_to_non_nullable
+              as Expression,
+    ));
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get predicate {
+    return $ExpressionCopyWith<$Res>(_value.predicate, (value) {
+      return _then(_value.copyWith(predicate: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get yes {
+    return $ExpressionCopyWith<$Res>(_value.yes, (value) {
+      return _then(_value.copyWith(yes: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get no {
+    return $ExpressionCopyWith<$Res>(_value.no, (value) {
+      return _then(_value.copyWith(no: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Ternary implements Ternary {
+  const _$Ternary(
+      {required this.predicate, required this.yes, required this.no});
+
+  @override
+  final Expression predicate;
+  @override
+  final Expression yes;
+  @override
+  final Expression no;
+
+  @override
+  String toString() {
+    return 'Expression.ternary(predicate: $predicate, yes: $yes, no: $no)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Ternary &&
+            const DeepCollectionEquality().equals(other.predicate, predicate) &&
+            const DeepCollectionEquality().equals(other.yes, yes) &&
+            const DeepCollectionEquality().equals(other.no, no));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(predicate),
+      const DeepCollectionEquality().hash(yes),
+      const DeepCollectionEquality().hash(no));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$TernaryCopyWith<_$Ternary> get copyWith =>
+      __$$TernaryCopyWithImpl<_$Ternary>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
+            TokenType tokenType, Expression left, Expression right)
+        binary,
+    required TResult Function(TokenType tokenType, Expression expression) unary,
+    required TResult Function(num number) number,
+    required TResult Function(String string) string,
+    required TResult Function(bool boolean) boolean,
+    required TResult Function() nil,
+    required TResult Function(Expression expression) grouping,
+  }) {
+    return ternary(predicate, yes, no);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
+  }) {
+    return ternary?.call(predicate, yes, no);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(TokenType tokenType, Expression left, Expression right)?
+        binary,
+    TResult Function(TokenType tokenType, Expression expression)? unary,
+    TResult Function(num number)? number,
+    TResult Function(String string)? string,
+    TResult Function(bool boolean)? boolean,
+    TResult Function()? nil,
+    TResult Function(Expression expression)? grouping,
+    required TResult orElse(),
+  }) {
+    if (ternary != null) {
+      return ternary(predicate, yes, no);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Number value) number,
+    required TResult Function(StringExpression value) string,
+    required TResult Function(Bool value) boolean,
+    required TResult Function(Nil value) nil,
+    required TResult Function(Grouping value) grouping,
+  }) {
+    return ternary(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
+  }) {
+    return ternary?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Number value)? number,
+    TResult Function(StringExpression value)? string,
+    TResult Function(Bool value)? boolean,
+    TResult Function(Nil value)? nil,
+    TResult Function(Grouping value)? grouping,
+    required TResult orElse(),
+  }) {
+    if (ternary != null) {
+      return ternary(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Ternary implements Expression {
+  const factory Ternary(
+      {required final Expression predicate,
+      required final Expression yes,
+      required final Expression no}) = _$Ternary;
+
+  Expression get predicate;
+  Expression get yes;
+  Expression get no;
+  @JsonKey(ignore: true)
+  _$$TernaryCopyWith<_$Ternary> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -206,6 +441,9 @@ class _$Binary implements Binary {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -221,6 +459,8 @@ class _$Binary implements Binary {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -236,6 +476,8 @@ class _$Binary implements Binary {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -255,6 +497,7 @@ class _$Binary implements Binary {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -269,6 +512,7 @@ class _$Binary implements Binary {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -283,6 +527,7 @@ class _$Binary implements Binary {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -396,6 +641,9 @@ class _$Unary implements Unary {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -411,6 +659,8 @@ class _$Unary implements Unary {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -426,6 +676,8 @@ class _$Unary implements Unary {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -445,6 +697,7 @@ class _$Unary implements Unary {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -459,6 +712,7 @@ class _$Unary implements Unary {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -473,6 +727,7 @@ class _$Unary implements Unary {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -563,6 +818,9 @@ class _$Number implements Number {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -578,6 +836,8 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -593,6 +853,8 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -612,6 +874,7 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -626,6 +889,7 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -640,6 +904,7 @@ class _$Number implements Number {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -731,6 +996,9 @@ class _$StringExpression implements StringExpression {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -746,6 +1014,8 @@ class _$StringExpression implements StringExpression {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -761,6 +1031,8 @@ class _$StringExpression implements StringExpression {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -780,6 +1052,7 @@ class _$StringExpression implements StringExpression {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -794,6 +1067,7 @@ class _$StringExpression implements StringExpression {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -808,6 +1082,7 @@ class _$StringExpression implements StringExpression {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -896,6 +1171,9 @@ class _$Bool implements Bool {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -911,6 +1189,8 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -926,6 +1206,8 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -945,6 +1227,7 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -959,6 +1242,7 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -973,6 +1257,7 @@ class _$Bool implements Bool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -1036,6 +1321,9 @@ class _$Nil implements Nil {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -1051,6 +1339,8 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -1066,6 +1356,8 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -1085,6 +1377,7 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -1099,6 +1392,7 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -1113,6 +1407,7 @@ class _$Nil implements Nil {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -1207,6 +1502,9 @@ class _$Grouping implements Grouping {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
@@ -1222,6 +1520,8 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -1237,6 +1537,8 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
@@ -1256,6 +1558,7 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
     required TResult Function(Number value) number,
@@ -1270,6 +1573,7 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,
@@ -1284,6 +1588,7 @@ class _$Grouping implements Grouping {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
     TResult Function(Number value)? number,

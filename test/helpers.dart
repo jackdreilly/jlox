@@ -1,6 +1,11 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:jlox/base.dart';
+import 'package:jlox/errors.dart';
 import 'package:jlox/token.dart';
-import 'package:test/test.dart';
 import 'package:jlox/token_type.dart';
+import 'package:test/test.dart';
 
 extension SE on String {
   String operator /(String other) => [this, other].join('/');
@@ -22,4 +27,20 @@ extension TTE on TT {
 
 extension TE on Token {
   Token onLine(int line) => copyWith(line: line);
+}
+
+fails(Function() callback) => () {
+      myStderr = IOSink(FakeStreamConsumer());
+      callback();
+      expect(hadError, true);
+      hadError = false;
+      myStderr = stderr;
+    };
+
+class FakeStreamConsumer implements StreamConsumer<List<int>> {
+  @override
+  Future addStream(Stream stream) async {}
+
+  @override
+  Future close() async {}
 }

@@ -1,8 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:jlox/base.dart';
-import 'package:jlox/errors.dart';
 import 'package:jlox/scanner.dart';
 import 'package:jlox/token.dart';
 import 'package:jlox/token_type.dart';
@@ -11,7 +7,33 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
-  test('@', '@'.fails);
+  test(
+      'ternary',
+      '3 * 5 < 2 ? "yes" + "you" : "no" + "boom"'
+          .scan
+          .map((e) => e.tokenType)
+          .list
+          .shouldBe([
+        TT.NUMBER,
+        TT.STAR,
+        TT.NUMBER,
+        TT.LESS,
+        TT.NUMBER,
+        TT.QUESTION_MARK,
+        TT.STRING,
+        TT.PLUS,
+        TT.STRING,
+        TT.COLON,
+        TT.STRING,
+        TT.PLUS,
+        TT.STRING,
+        TT.EOF,
+      ]));
+  test(
+      '1,2',
+      '1,2'.scan.shouldBe(
+          [TT.NUMBER, TT.COMMA, TT.NUMBER, TT.EOF].map((e) => e.token).list));
+  test('@', fails(() => '@'.scan.list));
   test(
       'all tokens',
       'all_tokens'
@@ -191,22 +213,4 @@ void main() {
             line: 5),
         Token(tokenType: TokenType.EOF, lexeme: "", literal: "", line: 5)
       ]));
-}
-
-extension on String {
-  get fails => () {
-        myStderr = IOSink(FakeStreamConsumer());
-        scan.list;
-        expect(hadError, true);
-        hadError = false;
-        myStderr = stderr;
-      };
-}
-
-class FakeStreamConsumer implements StreamConsumer<List<int>> {
-  @override
-  Future addStream(Stream stream) async => null;
-
-  @override
-  Future close() async => null;
 }

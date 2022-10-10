@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jlox/base.dart';
 import 'package:tuple/tuple.dart';
 
+import 'token.dart';
 import 'token_type.dart';
 
 part 'expression.freezed.dart';
@@ -10,6 +11,10 @@ typedef Star<T extends Expression> = Iterable<Tuple2<TT, T>>;
 
 @freezed
 class Expression with _$Expression {
+  const factory Expression.ternary(
+      {required Expression predicate,
+      required Expression yes,
+      required Expression no}) = Ternary;
   const factory Expression.binary(
       {required TokenType tokenType,
       required Expression left,
@@ -39,6 +44,13 @@ String expand(Expression e, Star<Expression> es) => es.isEmpty
 
 extension ExpressionString on Expression {
   String get pretty => when(
+        ternary: (predicate, yes, no) => [
+          predicate.pretty,
+          TT.QUESTION_MARK.string,
+          yes.pretty,
+          TT.COLON.string,
+          no.pretty
+        ].paren,
         binary: (tokenType, left, right) =>
             [tokenType.string, left.pretty, right.pretty].paren,
         boolean: (boolean) => boolean.toString(),
@@ -51,6 +63,8 @@ extension ExpressionString on Expression {
       );
 
   List<String> get rpn => maybeWhen(
+        ternary: (predicate, yes, no) =>
+            [predicate, yes, no].expand((element) => element.rpn).list,
         binary: (tokenType, left, right) =>
             [...left.rpn, ...right.rpn, tokenType.string],
         grouping: (expression) => expression.rpn,
@@ -91,4 +105,15 @@ extension StrExt on String {
 
 extension BoolExt on bool {
   Expression get expression => Expression.boolean(this);
+}
+
+extension TokenExpressionExtension on Token {
+  Expression? get expression => {
+        TT.NUMBER: () => Expression.number(this.literal as num),
+        TT.STRING: () => Expression.string(this.literal as String),
+        TT.NIL: () => Expression.nil(),
+        TT.TRUE: () => Expression.boolean(true),
+        TT.FALSE: () => Expression.boolean(false),
+      }[tokenType]
+          ?.call();
 }

@@ -18,40 +18,69 @@ class _Parser {
   final List<Token> tokens;
   _Parser(this.tokens);
 
-  Expression get parse => expression();
-  Expression expression() => equality();
+  Expression get parse {
+    try {
+      final answer = expression();
+      expect(TT.EOF);
+      return answer;
+    } on ParseError {
+      return Expression.nil();
+    }
+  }
+
+  expect(TT expected) {
+    if (match({expected})) {
+      eat;
+      return;
+    }
+    fail("Expected ${expected.string}: got ${token.string}");
+  }
+
+  Expression expression() => comma();
+  Expression comma() => starred(ternary, {TT.COMMA});
+  Expression ternary() {
+    final predicate = equality();
+    if (match({TT.QUESTION_MARK})) {
+      eat;
+      final yes = ternary();
+      expect(TT.COLON);
+      return Expression.ternary(
+        predicate: predicate,
+        yes: yes,
+        no: ternary(),
+      );
+    }
+    return predicate;
+  }
+
   Expression equality() => starred(comparison, {TT.BANG_EQUAL, TT.EQUAL_EQUAL});
   Expression comparison() =>
       starred(term, {TT.LESS, TT.GREATER, TT.LESS_EQUAL, TT.GREATER_EQUAL});
   Expression term() => starred(factor, {TT.PLUS, TT.MINUS});
-  Expression factor() => starred(() => unary(), {TT.STAR, TT.SLASH});
+  Expression factor() => starred(unary, {TT.STAR, TT.SLASH});
   Expression unary() => match({TT.MINUS, TT.BANG})
       ? Expression.unary(
           tokenType: tokenType.and(() => eat), expression: unary())
       : primary();
   Expression primary() {
-    final callbacks = {
-      TT.LEFT_PAREN: () {
-        eat;
-        final exp = Expression.grouping(expression());
-        if (!match({TT.RIGHT_PAREN})) {
-          report("Expected ) ${token.string}");
-        }
-        return exp;
-      },
-      TT.STRING: () => Expression.string(literal),
-      TT.NUMBER: () => Expression.number(literal),
-      TT.FALSE: () => Expression.boolean(false),
-      TT.TRUE: () => Expression.boolean(true),
-      TT.NIL: () => Expression.nil()
-    };
-    if (match(callbacks.keys)) {
-      final value = callbacks[tokenType]!();
+    final maybeExpression = token.expression;
+    if (maybeExpression != null) {
       eat;
-      return value;
+      return maybeExpression;
     }
-    report("Unexpected token ${token.string}");
+    if (match({TT.LEFT_PAREN})) {
+      eat;
+      final grouping = Expression.grouping(expression());
+      expect(TT.RIGHT_PAREN);
+      return grouping;
+    }
+    fail("Unexpected token ${token.string}");
     return Expression.nil();
+  }
+
+  fail(String message) {
+    report(message);
+    throw ParseError();
   }
 
   Expression starred(Expression Function() maker, Set<TT> tokens) {
@@ -71,3 +100,5 @@ class _Parser {
   int current = 0;
   get eat => current++;
 }
+
+class ParseError extends Error {}

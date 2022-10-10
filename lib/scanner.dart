@@ -8,18 +8,20 @@ import 'package:tuple/tuple.dart';
 
 import 'token_type.dart';
 
-final singleCharTokens = {
-  '(': TT.LEFT_PAREN,
-  ')': TT.RIGHT_PAREN,
-  '{': TT.LEFT_BRACE,
-  '}': TT.RIGHT_BRACE,
-  ',': TT.COMMA,
-  '.': TT.DOT,
-  '-': TT.MINUS,
-  '+': TT.PLUS,
-  ';': TT.SEMICOLON,
-  '*': TT.STAR,
-};
+final singleCharTokens = [
+  TT.COLON,
+  TT.QUESTION_MARK,
+  TT.LEFT_PAREN,
+  TT.RIGHT_PAREN,
+  TT.LEFT_BRACE,
+  TT.RIGHT_BRACE,
+  TT.COMMA,
+  TT.DOT,
+  TT.MINUS,
+  TT.PLUS,
+  TT.SEMICOLON,
+  TT.STAR
+].asMap().map((key, value) => MapEntry(value.string, value));
 
 final doubles = {
   '!': '='.tupe(TT.BANG_EQUAL).tupe(TT.BANG),

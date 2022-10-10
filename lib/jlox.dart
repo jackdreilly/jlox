@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:jlox/base.dart';
-import 'package:jlox/scanner.dart';
+import 'package:jlox/expression.dart';
+import 'package:jlox/parser.dart';
 
 import 'errors.dart';
 
@@ -21,7 +22,7 @@ int runProgram(String last) {
 }
 
 int run(String program) {
-  program.scan.log;
+  program.parse.pretty.log;
   if (hadError) {
     return 65;
   }

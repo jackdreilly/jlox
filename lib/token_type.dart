@@ -1,6 +1,9 @@
 import 'base.dart';
 
 enum TokenType {
+  // Ternary
+  COLON,
+  QUESTION_MARK,
   // Single-character tokens.
   LEFT_PAREN,
   RIGHT_PAREN,
@@ -77,6 +80,8 @@ extension ReservedString on String {
 typedef TT = TokenType;
 
 final ttMap = [
+  TT.COLON,
+  TT.QUESTION_MARK,
   TT.LEFT_PAREN,
   TT.RIGHT_PAREN,
   TT.LEFT_BRACE,
@@ -97,6 +102,8 @@ final ttMap = [
   TT.LESS,
   TT.LESS_EQUAL,
 ].zip([
+  ':',
+  '?',
   '(',
   ')',
   '{',
@@ -120,4 +127,22 @@ final ttMap = [
 
 extension TTExt on TokenType {
   String get string => ttMap[this] ?? name;
+}
+
+extension OpExt on TokenType {
+  op(a, [b]) => {
+        TT.MINUS: (a, b) => a - b,
+        TT.PLUS: (a, b) => a + b,
+        TT.SLASH: (a, b) => a / b,
+        TT.STAR: (a, b) => a * b,
+        TT.BANG: (a, b) => a + b,
+        TT.BANG_EQUAL: (a, b) => a != b,
+        TT.EQUAL_EQUAL: (a, b) => a == b,
+        TT.GREATER: (a, b) => a > b,
+        TT.GREATER_EQUAL: (a, b) => a >= b,
+        TT.LESS: (a, b) => a < b,
+        TT.LESS_EQUAL: (a, b) => a <= b,
+        TT.COMMA: (a, b) => b,
+      }[this]
+          ?.call(a, b);
 }
