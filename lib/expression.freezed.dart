@@ -25,10 +25,7 @@ mixin _$Expression {
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
+    required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,10 +36,7 @@ mixin _$Expression {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,10 +47,7 @@ mixin _$Expression {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) =>
@@ -66,10 +57,7 @@ mixin _$Expression {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
+    required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
   }) =>
       throw _privateConstructorUsedError;
@@ -78,10 +66,7 @@ mixin _$Expression {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
   }) =>
       throw _privateConstructorUsedError;
@@ -90,10 +75,7 @@ mixin _$Expression {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) =>
@@ -230,10 +212,7 @@ class _$Ternary implements Ternary {
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
+    required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
     return ternary(predicate, yes, no);
@@ -247,10 +226,7 @@ class _$Ternary implements Ternary {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
     return ternary?.call(predicate, yes, no);
@@ -264,10 +240,7 @@ class _$Ternary implements Ternary {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
@@ -283,10 +256,7 @@ class _$Ternary implements Ternary {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
+    required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
   }) {
     return ternary(this);
@@ -298,10 +268,7 @@ class _$Ternary implements Ternary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
   }) {
     return ternary?.call(this);
@@ -313,10 +280,7 @@ class _$Ternary implements Ternary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) {
@@ -447,10 +411,7 @@ class _$Binary implements Binary {
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
+    required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
     return binary(tokenType, left, right);
@@ -464,10 +425,7 @@ class _$Binary implements Binary {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
     return binary?.call(tokenType, left, right);
@@ -481,10 +439,7 @@ class _$Binary implements Binary {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
@@ -500,10 +455,7 @@ class _$Binary implements Binary {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
+    required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
   }) {
     return binary(this);
@@ -515,10 +467,7 @@ class _$Binary implements Binary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
   }) {
     return binary?.call(this);
@@ -530,10 +479,7 @@ class _$Binary implements Binary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) {
@@ -647,10 +593,7 @@ class _$Unary implements Unary {
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
+    required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
     return unary(tokenType, expression);
@@ -664,10 +607,7 @@ class _$Unary implements Unary {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
     return unary?.call(tokenType, expression);
@@ -681,10 +621,7 @@ class _$Unary implements Unary {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
@@ -700,10 +637,7 @@ class _$Unary implements Unary {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
+    required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
   }) {
     return unary(this);
@@ -715,10 +649,7 @@ class _$Unary implements Unary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
   }) {
     return unary?.call(this);
@@ -730,10 +661,7 @@ class _$Unary implements Unary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) {
@@ -756,63 +684,60 @@ abstract class Unary implements Expression {
 }
 
 /// @nodoc
-abstract class _$$NumberCopyWith<$Res> {
-  factory _$$NumberCopyWith(_$Number value, $Res Function(_$Number) then) =
-      __$$NumberCopyWithImpl<$Res>;
-  $Res call({num number});
+abstract class _$$LiteralCopyWith<$Res> {
+  factory _$$LiteralCopyWith(_$Literal value, $Res Function(_$Literal) then) =
+      __$$LiteralCopyWithImpl<$Res>;
+  $Res call({dynamic value});
 }
 
 /// @nodoc
-class __$$NumberCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$NumberCopyWith<$Res> {
-  __$$NumberCopyWithImpl(_$Number _value, $Res Function(_$Number) _then)
-      : super(_value, (v) => _then(v as _$Number));
+class __$$LiteralCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$LiteralCopyWith<$Res> {
+  __$$LiteralCopyWithImpl(_$Literal _value, $Res Function(_$Literal) _then)
+      : super(_value, (v) => _then(v as _$Literal));
 
   @override
-  _$Number get _value => super._value as _$Number;
+  _$Literal get _value => super._value as _$Literal;
 
   @override
   $Res call({
-    Object? number = freezed,
+    Object? value = freezed,
   }) {
-    return _then(_$Number(
-      number == freezed
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
-              as num,
+    return _then(_$Literal(
+      value == freezed ? _value.value : value,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Number implements Number {
-  const _$Number(this.number);
+class _$Literal implements Literal {
+  const _$Literal(this.value);
 
   @override
-  final num number;
+  final dynamic value;
 
   @override
   String toString() {
-    return 'Expression.number(number: $number)';
+    return 'Expression.literal(value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Number &&
-            const DeepCollectionEquality().equals(other.number, number));
+            other is _$Literal &&
+            const DeepCollectionEquality().equals(other.value, value));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(number));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(value));
 
   @JsonKey(ignore: true)
   @override
-  _$$NumberCopyWith<_$Number> get copyWith =>
-      __$$NumberCopyWithImpl<_$Number>(this, _$identity);
+  _$$LiteralCopyWith<_$Literal> get copyWith =>
+      __$$LiteralCopyWithImpl<_$Literal>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -824,13 +749,10 @@ class _$Number implements Number {
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
+    required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
-    return number(this.number);
+    return literal(value);
   }
 
   @override
@@ -841,13 +763,10 @@ class _$Number implements Number {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
-    return number?.call(this.number);
+    return literal?.call(value);
   }
 
   @override
@@ -858,15 +777,12 @@ class _$Number implements Number {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
-    if (number != null) {
-      return number(this.number);
+    if (literal != null) {
+      return literal(value);
     }
     return orElse();
   }
@@ -877,13 +793,10 @@ class _$Number implements Number {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
+    required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
   }) {
-    return number(this);
+    return literal(this);
   }
 
   @override
@@ -892,13 +805,10 @@ class _$Number implements Number {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
   }) {
-    return number?.call(this);
+    return literal?.call(this);
   }
 
   @override
@@ -907,525 +817,24 @@ class _$Number implements Number {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) {
-    if (number != null) {
-      return number(this);
+    if (literal != null) {
+      return literal(this);
     }
     return orElse();
   }
 }
 
-abstract class Number implements Expression {
-  const factory Number(final num number) = _$Number;
+abstract class Literal implements Expression {
+  const factory Literal(final dynamic value) = _$Literal;
 
-  num get number;
+  dynamic get value;
   @JsonKey(ignore: true)
-  _$$NumberCopyWith<_$Number> get copyWith =>
+  _$$LiteralCopyWith<_$Literal> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$StringExpressionCopyWith<$Res> {
-  factory _$$StringExpressionCopyWith(
-          _$StringExpression value, $Res Function(_$StringExpression) then) =
-      __$$StringExpressionCopyWithImpl<$Res>;
-  $Res call({String string});
-}
-
-/// @nodoc
-class __$$StringExpressionCopyWithImpl<$Res>
-    extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$StringExpressionCopyWith<$Res> {
-  __$$StringExpressionCopyWithImpl(
-      _$StringExpression _value, $Res Function(_$StringExpression) _then)
-      : super(_value, (v) => _then(v as _$StringExpression));
-
-  @override
-  _$StringExpression get _value => super._value as _$StringExpression;
-
-  @override
-  $Res call({
-    Object? string = freezed,
-  }) {
-    return _then(_$StringExpression(
-      string == freezed
-          ? _value.string
-          : string // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$StringExpression implements StringExpression {
-  const _$StringExpression(this.string);
-
-  @override
-  final String string;
-
-  @override
-  String toString() {
-    return 'Expression.string(string: $string)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StringExpression &&
-            const DeepCollectionEquality().equals(other.string, string));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(string));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$StringExpressionCopyWith<_$StringExpression> get copyWith =>
-      __$$StringExpressionCopyWithImpl<_$StringExpression>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            Expression predicate, Expression yes, Expression no)
-        ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
-        binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
-    required TResult Function(Expression expression) grouping,
-  }) {
-    return string(this.string);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Expression predicate, Expression yes, Expression no)?
-        ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-  }) {
-    return string?.call(this.string);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Expression predicate, Expression yes, Expression no)?
-        ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-    required TResult orElse(),
-  }) {
-    if (string != null) {
-      return string(this.string);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Ternary value) ternary,
-    required TResult Function(Binary value) binary,
-    required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
-    required TResult Function(Grouping value) grouping,
-  }) {
-    return string(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Ternary value)? ternary,
-    TResult Function(Binary value)? binary,
-    TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-  }) {
-    return string?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Ternary value)? ternary,
-    TResult Function(Binary value)? binary,
-    TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-    required TResult orElse(),
-  }) {
-    if (string != null) {
-      return string(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class StringExpression implements Expression {
-  const factory StringExpression(final String string) = _$StringExpression;
-
-  String get string;
-  @JsonKey(ignore: true)
-  _$$StringExpressionCopyWith<_$StringExpression> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$BoolCopyWith<$Res> {
-  factory _$$BoolCopyWith(_$Bool value, $Res Function(_$Bool) then) =
-      __$$BoolCopyWithImpl<$Res>;
-  $Res call({bool boolean});
-}
-
-/// @nodoc
-class __$$BoolCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$BoolCopyWith<$Res> {
-  __$$BoolCopyWithImpl(_$Bool _value, $Res Function(_$Bool) _then)
-      : super(_value, (v) => _then(v as _$Bool));
-
-  @override
-  _$Bool get _value => super._value as _$Bool;
-
-  @override
-  $Res call({
-    Object? boolean = freezed,
-  }) {
-    return _then(_$Bool(
-      boolean == freezed
-          ? _value.boolean
-          : boolean // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$Bool implements Bool {
-  const _$Bool(this.boolean);
-
-  @override
-  final bool boolean;
-
-  @override
-  String toString() {
-    return 'Expression.boolean(boolean: $boolean)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$Bool &&
-            const DeepCollectionEquality().equals(other.boolean, boolean));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(boolean));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$BoolCopyWith<_$Bool> get copyWith =>
-      __$$BoolCopyWithImpl<_$Bool>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            Expression predicate, Expression yes, Expression no)
-        ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
-        binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
-    required TResult Function(Expression expression) grouping,
-  }) {
-    return boolean(this.boolean);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Expression predicate, Expression yes, Expression no)?
-        ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-  }) {
-    return boolean?.call(this.boolean);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Expression predicate, Expression yes, Expression no)?
-        ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-    required TResult orElse(),
-  }) {
-    if (boolean != null) {
-      return boolean(this.boolean);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Ternary value) ternary,
-    required TResult Function(Binary value) binary,
-    required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
-    required TResult Function(Grouping value) grouping,
-  }) {
-    return boolean(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Ternary value)? ternary,
-    TResult Function(Binary value)? binary,
-    TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-  }) {
-    return boolean?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Ternary value)? ternary,
-    TResult Function(Binary value)? binary,
-    TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-    required TResult orElse(),
-  }) {
-    if (boolean != null) {
-      return boolean(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Bool implements Expression {
-  const factory Bool(final bool boolean) = _$Bool;
-
-  bool get boolean;
-  @JsonKey(ignore: true)
-  _$$BoolCopyWith<_$Bool> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$NilCopyWith<$Res> {
-  factory _$$NilCopyWith(_$Nil value, $Res Function(_$Nil) then) =
-      __$$NilCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$NilCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
-    implements _$$NilCopyWith<$Res> {
-  __$$NilCopyWithImpl(_$Nil _value, $Res Function(_$Nil) _then)
-      : super(_value, (v) => _then(v as _$Nil));
-
-  @override
-  _$Nil get _value => super._value as _$Nil;
-}
-
-/// @nodoc
-
-class _$Nil implements Nil {
-  const _$Nil();
-
-  @override
-  String toString() {
-    return 'Expression.nil()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$Nil);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            Expression predicate, Expression yes, Expression no)
-        ternary,
-    required TResult Function(
-            TokenType tokenType, Expression left, Expression right)
-        binary,
-    required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
-    required TResult Function(Expression expression) grouping,
-  }) {
-    return nil();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Expression predicate, Expression yes, Expression no)?
-        ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-  }) {
-    return nil?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Expression predicate, Expression yes, Expression no)?
-        ternary,
-    TResult Function(TokenType tokenType, Expression left, Expression right)?
-        binary,
-    TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
-    TResult Function(Expression expression)? grouping,
-    required TResult orElse(),
-  }) {
-    if (nil != null) {
-      return nil();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Ternary value) ternary,
-    required TResult Function(Binary value) binary,
-    required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
-    required TResult Function(Grouping value) grouping,
-  }) {
-    return nil(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Ternary value)? ternary,
-    TResult Function(Binary value)? binary,
-    TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-  }) {
-    return nil?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Ternary value)? ternary,
-    TResult Function(Binary value)? binary,
-    TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
-    TResult Function(Grouping value)? grouping,
-    required TResult orElse(),
-  }) {
-    if (nil != null) {
-      return nil(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Nil implements Expression {
-  const factory Nil() = _$Nil;
 }
 
 /// @nodoc
@@ -1508,10 +917,7 @@ class _$Grouping implements Grouping {
             TokenType tokenType, Expression left, Expression right)
         binary,
     required TResult Function(TokenType tokenType, Expression expression) unary,
-    required TResult Function(num number) number,
-    required TResult Function(String string) string,
-    required TResult Function(bool boolean) boolean,
-    required TResult Function() nil,
+    required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
   }) {
     return grouping(expression);
@@ -1525,10 +931,7 @@ class _$Grouping implements Grouping {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
   }) {
     return grouping?.call(expression);
@@ -1542,10 +945,7 @@ class _$Grouping implements Grouping {
     TResult Function(TokenType tokenType, Expression left, Expression right)?
         binary,
     TResult Function(TokenType tokenType, Expression expression)? unary,
-    TResult Function(num number)? number,
-    TResult Function(String string)? string,
-    TResult Function(bool boolean)? boolean,
-    TResult Function()? nil,
+    TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
     required TResult orElse(),
   }) {
@@ -1561,10 +961,7 @@ class _$Grouping implements Grouping {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Number value) number,
-    required TResult Function(StringExpression value) string,
-    required TResult Function(Bool value) boolean,
-    required TResult Function(Nil value) nil,
+    required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
   }) {
     return grouping(this);
@@ -1576,10 +973,7 @@ class _$Grouping implements Grouping {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
   }) {
     return grouping?.call(this);
@@ -1591,10 +985,7 @@ class _$Grouping implements Grouping {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Number value)? number,
-    TResult Function(StringExpression value)? string,
-    TResult Function(Bool value)? boolean,
-    TResult Function(Nil value)? nil,
+    TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
     required TResult orElse(),
   }) {

@@ -89,3 +89,5 @@ extension Tupe2Iter<A, B> on Iterable<Tuple2<A, B>> {
   Iterable<MapEntry<A, B>> get entries =>
       map((e) => MapEntry(e.item1, e.item2));
 }
+
+T id<T>(T t) => t;

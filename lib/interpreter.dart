@@ -1,5 +1,6 @@
 import 'package:jlox/token_type.dart';
 
+import 'base.dart';
 import 'expression.dart';
 import 'parser.dart';
 
@@ -14,10 +15,7 @@ extension InterpreterExtension on Expression {
         binary: (tokenType, left, right) =>
             tokenType.op(left.interpret, right.interpret),
         unary: (tokenType, expression) => tokenType.op(expression),
-        number: (number) => number,
-        string: (string) => string,
-        boolean: (boolean) => boolean,
-        nil: () => null,
+        literal: id,
         grouping: (expression) => expression.interpret,
       );
 }

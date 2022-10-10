@@ -7,7 +7,7 @@ import 'helpers.dart';
 typedef E = Expression;
 
 void main() {
-  test('1 exp', 1.expression.shouldBe(Expression.number(1)));
+  test('1 exp', 1.expression.shouldBe(Expression.literal(1)));
   test("a", "a".expression.pretty.shouldBe('"a"'));
   test("(a)", "a".expression.grouping.pretty.shouldBe('(group "a")'));
   test('-123', 123.neg.pretty.shouldBe('(- 123)'));

@@ -24,7 +24,7 @@ class _Parser {
       expect(TT.EOF);
       return answer;
     } on ParseError {
-      return Expression.nil();
+      return Expression.literal(null);
     }
   }
 
@@ -75,7 +75,7 @@ class _Parser {
       return grouping;
     }
     fail("Unexpected token ${token.string}");
-    return Expression.nil();
+    return Expression.literal(null);
   }
 
   fail(String message) {

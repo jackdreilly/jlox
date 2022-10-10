@@ -23,10 +23,7 @@ class Expression with _$Expression {
     required TokenType tokenType,
     required Expression expression,
   }) = Unary;
-  const factory Expression.number(num number) = Number;
-  const factory Expression.string(String string) = StringExpression;
-  const factory Expression.boolean(bool boolean) = Bool;
-  const factory Expression.nil() = Nil;
+  const factory Expression.literal(value) = Literal;
   const factory Expression.grouping(Expression expression) = Grouping;
 }
 
@@ -53,11 +50,12 @@ extension ExpressionString on Expression {
         ].paren,
         binary: (tokenType, left, right) =>
             [tokenType.string, left.pretty, right.pretty].paren,
-        boolean: (boolean) => boolean.toString(),
         grouping: (expression) => ['group', expression.pretty].paren,
-        nil: () => 'nil',
-        number: (number) => number.toString(),
-        string: (string) => string.quote,
+        literal: (value) => value is String
+            ? '"$value"'
+            : value == null
+                ? 'nil'
+                : value.toString(),
         unary: (tokenType, expression) =>
             [tokenType.string, expression.pretty].paren,
       );
@@ -73,12 +71,8 @@ extension ExpressionString on Expression {
       );
 }
 
-extension on String {
-  String get quote => '"$this"';
-}
-
 extension NumExt on num {
-  Expression get expression => Expression.number(this);
+  Expression get expression => Expression.literal(this);
   Expression get neg => TT.MINUS.unary(expression);
   Expression plus(Expression other) => expression.plus(other);
   Expression times(Expression other) => expression.times(other);
@@ -100,20 +94,20 @@ extension ExpressionExt on Expression {
 }
 
 extension StrExt on String {
-  Expression get expression => Expression.string(this);
+  Expression get expression => Expression.literal(this);
 }
 
 extension BoolExt on bool {
-  Expression get expression => Expression.boolean(this);
+  Expression get expression => Expression.literal(this);
 }
 
 extension TokenExpressionExtension on Token {
   Expression? get expression => {
-        TT.NUMBER: () => Expression.number(this.literal as num),
-        TT.STRING: () => Expression.string(this.literal as String),
-        TT.NIL: () => Expression.nil(),
-        TT.TRUE: () => Expression.boolean(true),
-        TT.FALSE: () => Expression.boolean(false),
+        TT.NUMBER: () => Expression.literal(this.literal),
+        TT.STRING: () => Expression.literal(this.literal),
+        TT.NIL: () => Expression.literal(null),
+        TT.TRUE: () => Expression.literal(true),
+        TT.FALSE: () => Expression.literal(false),
       }[tokenType]
           ?.call();
 }
