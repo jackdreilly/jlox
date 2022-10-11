@@ -4,36 +4,60 @@ import 'package:jlox/token.dart';
 
 import 'expression.dart';
 import 'scanner.dart';
+import 'statement.dart';
 import 'token_type.dart';
 
 extension Parser on Iterable<Token> {
-  Expression get parse => _Parser(list).parse;
+  Program get parse => _Parser(list).parse;
 }
 
 extension ParserString on String {
-  Expression get parse => scan.parse;
+  Program get parse => scan.parse;
 }
 
 class _Parser {
   final List<Token> tokens;
   _Parser(this.tokens);
 
-  Expression get parse {
+  Program get parse {
     try {
-      final answer = expression();
-      expect(TT.EOF);
-      return answer;
+      return program();
     } on ParseError {
-      return Expression.literal(null);
+      return [];
     }
   }
 
   expect(TT expected) {
-    if (match({expected})) {
-      eat;
-      return;
+    if (eat.tokenType != expected) {
+      fail("Expected ${expected.string}: got ${previous.string}");
     }
-    fail("Expected ${expected.string}: got ${token.string}");
+  }
+
+  Token get previous => tokens[current - 1];
+
+  Program program() {
+    if (match({TT.SEMICOLON})) {
+      eat;
+    }
+    if (match({TT.EOF})) {
+      return [];
+    }
+    return [statement(), ...program()];
+  }
+
+  Statement statement() {
+    switch (tokenType) {
+      case TT.VAR:
+        expect(TT.VAR);
+        return Statement.assignment(
+            variable: eat.and(() => expect(TT.EQUAL)),
+            expression: expression());
+      case TT.PRINT:
+        eat;
+        return Statement.print(expression());
+      default:
+        return Statement.expression(expression());
+    }
   }
 
   Expression expression() => comma();
@@ -97,7 +121,7 @@ class _Parser {
   dynamic get literal => token.literal;
   Token get token => tokens[current];
   int current = 0;
-  get eat => current++;
+  Token get eat => token.and(() => current++);
 }
 
 class ParseError extends Error {}

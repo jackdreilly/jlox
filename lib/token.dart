@@ -60,7 +60,7 @@ class CheckTokenError extends RuntimeError {
   CheckTokenError(
       {required this.token, required this.checked, required this.type})
       : super(
-            'Op ${token.tokenType.string} expected type $type, got ${checked?.runtimeType}');
+            'Op ${token.tokenType.string} expected type $type, got ${checked?.runtimeType} line ${token.line}');
 }
 
 class RuntimeError extends Error {
