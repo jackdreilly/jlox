@@ -15,7 +15,8 @@ class Statement with _$Statement {
       {required Token brace, required List<Statement> blocks}) = BlockStatement;
   const factory Statement.declaration(
       {required Token variable,
-      required Expression expression}) = DeclarationStatement;
+      required Expression? expression,
+      required bool initialized}) = DeclarationStatement;
 }
 
 typedef Program = List<Statement>;
@@ -27,8 +28,12 @@ extension ProgramExtension on Program {
 extension StatementExtension on Statement {
   String get pretty => when(
       block: (token, blocks) => ['{', blocks.pretty, '}'].unlines,
-      declaration: (variable, expression) =>
-          ['var', variable.literal, '=', expression.pretty].unwords,
+      declaration: (variable, expression, initialized) => [
+            'var',
+            variable.literal,
+            if (initialized) '=',
+            if (initialized) expression?.pretty
+          ].unwords,
       expression: (expression) => expression.pretty,
       print: (expression) => ['print', expression.pretty].unwords);
   Program get program => [this];

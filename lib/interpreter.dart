@@ -17,8 +17,9 @@ class Interpreter {
                   print(exp(expression));
                   return null;
                 },
-                declaration: (variable, expression) {
-                  env.declare(variable.literal, exp(expression));
+                declaration: (variable, expression, initialized) {
+                  env.declare(variable.literal,
+                      expression == null ? null : exp(expression));
                   return null;
                 },
               ))

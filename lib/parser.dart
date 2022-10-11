@@ -27,11 +27,12 @@ class _Parser {
     }
   }
 
-  Token expect(TT expected) {
-    final token = eat;
-    if (token.tokenType != expected) {
+  Token expect(TT firstToken, [TokenType? eof, bool advance = true]) {
+    final token = advance ? eat : this.token;
+    final expected = {firstToken, eof}.withoutNulls.toSet();
+    if (!expected.contains(token.tokenType)) {
       fail(
-          "Expected ${expected.string}: got ${previous.string} at ${token.string}");
+          "Expected ${expected.map((e) => e.string).unwords}: got ${previous.string} at ${token.string}");
     }
     return token;
   }
@@ -48,10 +49,23 @@ class _Parser {
   Statement declaration() {
     final Statement value;
     if (match({TT.VAR})) {
-      expect(TT.VAR);
+      eat;
+      final variable = eat;
+      final bool initialized;
+      final Expression? expression;
+      if (match({TT.EQUAL})) {
+        eat;
+        expression = this.expression();
+        initialized = true;
+      } else {
+        expect(TT.SEMICOLON, TT.EOF, false);
+        expression = null;
+        initialized = false;
+      }
       value = Statement.declaration(
-        variable: eat.and(() => expect(TT.EQUAL)),
-        expression: expression(),
+        variable: variable,
+        expression: expression,
+        initialized: initialized,
       );
     } else {
       value = statement();

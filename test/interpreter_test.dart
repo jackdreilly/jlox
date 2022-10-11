@@ -1,3 +1,4 @@
+import 'package:jlox/base.dart';
 import 'package:jlox/environment.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/interpreter.dart';
@@ -7,6 +8,10 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('var a', () {
+    'var a'.interpreted.equals(isNull);
+    hadError.equals(false);
+  });
   test('brace', () => 'brace'.prog.interpreted.equals(2799360));
   test('semi', () => '3;'.interpreted.equals(3));
   test('semi', () => '3;4'.interpreted.equals(4));
@@ -52,7 +57,9 @@ void main() {
 
 extension on String {
   Object? get interpreted => Interpreter().interpret(parse);
-  State get state => (Interpreter()..interpret(parse)).env.state;
+  Map<String, dynamic> get state =>
+      (Interpreter()..interpret(parse)).env.state.map((key, value) =>
+          MapEntry(key, value.when(present: id, absent: () => null)));
   get missing =>
       () => expect(() => interpreted, throwsA(isA<MissingVariableError>()));
 }

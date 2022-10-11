@@ -21,7 +21,8 @@ mixin _$Statement {
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
-    required TResult Function(Token variable, Expression expression)
+    required TResult Function(
+            Token variable, Expression? expression, bool initialized)
         declaration,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,7 +31,8 @@ mixin _$Statement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,7 +40,8 @@ mixin _$Statement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -163,7 +166,8 @@ class _$ExpressionStatement implements ExpressionStatement {
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
-    required TResult Function(Token variable, Expression expression)
+    required TResult Function(
+            Token variable, Expression? expression, bool initialized)
         declaration,
   }) {
     return expression(this.expression);
@@ -175,7 +179,8 @@ class _$ExpressionStatement implements ExpressionStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
   }) {
     return expression?.call(this.expression);
   }
@@ -186,7 +191,8 @@ class _$ExpressionStatement implements ExpressionStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
     required TResult orElse(),
   }) {
     if (expression != null) {
@@ -320,7 +326,8 @@ class _$PrintStatement implements PrintStatement {
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
-    required TResult Function(Token variable, Expression expression)
+    required TResult Function(
+            Token variable, Expression? expression, bool initialized)
         declaration,
   }) {
     return print(this.expression);
@@ -332,7 +339,8 @@ class _$PrintStatement implements PrintStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
   }) {
     return print?.call(this.expression);
   }
@@ -343,7 +351,8 @@ class _$PrintStatement implements PrintStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
     required TResult orElse(),
   }) {
     if (print != null) {
@@ -491,7 +500,8 @@ class _$BlockStatement implements BlockStatement {
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
-    required TResult Function(Token variable, Expression expression)
+    required TResult Function(
+            Token variable, Expression? expression, bool initialized)
         declaration,
   }) {
     return block(brace, blocks);
@@ -503,7 +513,8 @@ class _$BlockStatement implements BlockStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
   }) {
     return block?.call(brace, blocks);
   }
@@ -514,7 +525,8 @@ class _$BlockStatement implements BlockStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
     required TResult orElse(),
   }) {
     if (block != null) {
@@ -578,10 +590,10 @@ abstract class _$$DeclarationStatementCopyWith<$Res> {
   factory _$$DeclarationStatementCopyWith(_$DeclarationStatement value,
           $Res Function(_$DeclarationStatement) then) =
       __$$DeclarationStatementCopyWithImpl<$Res>;
-  $Res call({Token variable, Expression expression});
+  $Res call({Token variable, Expression? expression, bool initialized});
 
   $TokenCopyWith<$Res> get variable;
-  $ExpressionCopyWith<$Res> get expression;
+  $ExpressionCopyWith<$Res>? get expression;
 }
 
 /// @nodoc
@@ -599,6 +611,7 @@ class __$$DeclarationStatementCopyWithImpl<$Res>
   $Res call({
     Object? variable = freezed,
     Object? expression = freezed,
+    Object? initialized = freezed,
   }) {
     return _then(_$DeclarationStatement(
       variable: variable == freezed
@@ -608,7 +621,11 @@ class __$$DeclarationStatementCopyWithImpl<$Res>
       expression: expression == freezed
           ? _value.expression
           : expression // ignore: cast_nullable_to_non_nullable
-              as Expression,
+              as Expression?,
+      initialized: initialized == freezed
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -620,8 +637,12 @@ class __$$DeclarationStatementCopyWithImpl<$Res>
   }
 
   @override
-  $ExpressionCopyWith<$Res> get expression {
-    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
+  $ExpressionCopyWith<$Res>? get expression {
+    if (_value.expression == null) {
+      return null;
+    }
+
+    return $ExpressionCopyWith<$Res>(_value.expression!, (value) {
       return _then(_value.copyWith(expression: value));
     });
   }
@@ -631,16 +652,20 @@ class __$$DeclarationStatementCopyWithImpl<$Res>
 
 class _$DeclarationStatement implements DeclarationStatement {
   const _$DeclarationStatement(
-      {required this.variable, required this.expression});
+      {required this.variable,
+      required this.expression,
+      required this.initialized});
 
   @override
   final Token variable;
   @override
-  final Expression expression;
+  final Expression? expression;
+  @override
+  final bool initialized;
 
   @override
   String toString() {
-    return 'Statement.declaration(variable: $variable, expression: $expression)';
+    return 'Statement.declaration(variable: $variable, expression: $expression, initialized: $initialized)';
   }
 
   @override
@@ -650,14 +675,17 @@ class _$DeclarationStatement implements DeclarationStatement {
             other is _$DeclarationStatement &&
             const DeepCollectionEquality().equals(other.variable, variable) &&
             const DeepCollectionEquality()
-                .equals(other.expression, expression));
+                .equals(other.expression, expression) &&
+            const DeepCollectionEquality()
+                .equals(other.initialized, initialized));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(variable),
-      const DeepCollectionEquality().hash(expression));
+      const DeepCollectionEquality().hash(expression),
+      const DeepCollectionEquality().hash(initialized));
 
   @JsonKey(ignore: true)
   @override
@@ -671,10 +699,11 @@ class _$DeclarationStatement implements DeclarationStatement {
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
-    required TResult Function(Token variable, Expression expression)
+    required TResult Function(
+            Token variable, Expression? expression, bool initialized)
         declaration,
   }) {
-    return declaration(variable, this.expression);
+    return declaration(variable, this.expression, initialized);
   }
 
   @override
@@ -683,9 +712,10 @@ class _$DeclarationStatement implements DeclarationStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
   }) {
-    return declaration?.call(variable, this.expression);
+    return declaration?.call(variable, this.expression, initialized);
   }
 
   @override
@@ -694,11 +724,12 @@ class _$DeclarationStatement implements DeclarationStatement {
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
-    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable, Expression? expression, bool initialized)?
+        declaration,
     required TResult orElse(),
   }) {
     if (declaration != null) {
-      return declaration(variable, this.expression);
+      return declaration(variable, this.expression, initialized);
     }
     return orElse();
   }
@@ -744,10 +775,12 @@ class _$DeclarationStatement implements DeclarationStatement {
 abstract class DeclarationStatement implements Statement {
   const factory DeclarationStatement(
       {required final Token variable,
-      required final Expression expression}) = _$DeclarationStatement;
+      required final Expression? expression,
+      required final bool initialized}) = _$DeclarationStatement;
 
   Token get variable;
-  Expression get expression;
+  Expression? get expression;
+  bool get initialized;
   @JsonKey(ignore: true)
   _$$DeclarationStatementCopyWith<_$DeclarationStatement> get copyWith =>
       throw _privateConstructorUsedError;
