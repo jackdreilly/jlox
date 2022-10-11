@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:jlox/base.dart';
 import 'package:jlox/interpreter.dart';
+import 'package:jlox/parser.dart';
+import 'package:jlox/scanner.dart';
 import 'package:jlox/token.dart';
 
 import 'errors.dart';
+
+final interpreter = Interpreter();
 
 int main(List<String> args) {
   if (args.length > 1) {
@@ -18,13 +22,24 @@ int main(List<String> args) {
 }
 
 int runProgram(String last) {
-  return run(File(last).readAsStringSync());
+  return run(last.read ?? last);
 }
 
 int run(String program) {
+  final scanned = program.scan;
+  if (hadError) {
+    return 70;
+  }
+  final parsed = scanned.parse;
+  if (hadError) {
+    return 70;
+  }
   try {
-    program.interpret.toString().dump;
-  } on CheckTokenError catch (e) {
+    final interpreted = interpreter.interpret(parsed)?.toString();
+    if (interpreted != null) {
+      interpreted.dump;
+    }
+  } on RuntimeError catch (e) {
     e.message.err;
   }
   newline;

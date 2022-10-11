@@ -27,40 +27,63 @@ class _Parser {
     }
   }
 
-  expect(TT expected) {
-    if (eat.tokenType != expected) {
-      fail("Expected ${expected.string}: got ${previous.string}");
+  Token expect(TT expected) {
+    final token = eat;
+    if (token.tokenType != expected) {
+      fail(
+          "Expected ${expected.string}: got ${previous.string} at ${token.string}");
     }
+    return token;
   }
 
   Token get previous => tokens[current - 1];
 
   Program program() {
+    if (match({TT.EOF})) {
+      return [];
+    }
+    if (match({TT.LEFT_BRACE})) {
+      expect(TT.LEFT_BRACE);
+      final statements = <Statement>[];
+    }
     if (match({TT.SEMICOLON})) {
       eat;
     }
     if (match({TT.EOF})) {
       return [];
     }
-    return [statement(), ...program()];
+    return [declaration(), ...program()];
   }
 
-  Statement statement() {
-    switch (tokenType) {
-      case TT.VAR:
-        expect(TT.VAR);
-        return Statement.assignment(
-            variable: eat.and(() => expect(TT.EQUAL)),
-            expression: expression());
-      case TT.PRINT:
-        eat;
-        return Statement.print(expression());
-      default:
-        return Statement.expression(expression());
+  Statement declaration() {
+    if (match({TT.VAR})) {
+      expect(TT.VAR);
+      return Statement.declaration(
+        variable: eat.and(() => expect(TT.EQUAL)),
+        expression: expression(),
+      );
     }
+    return statement();
   }
 
-  Expression expression() => comma();
+  Statement statement() => (match({TT.PRINT})
+      ? Statement.print.and(() => eat)
+      : Statement.expression)(expression());
+
+  Expression expression() => assignment();
+  Expression assignment() {
+    final expr = comma();
+    if (match({TT.EQUAL})) {
+      final equal = expect(TT.EQUAL);
+      final right = assignment();
+      return expr.maybeWhen(
+          variable: (token) =>
+              Expression.assignment(expression: right, token: token),
+          orElse: () => fail("Invalid assignment at ${equal.string}"));
+    }
+    return expr;
+  }
+
   Expression comma() => starred(ternary, {TT.COMMA});
   Expression ternary() {
     final predicate = equality();
@@ -124,4 +147,8 @@ class _Parser {
   Token get eat => token.and(() => current++);
 }
 
-class ParseError extends Error {}
+class ParseError extends Error {
+  ParseError() {
+    hadError = true;
+  }
+}

@@ -6,9 +6,11 @@ report(String message, {int? line, String? where}) {
   [line != null ? '[line $line]' : null, 'Error', where, ':', message]
       .withoutNulls
       .unwords
+      .nl
       .err;
 }
 
 extension ErrorString on String {
   get error => report(this);
+  String get nl => endsWith('\n') ? this : '$this\n';
 }

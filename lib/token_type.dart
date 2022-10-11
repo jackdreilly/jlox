@@ -126,7 +126,8 @@ final ttMap = [
 ]).asMap;
 
 extension TTExt on TokenType {
-  String get string => ttMap[this] ?? name;
+  String get string => maybeString ?? name;
+  String? get maybeString => ttMap[this];
 }
 
 extension Truthy on Object? {

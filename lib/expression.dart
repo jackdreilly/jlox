@@ -23,9 +23,11 @@ class Expression with _$Expression {
     required Token token,
     required Expression expression,
   }) = Unary;
-  const factory Expression.identifier({required Token token}) = Identifier;
+  const factory Expression.variable({required Token token}) = Identifier;
   const factory Expression.literal(value) = Literal;
   const factory Expression.grouping(Expression expression) = Grouping;
+  const factory Expression.assignment(
+      {required Token token, required Expression expression}) = Assignment;
 }
 
 extension on Iterable {
@@ -34,7 +36,9 @@ extension on Iterable {
 
 extension ExpressionString on Expression {
   String get pretty => when(
-        identifier: (token) => token.lexeme,
+        assignment: (token, expression) =>
+            [token.pretty, '=', expression.pretty].unwords,
+        variable: (token) => token.lexeme,
         ternary: (predicate, yes, no) => [
           predicate.pretty,
           TT.QUESTION_MARK.string,
@@ -86,11 +90,12 @@ extension TokenExpressionExtension on Token {
         TT.NIL: () => Expression.literal(null),
         TT.TRUE: () => Expression.literal(true),
         TT.FALSE: () => Expression.literal(false),
-        TT.IDENTIFIER: () => Expression.identifier(token: this),
+        TT.IDENTIFIER: () => Expression.variable(token: this),
       }[tokenType]
           ?.call();
 }
 
 extension on Token {
-  String get pretty => tokenType.string;
+  String get pretty =>
+      tokenType.maybeString ?? this.literal?.toString() ?? tokenType.name;
 }

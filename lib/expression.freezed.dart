@@ -24,9 +24,10 @@ mixin _$Expression {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,9 +36,10 @@ mixin _$Expression {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -46,9 +48,10 @@ mixin _$Expression {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -57,9 +60,10 @@ mixin _$Expression {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,9 +71,10 @@ mixin _$Expression {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,9 +82,10 @@ mixin _$Expression {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -214,9 +220,10 @@ class _$Ternary implements Ternary {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) {
     return ternary(predicate, yes, no);
   }
@@ -228,9 +235,10 @@ class _$Ternary implements Ternary {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) {
     return ternary?.call(predicate, yes, no);
   }
@@ -242,9 +250,10 @@ class _$Ternary implements Ternary {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) {
     if (ternary != null) {
@@ -259,9 +268,10 @@ class _$Ternary implements Ternary {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) {
     return ternary(this);
   }
@@ -272,9 +282,10 @@ class _$Ternary implements Ternary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) {
     return ternary?.call(this);
   }
@@ -285,9 +296,10 @@ class _$Ternary implements Ternary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) {
     if (ternary != null) {
@@ -424,9 +436,10 @@ class _$Binary implements Binary {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) {
     return binary(token, left, right);
   }
@@ -438,9 +451,10 @@ class _$Binary implements Binary {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) {
     return binary?.call(token, left, right);
   }
@@ -452,9 +466,10 @@ class _$Binary implements Binary {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) {
     if (binary != null) {
@@ -469,9 +484,10 @@ class _$Binary implements Binary {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) {
     return binary(this);
   }
@@ -482,9 +498,10 @@ class _$Binary implements Binary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) {
     return binary?.call(this);
   }
@@ -495,9 +512,10 @@ class _$Binary implements Binary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) {
     if (binary != null) {
@@ -617,9 +635,10 @@ class _$Unary implements Unary {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) {
     return unary(token, expression);
   }
@@ -631,9 +650,10 @@ class _$Unary implements Unary {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) {
     return unary?.call(token, expression);
   }
@@ -645,9 +665,10 @@ class _$Unary implements Unary {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) {
     if (unary != null) {
@@ -662,9 +683,10 @@ class _$Unary implements Unary {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) {
     return unary(this);
   }
@@ -675,9 +697,10 @@ class _$Unary implements Unary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) {
     return unary?.call(this);
   }
@@ -688,9 +711,10 @@ class _$Unary implements Unary {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) {
     if (unary != null) {
@@ -761,7 +785,7 @@ class _$Identifier implements Identifier {
 
   @override
   String toString() {
-    return 'Expression.identifier(token: $token)';
+    return 'Expression.variable(token: $token)';
   }
 
   @override
@@ -790,11 +814,12 @@ class _$Identifier implements Identifier {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) {
-    return identifier(token);
+    return variable(token);
   }
 
   @override
@@ -804,11 +829,12 @@ class _$Identifier implements Identifier {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) {
-    return identifier?.call(token);
+    return variable?.call(token);
   }
 
   @override
@@ -818,13 +844,14 @@ class _$Identifier implements Identifier {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) {
-    if (identifier != null) {
-      return identifier(token);
+    if (variable != null) {
+      return variable(token);
     }
     return orElse();
   }
@@ -835,11 +862,12 @@ class _$Identifier implements Identifier {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) {
-    return identifier(this);
+    return variable(this);
   }
 
   @override
@@ -848,11 +876,12 @@ class _$Identifier implements Identifier {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) {
-    return identifier?.call(this);
+    return variable?.call(this);
   }
 
   @override
@@ -861,13 +890,14 @@ class _$Identifier implements Identifier {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) {
-    if (identifier != null) {
-      return identifier(this);
+    if (variable != null) {
+      return variable(this);
     }
     return orElse();
   }
@@ -947,9 +977,10 @@ class _$Literal implements Literal {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) {
     return literal(value);
   }
@@ -961,9 +992,10 @@ class _$Literal implements Literal {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) {
     return literal?.call(value);
   }
@@ -975,9 +1007,10 @@ class _$Literal implements Literal {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) {
     if (literal != null) {
@@ -992,9 +1025,10 @@ class _$Literal implements Literal {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) {
     return literal(this);
   }
@@ -1005,9 +1039,10 @@ class _$Literal implements Literal {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) {
     return literal?.call(this);
   }
@@ -1018,9 +1053,10 @@ class _$Literal implements Literal {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) {
     if (literal != null) {
@@ -1118,9 +1154,10 @@ class _$Grouping implements Grouping {
     required TResult Function(Token token, Expression left, Expression right)
         binary,
     required TResult Function(Token token, Expression expression) unary,
-    required TResult Function(Token token) identifier,
+    required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
     required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
   }) {
     return grouping(expression);
   }
@@ -1132,9 +1169,10 @@ class _$Grouping implements Grouping {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
   }) {
     return grouping?.call(expression);
   }
@@ -1146,9 +1184,10 @@ class _$Grouping implements Grouping {
         ternary,
     TResult Function(Token token, Expression left, Expression right)? binary,
     TResult Function(Token token, Expression expression)? unary,
-    TResult Function(Token token)? identifier,
+    TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
     TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
   }) {
     if (grouping != null) {
@@ -1163,9 +1202,10 @@ class _$Grouping implements Grouping {
     required TResult Function(Ternary value) ternary,
     required TResult Function(Binary value) binary,
     required TResult Function(Unary value) unary,
-    required TResult Function(Identifier value) identifier,
+    required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
     required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
   }) {
     return grouping(this);
   }
@@ -1176,9 +1216,10 @@ class _$Grouping implements Grouping {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
   }) {
     return grouping?.call(this);
   }
@@ -1189,9 +1230,10 @@ class _$Grouping implements Grouping {
     TResult Function(Ternary value)? ternary,
     TResult Function(Binary value)? binary,
     TResult Function(Unary value)? unary,
-    TResult Function(Identifier value)? identifier,
+    TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
     TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
     required TResult orElse(),
   }) {
     if (grouping != null) {
@@ -1207,5 +1249,204 @@ abstract class Grouping implements Expression {
   Expression get expression;
   @JsonKey(ignore: true)
   _$$GroupingCopyWith<_$Grouping> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AssignmentCopyWith<$Res> {
+  factory _$$AssignmentCopyWith(
+          _$Assignment value, $Res Function(_$Assignment) then) =
+      __$$AssignmentCopyWithImpl<$Res>;
+  $Res call({Token token, Expression expression});
+
+  $TokenCopyWith<$Res> get token;
+  $ExpressionCopyWith<$Res> get expression;
+}
+
+/// @nodoc
+class __$$AssignmentCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$AssignmentCopyWith<$Res> {
+  __$$AssignmentCopyWithImpl(
+      _$Assignment _value, $Res Function(_$Assignment) _then)
+      : super(_value, (v) => _then(v as _$Assignment));
+
+  @override
+  _$Assignment get _value => super._value as _$Assignment;
+
+  @override
+  $Res call({
+    Object? token = freezed,
+    Object? expression = freezed,
+  }) {
+    return _then(_$Assignment(
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as Token,
+      expression: expression == freezed
+          ? _value.expression
+          : expression // ignore: cast_nullable_to_non_nullable
+              as Expression,
+    ));
+  }
+
+  @override
+  $TokenCopyWith<$Res> get token {
+    return $TokenCopyWith<$Res>(_value.token, (value) {
+      return _then(_value.copyWith(token: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get expression {
+    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
+      return _then(_value.copyWith(expression: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Assignment implements Assignment {
+  const _$Assignment({required this.token, required this.expression});
+
+  @override
+  final Token token;
+  @override
+  final Expression expression;
+
+  @override
+  String toString() {
+    return 'Expression.assignment(token: $token, expression: $expression)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Assignment &&
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality()
+                .equals(other.expression, expression));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(expression));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$AssignmentCopyWith<_$Assignment> get copyWith =>
+      __$$AssignmentCopyWithImpl<_$Assignment>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(Token token, Expression left, Expression right)
+        binary,
+    required TResult Function(Token token, Expression expression) unary,
+    required TResult Function(Token token) variable,
+    required TResult Function(dynamic value) literal,
+    required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
+  }) {
+    return assignment(token, expression);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
+    TResult Function(Token token)? variable,
+    TResult Function(dynamic value)? literal,
+    TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
+  }) {
+    return assignment?.call(token, expression);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
+    TResult Function(Token token)? variable,
+    TResult Function(dynamic value)? literal,
+    TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
+    required TResult orElse(),
+  }) {
+    if (assignment != null) {
+      return assignment(token, expression);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Identifier value) variable,
+    required TResult Function(Literal value) literal,
+    required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
+  }) {
+    return assignment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Identifier value)? variable,
+    TResult Function(Literal value)? literal,
+    TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
+  }) {
+    return assignment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Identifier value)? variable,
+    TResult Function(Literal value)? literal,
+    TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
+    required TResult orElse(),
+  }) {
+    if (assignment != null) {
+      return assignment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Assignment implements Expression {
+  const factory Assignment(
+      {required final Token token,
+      required final Expression expression}) = _$Assignment;
+
+  Token get token;
+  Expression get expression;
+  @JsonKey(ignore: true)
+  _$$AssignmentCopyWith<_$Assignment> get copyWith =>
       throw _privateConstructorUsedError;
 }

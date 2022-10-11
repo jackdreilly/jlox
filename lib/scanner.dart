@@ -132,9 +132,9 @@ extension on Tuple3<String, TT, TT> {
 }
 
 extension ScannerString on String {
-  Iterable<Token> get scan => file?.scan ?? _Scanner(this).scan;
+  List<Token> get scan => file?.scan ?? _Scanner(this).scan.list;
 }
 
 extension ScannerFile on File {
-  Iterable<Token> get scan => readAsStringSync().scan;
+  List<Token> get scan => readAsStringSync().scan;
 }

@@ -11,9 +11,10 @@ class Statement with _$Statement {
   const factory Statement.expression(Expression expression) =
       ExpressionStatement;
   const factory Statement.print(Expression expression) = PrintStatement;
-  const factory Statement.assignment(
+  const factory Statement.block(Program program) = BlockStatement;
+  const factory Statement.declaration(
       {required Token variable,
-      required Expression expression}) = AssignmentStatement;
+      required Expression expression}) = DeclarationStatement;
 }
 
 typedef Program = List<Statement>;
@@ -24,7 +25,8 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
-      assignment: (variable, expression) =>
+      block: (program) => ['{', program.pretty, '}'].unlines,
+      declaration: (variable, expression) =>
           ['var', variable.literal, '=', expression.pretty].unwords,
       expression: (expression) => expression.pretty,
       print: (expression) => ['print', expression.pretty].unwords);

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jlox/base.dart';
+import 'package:jlox/errors.dart';
 
 import 'token_type.dart';
 
@@ -66,7 +67,9 @@ class CheckTokenError extends RuntimeError {
 class RuntimeError extends Error {
   final String message;
 
-  RuntimeError(this.message);
+  RuntimeError(this.message) {
+    hadError = true;
+  }
 
   @override
   String toString() => message;

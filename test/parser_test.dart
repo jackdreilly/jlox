@@ -1,3 +1,4 @@
+import 'package:jlox/errors.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/parser.dart';
 import 'package:jlox/statement.dart';
@@ -6,6 +7,12 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('x = y = 3', () => 'x = y = 3'.parse.pretty.equals('x = y = 3'));
+  test('x = 3', () => 'x = 3'.parse.pretty.equals('x = 3'));
+  test('empty', () {
+    expect(''.parse, isEmpty);
+    expect(hadError, false);
+  });
   test("ternary A",
       () => 'true ? false : true'.parse.pretty.equals('(true ? false : true)'));
   test(

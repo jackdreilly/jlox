@@ -28,6 +28,28 @@ extension on Expression {
 }
 
 void main() {
+  test(
+      'x = 3',
+      () => Expression.assignment(
+              token: Token(
+                  lexeme: 'x', literal: 'x', line: 0, tokenType: TT.IDENTIFIER),
+              expression: 3.literal)
+          .pretty
+          .equals('x = 3'));
+  test(
+      'x = y = 3',
+      () => Expression.assignment(
+              token: Token(
+                  lexeme: 'x', literal: 'x', line: 0, tokenType: TT.IDENTIFIER),
+              expression: Expression.assignment(
+                  token: Token(
+                      lexeme: 'y',
+                      literal: 'y',
+                      line: 0,
+                      tokenType: TT.IDENTIFIER),
+                  expression: 3.literal))
+          .pretty
+          .equals('x = y = 3'));
   test('x', () => 'x'.identifier.pretty.equals('x'));
   test('xxx', () => 'xxx'.identifier.pretty.equals('xxx'));
   test('1 exp', 1.literal.shouldBe(Expression.literal(1)));
@@ -46,7 +68,7 @@ void main() {
 }
 
 extension on String {
-  Expression get identifier => Expression.identifier(
+  Expression get identifier => Expression.variable(
       token: Token(
           lexeme: this, literal: this, tokenType: TT.IDENTIFIER, line: 0));
 }

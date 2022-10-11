@@ -16,26 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Statement {
-  Expression get expression => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(Token variable, Expression expression) assignment,
+    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,27 +46,26 @@ mixin _$Statement {
   TResult map<TResult extends Object?>({
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
-    required TResult Function(AssignmentStatement value) assignment,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $StatementCopyWith<Statement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -71,9 +73,6 @@ mixin _$Statement {
 abstract class $StatementCopyWith<$Res> {
   factory $StatementCopyWith(Statement value, $Res Function(Statement) then) =
       _$StatementCopyWithImpl<$Res>;
-  $Res call({Expression expression});
-
-  $ExpressionCopyWith<$Res> get expression;
 }
 
 /// @nodoc
@@ -83,37 +82,15 @@ class _$StatementCopyWithImpl<$Res> implements $StatementCopyWith<$Res> {
   final Statement _value;
   // ignore: unused_field
   final $Res Function(Statement) _then;
-
-  @override
-  $Res call({
-    Object? expression = freezed,
-  }) {
-    return _then(_value.copyWith(
-      expression: expression == freezed
-          ? _value.expression
-          : expression // ignore: cast_nullable_to_non_nullable
-              as Expression,
-    ));
-  }
-
-  @override
-  $ExpressionCopyWith<$Res> get expression {
-    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
-      return _then(_value.copyWith(expression: value));
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$ExpressionStatementCopyWith<$Res>
-    implements $StatementCopyWith<$Res> {
+abstract class _$$ExpressionStatementCopyWith<$Res> {
   factory _$$ExpressionStatementCopyWith(_$ExpressionStatement value,
           $Res Function(_$ExpressionStatement) then) =
       __$$ExpressionStatementCopyWithImpl<$Res>;
-  @override
   $Res call({Expression expression});
 
-  @override
   $ExpressionCopyWith<$Res> get expression;
 }
 
@@ -138,6 +115,13 @@ class __$$ExpressionStatementCopyWithImpl<$Res>
           : expression // ignore: cast_nullable_to_non_nullable
               as Expression,
     ));
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get expression {
+    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
+      return _then(_value.copyWith(expression: value));
+    });
   }
 }
 
@@ -178,7 +162,9 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(Token variable, Expression expression) assignment,
+    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
   }) {
     return expression(this.expression);
   }
@@ -188,7 +174,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
   }) {
     return expression?.call(this.expression);
   }
@@ -198,7 +185,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
     if (expression != null) {
@@ -212,7 +200,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult map<TResult extends Object?>({
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
-    required TResult Function(AssignmentStatement value) assignment,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
   }) {
     return expression(this);
   }
@@ -222,7 +211,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
   }) {
     return expression?.call(this);
   }
@@ -232,7 +222,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
     required TResult orElse(),
   }) {
     if (expression != null) {
@@ -246,24 +237,19 @@ abstract class ExpressionStatement implements Statement {
   const factory ExpressionStatement(final Expression expression) =
       _$ExpressionStatement;
 
-  @override
   Expression get expression;
-  @override
   @JsonKey(ignore: true)
   _$$ExpressionStatementCopyWith<_$ExpressionStatement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PrintStatementCopyWith<$Res>
-    implements $StatementCopyWith<$Res> {
+abstract class _$$PrintStatementCopyWith<$Res> {
   factory _$$PrintStatementCopyWith(
           _$PrintStatement value, $Res Function(_$PrintStatement) then) =
       __$$PrintStatementCopyWithImpl<$Res>;
-  @override
   $Res call({Expression expression});
 
-  @override
   $ExpressionCopyWith<$Res> get expression;
 }
 
@@ -287,6 +273,13 @@ class __$$PrintStatementCopyWithImpl<$Res> extends _$StatementCopyWithImpl<$Res>
           : expression // ignore: cast_nullable_to_non_nullable
               as Expression,
     ));
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get expression {
+    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
+      return _then(_value.copyWith(expression: value));
+    });
   }
 }
 
@@ -326,7 +319,9 @@ class _$PrintStatement implements PrintStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(Token variable, Expression expression) assignment,
+    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
   }) {
     return print(this.expression);
   }
@@ -336,7 +331,8 @@ class _$PrintStatement implements PrintStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
   }) {
     return print?.call(this.expression);
   }
@@ -346,7 +342,8 @@ class _$PrintStatement implements PrintStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
     if (print != null) {
@@ -360,7 +357,8 @@ class _$PrintStatement implements PrintStatement {
   TResult map<TResult extends Object?>({
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
-    required TResult Function(AssignmentStatement value) assignment,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
   }) {
     return print(this);
   }
@@ -370,7 +368,8 @@ class _$PrintStatement implements PrintStatement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
   }) {
     return print?.call(this);
   }
@@ -380,7 +379,8 @@ class _$PrintStatement implements PrintStatement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
     required TResult orElse(),
   }) {
     if (print != null) {
@@ -393,45 +393,193 @@ class _$PrintStatement implements PrintStatement {
 abstract class PrintStatement implements Statement {
   const factory PrintStatement(final Expression expression) = _$PrintStatement;
 
-  @override
   Expression get expression;
-  @override
   @JsonKey(ignore: true)
   _$$PrintStatementCopyWith<_$PrintStatement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AssignmentStatementCopyWith<$Res>
-    implements $StatementCopyWith<$Res> {
-  factory _$$AssignmentStatementCopyWith(_$AssignmentStatement value,
-          $Res Function(_$AssignmentStatement) then) =
-      __$$AssignmentStatementCopyWithImpl<$Res>;
+abstract class _$$BlockStatementCopyWith<$Res> {
+  factory _$$BlockStatementCopyWith(
+          _$BlockStatement value, $Res Function(_$BlockStatement) then) =
+      __$$BlockStatementCopyWithImpl<$Res>;
+  $Res call({List<Statement> statements});
+}
+
+/// @nodoc
+class __$$BlockStatementCopyWithImpl<$Res> extends _$StatementCopyWithImpl<$Res>
+    implements _$$BlockStatementCopyWith<$Res> {
+  __$$BlockStatementCopyWithImpl(
+      _$BlockStatement _value, $Res Function(_$BlockStatement) _then)
+      : super(_value, (v) => _then(v as _$BlockStatement));
+
   @override
+  _$BlockStatement get _value => super._value as _$BlockStatement;
+
+  @override
+  $Res call({
+    Object? statements = freezed,
+  }) {
+    return _then(_$BlockStatement(
+      statements == freezed
+          ? _value._statements
+          : statements // ignore: cast_nullable_to_non_nullable
+              as List<Statement>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BlockStatement implements BlockStatement {
+  const _$BlockStatement(final List<Statement> statements)
+      : _statements = statements;
+
+  final List<Statement> _statements;
+  @override
+  List<Statement> get statements {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_statements);
+  }
+
+  @override
+  String toString() {
+    return 'Statement.block(statements: $statements)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BlockStatement &&
+            const DeepCollectionEquality()
+                .equals(other._statements, _statements));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_statements));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$BlockStatementCopyWith<_$BlockStatement> get copyWith =>
+      __$$BlockStatementCopyWithImpl<_$BlockStatement>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Expression expression) expression,
+    required TResult Function(Expression expression) print,
+    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
+  }) {
+    return block(statements);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression expression)? expression,
+    TResult Function(Expression expression)? print,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
+  }) {
+    return block?.call(statements);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression expression)? expression,
+    TResult Function(Expression expression)? print,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
+    required TResult orElse(),
+  }) {
+    if (block != null) {
+      return block(statements);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ExpressionStatement value) expression,
+    required TResult Function(PrintStatement value) print,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
+  }) {
+    return block(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ExpressionStatement value)? expression,
+    TResult Function(PrintStatement value)? print,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
+  }) {
+    return block?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ExpressionStatement value)? expression,
+    TResult Function(PrintStatement value)? print,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
+    required TResult orElse(),
+  }) {
+    if (block != null) {
+      return block(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BlockStatement implements Statement {
+  const factory BlockStatement(final List<Statement> statements) =
+      _$BlockStatement;
+
+  List<Statement> get statements;
+  @JsonKey(ignore: true)
+  _$$BlockStatementCopyWith<_$BlockStatement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeclarationStatementCopyWith<$Res> {
+  factory _$$DeclarationStatementCopyWith(_$DeclarationStatement value,
+          $Res Function(_$DeclarationStatement) then) =
+      __$$DeclarationStatementCopyWithImpl<$Res>;
   $Res call({Token variable, Expression expression});
 
   $TokenCopyWith<$Res> get variable;
-  @override
   $ExpressionCopyWith<$Res> get expression;
 }
 
 /// @nodoc
-class __$$AssignmentStatementCopyWithImpl<$Res>
+class __$$DeclarationStatementCopyWithImpl<$Res>
     extends _$StatementCopyWithImpl<$Res>
-    implements _$$AssignmentStatementCopyWith<$Res> {
-  __$$AssignmentStatementCopyWithImpl(
-      _$AssignmentStatement _value, $Res Function(_$AssignmentStatement) _then)
-      : super(_value, (v) => _then(v as _$AssignmentStatement));
+    implements _$$DeclarationStatementCopyWith<$Res> {
+  __$$DeclarationStatementCopyWithImpl(_$DeclarationStatement _value,
+      $Res Function(_$DeclarationStatement) _then)
+      : super(_value, (v) => _then(v as _$DeclarationStatement));
 
   @override
-  _$AssignmentStatement get _value => super._value as _$AssignmentStatement;
+  _$DeclarationStatement get _value => super._value as _$DeclarationStatement;
 
   @override
   $Res call({
     Object? variable = freezed,
     Object? expression = freezed,
   }) {
-    return _then(_$AssignmentStatement(
+    return _then(_$DeclarationStatement(
       variable: variable == freezed
           ? _value.variable
           : variable // ignore: cast_nullable_to_non_nullable
@@ -449,12 +597,19 @@ class __$$AssignmentStatementCopyWithImpl<$Res>
       return _then(_value.copyWith(variable: value));
     });
   }
+
+  @override
+  $ExpressionCopyWith<$Res> get expression {
+    return $ExpressionCopyWith<$Res>(_value.expression, (value) {
+      return _then(_value.copyWith(expression: value));
+    });
+  }
 }
 
 /// @nodoc
 
-class _$AssignmentStatement implements AssignmentStatement {
-  const _$AssignmentStatement(
+class _$DeclarationStatement implements DeclarationStatement {
+  const _$DeclarationStatement(
       {required this.variable, required this.expression});
 
   @override
@@ -464,14 +619,14 @@ class _$AssignmentStatement implements AssignmentStatement {
 
   @override
   String toString() {
-    return 'Statement.assignment(variable: $variable, expression: $expression)';
+    return 'Statement.declaration(variable: $variable, expression: $expression)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AssignmentStatement &&
+            other is _$DeclarationStatement &&
             const DeepCollectionEquality().equals(other.variable, variable) &&
             const DeepCollectionEquality()
                 .equals(other.expression, expression));
@@ -485,8 +640,8 @@ class _$AssignmentStatement implements AssignmentStatement {
 
   @JsonKey(ignore: true)
   @override
-  _$$AssignmentStatementCopyWith<_$AssignmentStatement> get copyWith =>
-      __$$AssignmentStatementCopyWithImpl<_$AssignmentStatement>(
+  _$$DeclarationStatementCopyWith<_$DeclarationStatement> get copyWith =>
+      __$$DeclarationStatementCopyWithImpl<_$DeclarationStatement>(
           this, _$identity);
 
   @override
@@ -494,9 +649,11 @@ class _$AssignmentStatement implements AssignmentStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(Token variable, Expression expression) assignment,
+    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
   }) {
-    return assignment(variable, this.expression);
+    return declaration(variable, this.expression);
   }
 
   @override
@@ -504,9 +661,10 @@ class _$AssignmentStatement implements AssignmentStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
   }) {
-    return assignment?.call(variable, this.expression);
+    return declaration?.call(variable, this.expression);
   }
 
   @override
@@ -514,11 +672,12 @@ class _$AssignmentStatement implements AssignmentStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(Token variable, Expression expression)? assignment,
+    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
-    if (assignment != null) {
-      return assignment(variable, this.expression);
+    if (declaration != null) {
+      return declaration(variable, this.expression);
     }
     return orElse();
   }
@@ -528,9 +687,10 @@ class _$AssignmentStatement implements AssignmentStatement {
   TResult map<TResult extends Object?>({
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
-    required TResult Function(AssignmentStatement value) assignment,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
   }) {
-    return assignment(this);
+    return declaration(this);
   }
 
   @override
@@ -538,9 +698,10 @@ class _$AssignmentStatement implements AssignmentStatement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
   }) {
-    return assignment?.call(this);
+    return declaration?.call(this);
   }
 
   @override
@@ -548,26 +709,25 @@ class _$AssignmentStatement implements AssignmentStatement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
-    TResult Function(AssignmentStatement value)? assignment,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
     required TResult orElse(),
   }) {
-    if (assignment != null) {
-      return assignment(this);
+    if (declaration != null) {
+      return declaration(this);
     }
     return orElse();
   }
 }
 
-abstract class AssignmentStatement implements Statement {
-  const factory AssignmentStatement(
+abstract class DeclarationStatement implements Statement {
+  const factory DeclarationStatement(
       {required final Token variable,
-      required final Expression expression}) = _$AssignmentStatement;
+      required final Expression expression}) = _$DeclarationStatement;
 
   Token get variable;
-  @override
   Expression get expression;
-  @override
   @JsonKey(ignore: true)
-  _$$AssignmentStatementCopyWith<_$AssignmentStatement> get copyWith =>
+  _$$DeclarationStatementCopyWith<_$DeclarationStatement> get copyWith =>
       throw _privateConstructorUsedError;
 }
