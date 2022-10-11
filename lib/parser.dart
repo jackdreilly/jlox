@@ -42,40 +42,42 @@ class _Parser {
     if (match({TT.EOF})) {
       return [];
     }
-    return [block(), ...program()];
+    return [declaration(), ...program()];
   }
 
-  Statement block() {
+  Statement declaration() {
+    final Statement value;
+    if (match({TT.VAR})) {
+      expect(TT.VAR);
+      value = Statement.declaration(
+        variable: eat.and(() => expect(TT.EQUAL)),
+        expression: expression(),
+      );
+    } else {
+      value = statement();
+    }
+    if (match({TT.SEMICOLON})) {
+      expect(TT.SEMICOLON);
+    }
+    return value;
+  }
+
+  Statement statement() {
     if (match({TT.LEFT_BRACE})) {
       final brace = expect(TT.LEFT_BRACE);
       final blocks = <Statement>[];
       while (!match({TT.RIGHT_BRACE})) {
-        blocks.add(block());
+        blocks.add(declaration());
       }
       expect(TT.RIGHT_BRACE);
       return Statement.block(brace: brace, blocks: blocks);
     }
-    final statement = declaration();
-    if (match({TT.SEMICOLON})) {
+    if (match({TT.PRINT})) {
       eat;
+      return Statement.print(expression());
     }
-    return statement;
+    return Statement.expression(expression());
   }
-
-  Statement declaration() {
-    if (match({TT.VAR})) {
-      expect(TT.VAR);
-      return Statement.declaration(
-        variable: eat.and(() => expect(TT.EQUAL)),
-        expression: expression(),
-      );
-    }
-    return statement();
-  }
-
-  Statement statement() => (match({TT.PRINT})
-      ? Statement.print.and(() => eat)
-      : Statement.expression)(expression());
 
   Expression expression() => assignment();
   Expression assignment() {
