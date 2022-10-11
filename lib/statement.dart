@@ -11,7 +11,8 @@ class Statement with _$Statement {
   const factory Statement.expression(Expression expression) =
       ExpressionStatement;
   const factory Statement.print(Expression expression) = PrintStatement;
-  const factory Statement.block(Program program) = BlockStatement;
+  const factory Statement.block(
+      {required Token brace, required List<Statement> blocks}) = BlockStatement;
   const factory Statement.declaration(
       {required Token variable,
       required Expression expression}) = DeclarationStatement;
@@ -25,7 +26,7 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
-      block: (program) => ['{', program.pretty, '}'].unlines,
+      block: (token, blocks) => ['{', blocks.pretty, '}'].unlines,
       declaration: (variable, expression) =>
           ['var', variable.literal, '=', expression.pretty].unwords,
       expression: (expression) => expression.pretty,

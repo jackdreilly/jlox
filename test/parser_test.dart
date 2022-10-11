@@ -7,9 +7,33 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('{}', () => '{}'.parse.pretty.equals('{\n\n}'));
+  test(
+      'x;{x;{{{x;}{y;}}3;}y + 3;z;}t;',
+      () => 'x;{x;{{{x;}{y;}}3;}y + 3;z;}t;'.parse.pretty.equals('''
+x
+{
+x
+{
+{
+{
+x
+}
+{
+y
+}
+}
+3
+}
+(+ y 3)
+z
+}
+t'''
+          .trim()));
   test('x = y = 3', () => 'x = y = 3'.parse.pretty.equals('x = y = 3'));
   test('x = 3', () => 'x = 3'.parse.pretty.equals('x = 3'));
   test('empty', () {
+    hadError = false;
     expect(''.parse, isEmpty);
     expect(hadError, false);
   });

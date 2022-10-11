@@ -7,6 +7,13 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('semi', () => '3;'.interpreted.equals(3));
+  test('semi', () => '3;4'.interpreted.equals(4));
+  test('semi', () => '3;4'.state.equals({}));
+  test('var semi', () {
+    'var x = 3;'.interpreted.equals(isNull);
+    hadError.equals(false);
+  });
   test("true", () => 'true'.interpreted.equals(true));
   test("1", () => '1'.interpreted.equals(1));
   test('"yo"', () => expect('"yo"'.interpreted, "yo"));

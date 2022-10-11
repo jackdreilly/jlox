@@ -11,7 +11,7 @@ class Interpreter {
       ? null
       : program
           .map((e) => e.when(
-                block: (program) => interpret(program),
+                block: (token, blocks) => interpret(blocks),
                 expression: exp,
                 print: (expression) {
                   print(exp(expression));
@@ -33,12 +33,13 @@ class Interpreter {
         unary: (token, expression) => token.op(exp(expression)),
       );
 
-  Object? assign(Token variable, Expression expression, [bool check = false]) {
-    if (check) {
+  Object? assign(Token variable, Expression expression,
+      [bool isAssignment = false]) {
+    if (isAssignment) {
       env[variable.literal];
     }
     final value = exp(expression);
     env[variable.literal] = value;
-    return value;
+    return isAssignment ? value : null;
   }
 }

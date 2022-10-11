@@ -42,17 +42,24 @@ class _Parser {
     if (match({TT.EOF})) {
       return [];
     }
+    return [block(), ...program()];
+  }
+
+  Statement block() {
     if (match({TT.LEFT_BRACE})) {
-      expect(TT.LEFT_BRACE);
-      final statements = <Statement>[];
+      final brace = expect(TT.LEFT_BRACE);
+      final blocks = <Statement>[];
+      while (!match({TT.RIGHT_BRACE})) {
+        blocks.add(block());
+      }
+      expect(TT.RIGHT_BRACE);
+      return Statement.block(brace: brace, blocks: blocks);
     }
+    final statement = declaration();
     if (match({TT.SEMICOLON})) {
       eat;
     }
-    if (match({TT.EOF})) {
-      return [];
-    }
-    return [declaration(), ...program()];
+    return statement;
   }
 
   Statement declaration() {

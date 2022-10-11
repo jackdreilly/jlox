@@ -20,7 +20,7 @@ mixin _$Statement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token brace, List<Statement> blocks) block,
     required TResult Function(Token variable, Expression expression)
         declaration,
   }) =>
@@ -29,7 +29,7 @@ mixin _$Statement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ mixin _$Statement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) =>
@@ -162,7 +162,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token brace, List<Statement> blocks) block,
     required TResult Function(Token variable, Expression expression)
         declaration,
   }) {
@@ -174,7 +174,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
   }) {
     return expression?.call(this.expression);
@@ -185,7 +185,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
@@ -319,7 +319,7 @@ class _$PrintStatement implements PrintStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token brace, List<Statement> blocks) block,
     required TResult Function(Token variable, Expression expression)
         declaration,
   }) {
@@ -331,7 +331,7 @@ class _$PrintStatement implements PrintStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
   }) {
     return print?.call(this.expression);
@@ -342,7 +342,7 @@ class _$PrintStatement implements PrintStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
@@ -404,7 +404,9 @@ abstract class _$$BlockStatementCopyWith<$Res> {
   factory _$$BlockStatementCopyWith(
           _$BlockStatement value, $Res Function(_$BlockStatement) then) =
       __$$BlockStatementCopyWithImpl<$Res>;
-  $Res call({List<Statement> statements});
+  $Res call({Token brace, List<Statement> blocks});
+
+  $TokenCopyWith<$Res> get brace;
 }
 
 /// @nodoc
@@ -419,33 +421,48 @@ class __$$BlockStatementCopyWithImpl<$Res> extends _$StatementCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? statements = freezed,
+    Object? brace = freezed,
+    Object? blocks = freezed,
   }) {
     return _then(_$BlockStatement(
-      statements == freezed
-          ? _value._statements
-          : statements // ignore: cast_nullable_to_non_nullable
+      brace: brace == freezed
+          ? _value.brace
+          : brace // ignore: cast_nullable_to_non_nullable
+              as Token,
+      blocks: blocks == freezed
+          ? _value._blocks
+          : blocks // ignore: cast_nullable_to_non_nullable
               as List<Statement>,
     ));
+  }
+
+  @override
+  $TokenCopyWith<$Res> get brace {
+    return $TokenCopyWith<$Res>(_value.brace, (value) {
+      return _then(_value.copyWith(brace: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$BlockStatement implements BlockStatement {
-  const _$BlockStatement(final List<Statement> statements)
-      : _statements = statements;
+  const _$BlockStatement(
+      {required this.brace, required final List<Statement> blocks})
+      : _blocks = blocks;
 
-  final List<Statement> _statements;
   @override
-  List<Statement> get statements {
+  final Token brace;
+  final List<Statement> _blocks;
+  @override
+  List<Statement> get blocks {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_statements);
+    return EqualUnmodifiableListView(_blocks);
   }
 
   @override
   String toString() {
-    return 'Statement.block(statements: $statements)';
+    return 'Statement.block(brace: $brace, blocks: $blocks)';
   }
 
   @override
@@ -453,13 +470,15 @@ class _$BlockStatement implements BlockStatement {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BlockStatement &&
-            const DeepCollectionEquality()
-                .equals(other._statements, _statements));
+            const DeepCollectionEquality().equals(other.brace, brace) &&
+            const DeepCollectionEquality().equals(other._blocks, _blocks));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_statements));
+      runtimeType,
+      const DeepCollectionEquality().hash(brace),
+      const DeepCollectionEquality().hash(_blocks));
 
   @JsonKey(ignore: true)
   @override
@@ -471,11 +490,11 @@ class _$BlockStatement implements BlockStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token brace, List<Statement> blocks) block,
     required TResult Function(Token variable, Expression expression)
         declaration,
   }) {
-    return block(statements);
+    return block(brace, blocks);
   }
 
   @override
@@ -483,10 +502,10 @@ class _$BlockStatement implements BlockStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
   }) {
-    return block?.call(statements);
+    return block?.call(brace, blocks);
   }
 
   @override
@@ -494,12 +513,12 @@ class _$BlockStatement implements BlockStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
     if (block != null) {
-      return block(statements);
+      return block(brace, blocks);
     }
     return orElse();
   }
@@ -543,10 +562,12 @@ class _$BlockStatement implements BlockStatement {
 }
 
 abstract class BlockStatement implements Statement {
-  const factory BlockStatement(final List<Statement> statements) =
-      _$BlockStatement;
+  const factory BlockStatement(
+      {required final Token brace,
+      required final List<Statement> blocks}) = _$BlockStatement;
 
-  List<Statement> get statements;
+  Token get brace;
+  List<Statement> get blocks;
   @JsonKey(ignore: true)
   _$$BlockStatementCopyWith<_$BlockStatement> get copyWith =>
       throw _privateConstructorUsedError;
@@ -649,7 +670,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   TResult when<TResult extends Object?>({
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
-    required TResult Function(List<Statement> statements) block,
+    required TResult Function(Token brace, List<Statement> blocks) block,
     required TResult Function(Token variable, Expression expression)
         declaration,
   }) {
@@ -661,7 +682,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
   }) {
     return declaration?.call(variable, this.expression);
@@ -672,7 +693,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
-    TResult Function(List<Statement> statements)? block,
+    TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     required TResult orElse(),
   }) {
