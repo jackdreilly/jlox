@@ -11,35 +11,36 @@ class Interpreter {
       ? null
       : program
           .map((e) => e.when(
-                block: (token, blocks) => interpret(blocks),
+                block: (token, blocks) => scoped(() => interpret(blocks)),
                 expression: exp,
                 print: (expression) {
                   print(exp(expression));
                   return null;
                 },
-                declaration: assign,
+                declaration: (variable, expression) {
+                  env.declare(variable.literal, exp(expression));
+                  return null;
+                },
               ))
           .list
           .last;
 
   Object? exp(Expression expression) => expression.when(
-        assignment: (token, expression) => assign(token, expression, true),
+        assignment: (token, expression) =>
+            env.assign(token.literal, exp(expression)),
         binary: (token, left, right) => token.op(exp(left), exp(right)),
         grouping: exp,
-        variable: (token) => env[token.literal],
+        variable: (token) => env.get(token.literal),
         literal: id,
         ternary: (predicate, yes, no) =>
             exp(predicate) as bool ? exp(yes) : exp(no),
         unary: (token, expression) => token.op(exp(expression)),
       );
 
-  Object? assign(Token variable, Expression expression,
-      [bool isAssignment = false]) {
-    if (isAssignment) {
-      env[variable.literal];
-    }
-    final value = exp(expression);
-    env[variable.literal] = value;
-    return isAssignment ? value : null;
+  Object? scoped(Object? Function() callback) {
+    env.push;
+    final value = callback();
+    env.pop;
+    return value;
   }
 }

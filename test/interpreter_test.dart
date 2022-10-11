@@ -7,6 +7,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('brace', () => 'brace'.prog.interpreted.equals(2799360));
   test('semi', () => '3;'.interpreted.equals(3));
   test('semi', () => '3;4'.interpreted.equals(4));
   test('semi', () => '3;4'.state.equals({}));
