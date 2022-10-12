@@ -7,6 +7,23 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test(
+      'for',
+      () => 'for'.prog.parse.pretty.equals('''
+var j
+for (var i = 0;(< i 10);i = (+ i 1)) {
+j = (* i 2)
+}
+j
+'''
+          .trim()));
+  test('for(1;1;1) 1',
+      () => 'for(1;1;1) 1'.parse.pretty.equals('for (1;1;1) 1'));
+  test('for(;;1) 1', () => 'for(;;1) 1'.parse.pretty.equals('for (;;1) 1'));
+  test('for(;1;) 1', () => 'for(;1;) 1'.parse.pretty.equals('for (;1;) 1'));
+  test('for(1;1;) 1', () => 'for(1;1;) 1'.parse.pretty.equals('for (1;1;) 1'));
+  test('for(1;;) 1', () => 'for(1;;) 1'.parse.pretty.equals('for (1;;) 1'));
+  test('for(;;) 1', () => 'for(;;) 1'.parse.pretty.equals('for (;;) 1'));
   test('1 or 1', () => '1 or 1'.parse.pretty.equals('(or 1 1)'));
   test('1 and 1', () => '1 and 1'.parse.pretty.equals('(and 1 1)'));
   test('1 and 2 and 3',

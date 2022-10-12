@@ -46,65 +46,87 @@ class _Parser {
     return [declaration(), ...program()];
   }
 
-  Statement declaration() {
-    Statement value() {
-      if (match({TT.VAR})) {
-        eat;
-        final variable = eat;
-        if (match({TT.EQUAL})) {
-          eat;
-          return Statement.declaration(
-              variable: variable, expression: expression());
-        }
-        expect(TT.SEMICOLON, TT.EOF, false);
-        return Statement.uninitialized(variable);
-      }
-      return statement();
-    }
+  Statement declaration() =>
+      (match({TT.VAR}) ? variableDeclaration() : statement()).and(maybeSemi);
+  Token? maybeSemi() => match({TT.SEMICOLON}) ? eat : null;
 
-    final result = value();
-    if (match({TT.SEMICOLON})) {
+  Statement variableDeclaration() {
+    eat;
+    final variable = eat;
+    if (match({TT.EQUAL})) {
       eat;
+      return Statement.declaration(
+          variable: variable, expression: expression());
     }
-    return result;
+    expect(TT.SEMICOLON, TT.EOF, false);
+    return Statement.uninitialized(variable);
   }
 
-  Statement statement() {
-    if (match({TT.WHILE})) {
+  Statement statement() => ({
+        TT.FOR: forLoop,
+        TT.WHILE: whileLoop,
+        TT.IF: ifElse,
+        TT.LEFT_BRACE: block,
+        TT.PRINT: printStatement,
+      }[tokenType] ??
+      expressionStatement)();
+
+  Statement expressionStatement() => Statement.expression(expression());
+  Statement forLoop() {
+    expect(TT.FOR);
+    expect(TT.LEFT_PAREN);
+    Statement? initializer() => match({TT.SEMICOLON})
+        ? null
+        : match({TT.VAR})
+            ? variableDeclaration()
+            : expressionStatement();
+
+    Expression? predicate() => match({TT.SEMICOLON}) ? null : expression();
+    Expression? perLoop() => match({TT.RIGHT_PAREN}) ? null : expression();
+    return Statement.forLoop(
+      initializer: initializer().and(maybeSemi),
+      predicate: predicate().and(() => expect(TT.SEMICOLON)),
+      perLoop: perLoop().and(() => expect(TT.RIGHT_PAREN)),
+      body: statement(),
+    );
+  }
+
+  Statement printStatement() {
+    eat;
+    return Statement.print(expression());
+  }
+
+  Statement block() {
+    final brace = expect(TT.LEFT_BRACE);
+    final blocks = <Statement>[];
+    while (!match({TT.RIGHT_BRACE})) {
+      blocks.add(declaration());
+    }
+    expect(TT.RIGHT_BRACE);
+    return Statement.block(brace: brace, blocks: blocks);
+  }
+
+  Statement ifElse() {
+    eat;
+    expect(TT.LEFT_PAREN);
+    final predicate = expression();
+    expect(TT.RIGHT_PAREN);
+    final yes = statement();
+    if (match({TT.ELSE})) {
       eat;
-      expect(TT.LEFT_PAREN);
-      final predicate = expression();
-      expect(TT.RIGHT_PAREN);
-      final body = statement();
-      return Statement.whileLoop(predicate: predicate, body: body);
+      final no = statement();
+      return Statement.ifElse(predicate: predicate, yes: yes, no: no);
     }
-    if (match({TT.IF})) {
-      eat;
-      expect(TT.LEFT_PAREN);
-      final predicate = expression();
-      expect(TT.RIGHT_PAREN);
-      final yes = statement();
-      if (match({TT.ELSE})) {
-        eat;
-        final no = statement();
-        return Statement.ifElse(predicate: predicate, yes: yes, no: no);
-      }
-      return Statement.justIf(predicate: predicate, yes: yes);
-    }
-    if (match({TT.LEFT_BRACE})) {
-      final brace = expect(TT.LEFT_BRACE);
-      final blocks = <Statement>[];
-      while (!match({TT.RIGHT_BRACE})) {
-        blocks.add(declaration());
-      }
-      expect(TT.RIGHT_BRACE);
-      return Statement.block(brace: brace, blocks: blocks);
-    }
-    if (match({TT.PRINT})) {
-      eat;
-      return Statement.print(expression());
-    }
-    return Statement.expression(expression());
+    return Statement.justIf(predicate: predicate, yes: yes);
+  }
+
+  Statement whileLoop() {
+    eat;
+    expect(TT.LEFT_PAREN);
+    final predicate = expression();
+    expect(TT.RIGHT_PAREN);
+    final body = statement();
+    return Statement.whileLoop(predicate: predicate, body: body);
   }
 
   Expression expression() => assignment();
@@ -159,7 +181,7 @@ class _Parser {
       expect(TT.RIGHT_PAREN);
       return grouping;
     }
-    fail("Unexpected token ${token.string}");
+    fail("Expected primary, got ${token.string}");
     return Expression.literal(null);
   }
 

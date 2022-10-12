@@ -17,6 +17,11 @@ class Statement with _$Statement {
       {required Token variable,
       required Expression expression}) = DeclarationStatement;
   const factory Statement.uninitialized(Token variable) = Uninitialized;
+  const factory Statement.forLoop(
+      {Statement? initializer,
+      Expression? predicate,
+      Expression? perLoop,
+      required Statement body}) = ForLoop;
   const factory Statement.whileLoop(
       {required Expression predicate, required Statement body}) = While;
   const factory Statement.justIf(
@@ -36,6 +41,8 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
+      forLoop: (initializer, predicate, perLoop, body) =>
+          'for (${initializer?.pretty ?? ''};${predicate?.pretty ?? ''};${perLoop?.pretty ?? ''}) ${body.pretty}',
       whileLoop: (predicate, body) =>
           ['while', '(${predicate.pretty})', body.pretty].unwords,
       justIf: (predicate, yes) =>

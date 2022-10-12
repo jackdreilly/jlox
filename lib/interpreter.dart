@@ -12,6 +12,16 @@ class Interpreter {
       ? null
       : program
           .map((e) => e.when(
+                forLoop: (initializer, predicate, perLoop, body) => scoped(() {
+                  if (initializer != null) {
+                    interpret([initializer]);
+                  }
+                  while (exp(predicate ?? true.literal).truth) {
+                    scopedStatement(body);
+                    exp(perLoop ?? null.literal);
+                  }
+                  return null;
+                }),
                 whileLoop: (predicate, body) {
                   while (exp(predicate).truth) {
                     scopedStatement(body);
@@ -37,7 +47,7 @@ class Interpreter {
           .list
           .last;
 
-  Object? exp(Expression expression) => expression.when(
+  Object? exp(Expression? expression) => expression?.when(
         assignment: (token, expression) =>
             env.assign(token.literal, exp(expression)),
         binary: (token, left, right) => token.tokenType.isShortCircuit

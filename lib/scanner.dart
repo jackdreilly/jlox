@@ -113,7 +113,7 @@ class _Scanner {
       yield* scan;
       return;
     }
-    failed("unexpected token ($lexeme)");
+    failed("Unexpected lexeme ($lexeme)");
   }
 
   get linify => line += lexeme.count('\n');

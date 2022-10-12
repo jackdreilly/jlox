@@ -24,6 +24,9 @@ mixin _$Statement {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -37,6 +40,9 @@ mixin _$Statement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -49,6 +55,9 @@ mixin _$Statement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -62,6 +71,7 @@ mixin _$Statement {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -74,6 +84,7 @@ mixin _$Statement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -86,6 +97,7 @@ mixin _$Statement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -191,6 +203,9 @@ class _$ExpressionStatement implements ExpressionStatement {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -207,6 +222,9 @@ class _$ExpressionStatement implements ExpressionStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -222,6 +240,9 @@ class _$ExpressionStatement implements ExpressionStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -241,6 +262,7 @@ class _$ExpressionStatement implements ExpressionStatement {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -256,6 +278,7 @@ class _$ExpressionStatement implements ExpressionStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -271,6 +294,7 @@ class _$ExpressionStatement implements ExpressionStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -373,6 +397,9 @@ class _$PrintStatement implements PrintStatement {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -389,6 +416,9 @@ class _$PrintStatement implements PrintStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -404,6 +434,9 @@ class _$PrintStatement implements PrintStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -423,6 +456,7 @@ class _$PrintStatement implements PrintStatement {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -438,6 +472,7 @@ class _$PrintStatement implements PrintStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -453,6 +488,7 @@ class _$PrintStatement implements PrintStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -569,6 +605,9 @@ class _$BlockStatement implements BlockStatement {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -585,6 +624,9 @@ class _$BlockStatement implements BlockStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -600,6 +642,9 @@ class _$BlockStatement implements BlockStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -619,6 +664,7 @@ class _$BlockStatement implements BlockStatement {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -634,6 +680,7 @@ class _$BlockStatement implements BlockStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -649,6 +696,7 @@ class _$BlockStatement implements BlockStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -774,6 +822,9 @@ class _$DeclarationStatement implements DeclarationStatement {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -790,6 +841,9 @@ class _$DeclarationStatement implements DeclarationStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -805,6 +859,9 @@ class _$DeclarationStatement implements DeclarationStatement {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -824,6 +881,7 @@ class _$DeclarationStatement implements DeclarationStatement {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -839,6 +897,7 @@ class _$DeclarationStatement implements DeclarationStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -854,6 +913,7 @@ class _$DeclarationStatement implements DeclarationStatement {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -957,6 +1017,9 @@ class _$Uninitialized implements Uninitialized {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -973,6 +1036,9 @@ class _$Uninitialized implements Uninitialized {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -988,6 +1054,9 @@ class _$Uninitialized implements Uninitialized {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1007,6 +1076,7 @@ class _$Uninitialized implements Uninitialized {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -1022,6 +1092,7 @@ class _$Uninitialized implements Uninitialized {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1037,6 +1108,7 @@ class _$Uninitialized implements Uninitialized {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1055,6 +1127,273 @@ abstract class Uninitialized implements Statement {
   Token get variable;
   @JsonKey(ignore: true)
   _$$UninitializedCopyWith<_$Uninitialized> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ForLoopCopyWith<$Res> {
+  factory _$$ForLoopCopyWith(_$ForLoop value, $Res Function(_$ForLoop) then) =
+      __$$ForLoopCopyWithImpl<$Res>;
+  $Res call(
+      {Statement? initializer,
+      Expression? predicate,
+      Expression? perLoop,
+      Statement body});
+
+  $StatementCopyWith<$Res>? get initializer;
+  $ExpressionCopyWith<$Res>? get predicate;
+  $ExpressionCopyWith<$Res>? get perLoop;
+  $StatementCopyWith<$Res> get body;
+}
+
+/// @nodoc
+class __$$ForLoopCopyWithImpl<$Res> extends _$StatementCopyWithImpl<$Res>
+    implements _$$ForLoopCopyWith<$Res> {
+  __$$ForLoopCopyWithImpl(_$ForLoop _value, $Res Function(_$ForLoop) _then)
+      : super(_value, (v) => _then(v as _$ForLoop));
+
+  @override
+  _$ForLoop get _value => super._value as _$ForLoop;
+
+  @override
+  $Res call({
+    Object? initializer = freezed,
+    Object? predicate = freezed,
+    Object? perLoop = freezed,
+    Object? body = freezed,
+  }) {
+    return _then(_$ForLoop(
+      initializer: initializer == freezed
+          ? _value.initializer
+          : initializer // ignore: cast_nullable_to_non_nullable
+              as Statement?,
+      predicate: predicate == freezed
+          ? _value.predicate
+          : predicate // ignore: cast_nullable_to_non_nullable
+              as Expression?,
+      perLoop: perLoop == freezed
+          ? _value.perLoop
+          : perLoop // ignore: cast_nullable_to_non_nullable
+              as Expression?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as Statement,
+    ));
+  }
+
+  @override
+  $StatementCopyWith<$Res>? get initializer {
+    if (_value.initializer == null) {
+      return null;
+    }
+
+    return $StatementCopyWith<$Res>(_value.initializer!, (value) {
+      return _then(_value.copyWith(initializer: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res>? get predicate {
+    if (_value.predicate == null) {
+      return null;
+    }
+
+    return $ExpressionCopyWith<$Res>(_value.predicate!, (value) {
+      return _then(_value.copyWith(predicate: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res>? get perLoop {
+    if (_value.perLoop == null) {
+      return null;
+    }
+
+    return $ExpressionCopyWith<$Res>(_value.perLoop!, (value) {
+      return _then(_value.copyWith(perLoop: value));
+    });
+  }
+
+  @override
+  $StatementCopyWith<$Res> get body {
+    return $StatementCopyWith<$Res>(_value.body, (value) {
+      return _then(_value.copyWith(body: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ForLoop implements ForLoop {
+  const _$ForLoop(
+      {this.initializer, this.predicate, this.perLoop, required this.body});
+
+  @override
+  final Statement? initializer;
+  @override
+  final Expression? predicate;
+  @override
+  final Expression? perLoop;
+  @override
+  final Statement body;
+
+  @override
+  String toString() {
+    return 'Statement.forLoop(initializer: $initializer, predicate: $predicate, perLoop: $perLoop, body: $body)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ForLoop &&
+            const DeepCollectionEquality()
+                .equals(other.initializer, initializer) &&
+            const DeepCollectionEquality().equals(other.predicate, predicate) &&
+            const DeepCollectionEquality().equals(other.perLoop, perLoop) &&
+            const DeepCollectionEquality().equals(other.body, body));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(initializer),
+      const DeepCollectionEquality().hash(predicate),
+      const DeepCollectionEquality().hash(perLoop),
+      const DeepCollectionEquality().hash(body));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$ForLoopCopyWith<_$ForLoop> get copyWith =>
+      __$$ForLoopCopyWithImpl<_$ForLoop>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Expression expression) expression,
+    required TResult Function(Expression expression) print,
+    required TResult Function(Token brace, List<Statement> blocks) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
+    required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
+    required TResult Function(Expression predicate, Statement body) whileLoop,
+    required TResult Function(Expression predicate, Statement yes) justIf,
+    required TResult Function(Expression predicate, Statement yes, Statement no)
+        ifElse,
+  }) {
+    return forLoop(initializer, predicate, perLoop, body);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression expression)? expression,
+    TResult Function(Expression expression)? print,
+    TResult Function(Token brace, List<Statement> blocks)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
+    TResult Function(Expression predicate, Statement body)? whileLoop,
+    TResult Function(Expression predicate, Statement yes)? justIf,
+    TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
+  }) {
+    return forLoop?.call(initializer, predicate, perLoop, body);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression expression)? expression,
+    TResult Function(Expression expression)? print,
+    TResult Function(Token brace, List<Statement> blocks)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
+    TResult Function(Expression predicate, Statement body)? whileLoop,
+    TResult Function(Expression predicate, Statement yes)? justIf,
+    TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
+    required TResult orElse(),
+  }) {
+    if (forLoop != null) {
+      return forLoop(initializer, predicate, perLoop, body);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ExpressionStatement value) expression,
+    required TResult Function(PrintStatement value) print,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
+    required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
+    required TResult Function(While value) whileLoop,
+    required TResult Function(JustIf value) justIf,
+    required TResult Function(IfElse value) ifElse,
+  }) {
+    return forLoop(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ExpressionStatement value)? expression,
+    TResult Function(PrintStatement value)? print,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
+    TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
+    TResult Function(While value)? whileLoop,
+    TResult Function(JustIf value)? justIf,
+    TResult Function(IfElse value)? ifElse,
+  }) {
+    return forLoop?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ExpressionStatement value)? expression,
+    TResult Function(PrintStatement value)? print,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
+    TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
+    TResult Function(While value)? whileLoop,
+    TResult Function(JustIf value)? justIf,
+    TResult Function(IfElse value)? ifElse,
+    required TResult orElse(),
+  }) {
+    if (forLoop != null) {
+      return forLoop(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ForLoop implements Statement {
+  const factory ForLoop(
+      {final Statement? initializer,
+      final Expression? predicate,
+      final Expression? perLoop,
+      required final Statement body}) = _$ForLoop;
+
+  Statement? get initializer;
+  Expression? get predicate;
+  Expression? get perLoop;
+  Statement get body;
+  @JsonKey(ignore: true)
+  _$$ForLoopCopyWith<_$ForLoop> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1153,6 +1492,9 @@ class _$While implements While {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -1169,6 +1511,9 @@ class _$While implements While {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1184,6 +1529,9 @@ class _$While implements While {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1203,6 +1551,7 @@ class _$While implements While {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -1218,6 +1567,7 @@ class _$While implements While {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1233,6 +1583,7 @@ class _$While implements While {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1351,6 +1702,9 @@ class _$JustIf implements JustIf {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -1367,6 +1721,9 @@ class _$JustIf implements JustIf {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1382,6 +1739,9 @@ class _$JustIf implements JustIf {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1401,6 +1761,7 @@ class _$JustIf implements JustIf {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -1416,6 +1777,7 @@ class _$JustIf implements JustIf {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1431,6 +1793,7 @@ class _$JustIf implements JustIf {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1568,6 +1931,9 @@ class _$IfElse implements IfElse {
     required TResult Function(Token variable, Expression expression)
         declaration,
     required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
     required TResult Function(Expression predicate, Statement body) whileLoop,
     required TResult Function(Expression predicate, Statement yes) justIf,
     required TResult Function(Expression predicate, Statement yes, Statement no)
@@ -1584,6 +1950,9 @@ class _$IfElse implements IfElse {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1599,6 +1968,9 @@ class _$IfElse implements IfElse {
     TResult Function(Token brace, List<Statement> blocks)? block,
     TResult Function(Token variable, Expression expression)? declaration,
     TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
     TResult Function(Expression predicate, Statement body)? whileLoop,
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
@@ -1618,6 +1990,7 @@ class _$IfElse implements IfElse {
     required TResult Function(BlockStatement value) block,
     required TResult Function(DeclarationStatement value) declaration,
     required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
     required TResult Function(While value) whileLoop,
     required TResult Function(JustIf value) justIf,
     required TResult Function(IfElse value) ifElse,
@@ -1633,6 +2006,7 @@ class _$IfElse implements IfElse {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,
@@ -1648,6 +2022,7 @@ class _$IfElse implements IfElse {
     TResult Function(BlockStatement value)? block,
     TResult Function(DeclarationStatement value)? declaration,
     TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
     TResult Function(While value)? whileLoop,
     TResult Function(JustIf value)? justIf,
     TResult Function(IfElse value)? ifElse,

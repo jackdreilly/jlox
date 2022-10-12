@@ -9,6 +9,10 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('for scoped 3', 'for_scoped_3'.prog.missing);
+  test('for scoped 2', () => 'for_scoped_2'.prog.interpreted.equals(3));
+  test('for scoped 1', () => 'for_scoped_1'.prog.interpreted.equals(3));
+  test('for', () => 'for'.prog.interpreted.equals(18));
   test('while', () => 'while'.prog.interpreted.equals(10));
   test('while scoped', () => 'while_scoped'.prog.interpreted.equals(11));
   test('orand', () => 'orand'.prog.interpreted.equals(100));
