@@ -8,44 +8,40 @@ import 'base.dart';
 
 class Interpreter {
   final env = Environment();
-  Object? interpret(Program program) => program.isEmpty
-      ? null
-      : program
-          .map((e) => e.when(
-                forLoop: (initializer, predicate, perLoop, body) => scoped(() {
-                  if (initializer != null) {
-                    interpret([initializer]);
-                  }
-                  while (exp(predicate ?? true.literal).truth) {
-                    scopedStatement(body);
-                    exp(perLoop ?? null.literal);
-                  }
-                  return null;
-                }),
-                whileLoop: (predicate, body) {
-                  while (exp(predicate).truth) {
-                    scopedStatement(body);
-                  }
-                },
-                justIf: (predicate, yes) =>
-                    exp(predicate) as bool ? scopedStatement(yes) : null,
-                ifElse: (predicate, yes, no) => exp(predicate) as bool
-                    ? scopedStatement(yes)
-                    : scopedStatement(no),
-                block: (token, blocks) => scoped(() => interpret(blocks)),
-                expression: exp,
-                print: (expression) {
-                  print(exp(expression));
-                },
-                uninitialized: (variable) {
-                  env.define(variable.literal);
-                },
-                declaration: (variable, expression) {
-                  env.declare(variable.literal, exp(expression));
-                },
-              ))
-          .list
-          .last;
+  Object? interpret(Program program) =>
+      program.isEmpty ? null : program.map(interpretStatement).list.last;
+
+  Object? interpretStatement(Statement statement) => statement.when(
+        forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
+            Statement.whileLoop(
+                    predicate: predicate ?? true.literal,
+                    body: body.blocked(perLoop?.statement, true))
+                .blocked(initializer, false)),
+        whileLoop: (predicate, body) {
+          while (exp(predicate).truth) {
+            scopedStatement(body);
+          }
+          return null;
+        },
+        justIf: (predicate, yes) =>
+            exp(predicate) as bool ? scopedStatement(yes) : null,
+        ifElse: (predicate, yes, no) =>
+            exp(predicate) as bool ? scopedStatement(yes) : scopedStatement(no),
+        block: (token, blocks) => scoped(() => interpret(blocks)),
+        expression: exp,
+        print: (expression) {
+          print(exp(expression));
+          return null;
+        },
+        uninitialized: (variable) {
+          env.define(variable.literal);
+          return null;
+        },
+        declaration: (variable, expression) {
+          env.declare(variable.literal, exp(expression));
+          return null;
+        },
+      );
 
   Object? exp(Expression? expression) => expression?.when(
         assignment: (token, expression) =>
@@ -70,4 +66,13 @@ class Interpreter {
 
   Object? scopedStatement(Statement statement) =>
       scoped(() => interpret([statement]));
+}
+
+extension on Statement {
+  Statement blocked(Statement? other, bool front) => other == null
+      ? this
+      : Statement.block(
+          brace: Token(
+              lexeme: "{", literal: null, line: 0, tokenType: TT.LEFT_BRACE),
+          blocks: front ? [this, other] : [other, this]);
 }
