@@ -28,11 +28,11 @@ extension OpExt on Token {
   op(a, [b]) => {
         TT.MINUS: (a, b) => n(a) - n(b),
         TT.PLUS: (a, b) {
-          try {
-            return n(a) + n(b);
-          } on CheckTokenError {
-            return s(a) + s(b);
+          if ((a is num && b is num) || (a is String && b is String)) {
+            return a + b;
           }
+          throw CheckTokenError(
+              token: this, checked: a is num ? b : a, type: num);
         },
         TT.SLASH: (a, b) => n(a) / n(b),
         TT.STAR: (a, b) => n(a) * n(b),

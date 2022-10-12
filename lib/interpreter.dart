@@ -6,24 +6,30 @@ import 'package:jlox/token_type.dart';
 
 import 'base.dart';
 
-extension on Iterable {
-  Object? get lastOrNull => isEmpty ? null : last;
-}
-
 class Interpreter {
   final env = Environment();
-  Object? interpret(Program program) =>
-      program.map(interpretStatement).takeWhile(shouldEvaluate).list.lastOrNull;
   bool _broken = false;
+  bool _returned = false;
+  Object? interpret(Program program) {
+    Object? value;
+    for (final statement in program) {
+      if (_broken || _returned) {
+        return value;
+      }
+      value = interpretStatement(statement);
+    }
+    return value;
+  }
 
   Object? interpretStatement(Statement statement) => statement.when(
-        returnStatement: (_, returnValue) => exp(returnValue),
+        returnStatement: (_, returnValue) =>
+            exp(returnValue).and(() => _returned = true),
         function: (functionName, parameters, body) => env.declare(
             functionName.literal,
             (Iterable arguments) => scoped(() {
                   parameters.zip(arguments).forEach((element) =>
                       env.declare(element.item1.literal, element.item2));
-                  return interpretStatement(body);
+                  return interpretStatement(body).and(() => _returned = false);
                 })),
         breakStatement: (token) => _broken = true,
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(

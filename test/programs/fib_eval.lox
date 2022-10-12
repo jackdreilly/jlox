@@ -1,5 +1,11 @@
 fun fib(n) {
-    return n < 2 ? 1 : fib(n - 1) + fib(n - 2);
+    if (n < 2) {
+        return 1;
+    }
+    var a = fib(n - 1);
+    var b = fib(n - 2);
+    var c = a + b;
+    return c;
 }
 // 1,1,2,3,5
 var y = fib(4);
