@@ -47,8 +47,12 @@ class _Parser {
     return [declaration(), ...program()];
   }
 
-  Statement declaration() =>
-      (match({TT.VAR}) ? variableDeclaration() : statement()).and(maybeSemi);
+  Statement declaration() => ({
+            TT.VAR: variableDeclaration,
+            TT.FUN: function,
+          }[tokenType] ??
+          statement)()
+      .and(maybeSemi);
   Token? maybeSemi() => match({TT.SEMICOLON}) ? eat : null;
 
   Statement variableDeclaration() {
@@ -64,7 +68,6 @@ class _Parser {
   }
 
   Statement statement() => ({
-        TT.FUN: function,
         TT.FOR: forLoop,
         TT.WHILE: whileLoop,
         TT.IF: ifElse,
