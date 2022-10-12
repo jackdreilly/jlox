@@ -16,7 +16,9 @@ class VariableValue with _$VariableValue {
 const sentinel = Object();
 
 class Environment {
-  final List<State> states = [{}];
+  final List<State> states;
+  Environment([List<State>? states]) : states = states ?? [{}];
+  Environment get clone => Environment(states.list);
   State get state => states.last;
   get push => states.add({});
   get pop => states.removeLast();

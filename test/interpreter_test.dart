@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('cons', () => 'cons'.prog.interpreted.equals("reilly"));
   test('fib eval', () => 'fib_eval_ternary'.prog.interpreted.equals(5));
   test('fib eval', () => 'fib_eval'.prog.interpreted.equals(5));
   test('subber',

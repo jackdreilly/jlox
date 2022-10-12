@@ -1,0 +1,21 @@
+fun cons(a,b) {
+    fun helper(c) {
+        if (c) {
+            return a;
+        }
+        return b;
+    }
+    return helper;
+}
+
+fun cat(pair) {
+    return pair(true);
+}
+fun cdr(pair) {
+    return pair(false);
+}
+var jack = "reilly";
+var olga = "kavvada";
+var a = cons(jack,olga);
+var b = cat(a);
+b;

@@ -7,7 +7,8 @@ import 'package:jlox/token_type.dart';
 import 'base.dart';
 
 class Interpreter {
-  final env = Environment();
+  final envs = [Environment()];
+  Environment get env => envs.last;
   bool _broken = false;
   bool _returned = false;
   Object? interpret(Program program) {
@@ -24,13 +25,18 @@ class Interpreter {
   Object? interpretStatement(Statement statement) => statement.when(
         returnStatement: (_, returnValue) =>
             exp(returnValue).and(() => _returned = true),
-        function: (functionName, parameters, body) => env.declare(
+        function: (functionName, parameters, body) {
+          final forked = env.clone;
+          env.declare(
             functionName.literal,
             (Iterable arguments) => scoped(() {
-                  parameters.zip(arguments).forEach((element) =>
-                      env.declare(element.item1.literal, element.item2));
-                  return interpretStatement(body).and(() => _returned = false);
-                })),
+              parameters.zip(arguments).forEach((element) =>
+                  env.declare(element.item1.literal, element.item2));
+              return interpretStatement(body).and(() => _returned = false);
+            }, forked),
+          );
+          return null;
+        },
         breakStatement: (token) => _broken = true,
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
             Statement.whileLoop(
@@ -88,10 +94,12 @@ class Interpreter {
         unary: (token, expression) => token.op(exp(expression)),
       );
 
-  Object? scoped(Object? Function() callback) {
+  Object? scoped(Object? Function() callback, [Environment? forked]) {
+    envs.add(forked ?? env);
     env.push;
     final value = callback();
     env.pop;
+    envs.removeLast();
     return value;
   }
 
