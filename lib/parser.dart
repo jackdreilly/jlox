@@ -191,7 +191,8 @@ class _Parser {
     return Statement.whileLoop(predicate: predicate, body: body);
   }
 
-  Expression expression() => assignment();
+  Expression expression() => comma();
+  Expression comma() => starred(assignment, {TT.COMMA});
   Expression assignment() {
     final expr = logicOr();
     if (match({TT.EQUAL})) {
@@ -206,8 +207,7 @@ class _Parser {
   }
 
   Expression logicOr() => starred(logicAnd, {TT.OR});
-  Expression logicAnd() => starred(comma, {TT.AND});
-  Expression comma() => starred(ternary, {TT.COMMA});
+  Expression logicAnd() => starred(ternary, {TT.AND});
   Expression ternary() {
     final predicate = equality();
     if (match({TT.QUESTION_MARK})) {
@@ -230,7 +230,35 @@ class _Parser {
   Expression factor() => starred(unary, {TT.STAR, TT.SLASH});
   Expression unary() => match({TT.MINUS, TT.BANG})
       ? Expression.unary(token: token.and(() => eat), expression: unary())
-      : primary();
+      : invocation();
+  Expression invocation() {
+    final callee = primary();
+    final invocations = <List<Expression>>[];
+    while (match({TT.LEFT_PAREN})) {
+      eat;
+      if (match({TT.RIGHT_PAREN})) {
+        eat;
+        invocations.add([]);
+        continue;
+      }
+      final arguments = <Expression>[];
+      while (true) {
+        arguments.add(assignment());
+        if (match({TT.COMMA})) {
+          eat;
+          continue;
+        }
+        expect(TT.RIGHT_PAREN);
+        break;
+      }
+      invocations.add(arguments);
+    }
+    if (invocations.isEmpty) {
+      return callee;
+    }
+    return Expression.invocation(callee: callee, invocations: invocations);
+  }
+
   Expression primary() {
     if (isAtEnd) {
       throw fail("Unexpected EOF");

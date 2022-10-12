@@ -25,6 +25,10 @@ class Expression with _$Expression {
   }) = Unary;
   const factory Expression.variable({required Token token}) = Identifier;
   const factory Expression.literal(value) = Literal;
+  const factory Expression.invocation({
+    required Expression callee,
+    required List<List<Expression>> invocations,
+  }) = Invocation;
   const factory Expression.grouping(Expression expression) = Grouping;
   const factory Expression.assignment(
       {required Token token, required Expression expression}) = Assignment;
@@ -36,6 +40,8 @@ extension on Iterable {
 
 extension ExpressionString on Expression {
   String get pretty => when(
+        invocation: (callee, arguments) =>
+            '${callee.pretty}${arguments.map((e) => '(${e.map((e) => e.pretty).join(',')})').join()}',
         assignment: (token, expression) =>
             [token.pretty, '=', expression.pretty].unwords,
         variable: (token) => token.lexeme,

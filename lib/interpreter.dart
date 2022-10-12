@@ -7,7 +7,7 @@ import 'package:jlox/token_type.dart';
 import 'base.dart';
 
 extension on Iterable {
-  get lastOrNull => isEmpty ? null : last;
+  Object? get lastOrNull => isEmpty ? null : last;
 }
 
 class Interpreter {
@@ -15,20 +15,15 @@ class Interpreter {
   Object? interpret(Program program) =>
       program.map(interpretStatement).takeWhile(shouldEvaluate).list.lastOrNull;
   bool _broken = false;
-  bool _returned = false;
 
   Object? interpretStatement(Statement statement) => statement.when(
-        returnStatement: (_, returnValue) {
-          _returned = true;
-          return exp(returnValue);
-        },
+        returnStatement: (_, returnValue) => exp(returnValue),
         function: (functionName, parameters, body) => env.declare(
             functionName.literal,
-            (Iterable callParameters) => scoped(() {
-                  parameters.zip(callParameters).forEach((element) =>
+            (Iterable arguments) => scoped(() {
+                  parameters.zip(arguments).forEach((element) =>
                       env.declare(element.item1.literal, element.item2));
-                  interpretStatement(body);
-                  return null;
+                  return interpretStatement(body);
                 })),
         breakStatement: (token) => _broken = true,
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
@@ -67,6 +62,13 @@ class Interpreter {
       );
 
   Object? exp(Expression? expression) => expression?.when(
+        invocation: (callee, arguments) {
+          var value = exp(callee);
+          for (final argument in arguments) {
+            value = (value as dynamic)(argument.map(exp));
+          }
+          return value;
+        },
         assignment: (token, expression) =>
             env.assign(token.literal, exp(expression)),
         binary: (token, left, right) => token.tokenType.isShortCircuit
@@ -90,7 +92,7 @@ class Interpreter {
   Object? scopedStatement(Statement statement) =>
       scoped(() => interpret([statement]));
 
-  bool shouldEvaluate(Object? _) => [_broken, _returned].every((e) => !e);
+  bool shouldEvaluate(Object? _) => !_broken;
 }
 
 extension on Statement {

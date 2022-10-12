@@ -10,6 +10,13 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test(
+      'a(b,c)()(d,e,f)',
+      () => ('a(b,c)()(d,e,f)'.parse.first as ExpressionStatement)
+          .expression
+          .equals(isA<Invocation>()));
+  test('a(b,c)()(d,e,f)',
+      () => 'a(b,c)()(d,e,f)'.parse.pretty.equals('a(b,c)()(d,e,f)'));
   test('return value fail', 'return 3'.fails);
   test('return fail', 'return'.fails);
   test(

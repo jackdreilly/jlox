@@ -26,6 +26,9 @@ mixin _$Expression {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) =>
@@ -38,6 +41,8 @@ mixin _$Expression {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) =>
@@ -50,6 +55,8 @@ mixin _$Expression {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -62,6 +69,7 @@ mixin _$Expression {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) =>
@@ -73,6 +81,7 @@ mixin _$Expression {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) =>
@@ -84,6 +93,7 @@ mixin _$Expression {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -222,6 +232,9 @@ class _$Ternary implements Ternary {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -237,6 +250,8 @@ class _$Ternary implements Ternary {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -252,6 +267,8 @@ class _$Ternary implements Ternary {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -270,6 +287,7 @@ class _$Ternary implements Ternary {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -284,6 +302,7 @@ class _$Ternary implements Ternary {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -298,6 +317,7 @@ class _$Ternary implements Ternary {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -438,6 +458,9 @@ class _$Binary implements Binary {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -453,6 +476,8 @@ class _$Binary implements Binary {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -468,6 +493,8 @@ class _$Binary implements Binary {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -486,6 +513,7 @@ class _$Binary implements Binary {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -500,6 +528,7 @@ class _$Binary implements Binary {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -514,6 +543,7 @@ class _$Binary implements Binary {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -637,6 +667,9 @@ class _$Unary implements Unary {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -652,6 +685,8 @@ class _$Unary implements Unary {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -667,6 +702,8 @@ class _$Unary implements Unary {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -685,6 +722,7 @@ class _$Unary implements Unary {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -699,6 +737,7 @@ class _$Unary implements Unary {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -713,6 +752,7 @@ class _$Unary implements Unary {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -816,6 +856,9 @@ class _$Identifier implements Identifier {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -831,6 +874,8 @@ class _$Identifier implements Identifier {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -846,6 +891,8 @@ class _$Identifier implements Identifier {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -864,6 +911,7 @@ class _$Identifier implements Identifier {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -878,6 +926,7 @@ class _$Identifier implements Identifier {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -892,6 +941,7 @@ class _$Identifier implements Identifier {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -979,6 +1029,9 @@ class _$Literal implements Literal {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -994,6 +1047,8 @@ class _$Literal implements Literal {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -1009,6 +1064,8 @@ class _$Literal implements Literal {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -1027,6 +1084,7 @@ class _$Literal implements Literal {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -1041,6 +1099,7 @@ class _$Literal implements Literal {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -1055,6 +1114,7 @@ class _$Literal implements Literal {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -1072,6 +1132,213 @@ abstract class Literal implements Expression {
   dynamic get value;
   @JsonKey(ignore: true)
   _$$LiteralCopyWith<_$Literal> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InvocationCopyWith<$Res> {
+  factory _$$InvocationCopyWith(
+          _$Invocation value, $Res Function(_$Invocation) then) =
+      __$$InvocationCopyWithImpl<$Res>;
+  $Res call({Expression callee, List<List<Expression>> invocations});
+
+  $ExpressionCopyWith<$Res> get callee;
+}
+
+/// @nodoc
+class __$$InvocationCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$InvocationCopyWith<$Res> {
+  __$$InvocationCopyWithImpl(
+      _$Invocation _value, $Res Function(_$Invocation) _then)
+      : super(_value, (v) => _then(v as _$Invocation));
+
+  @override
+  _$Invocation get _value => super._value as _$Invocation;
+
+  @override
+  $Res call({
+    Object? callee = freezed,
+    Object? invocations = freezed,
+  }) {
+    return _then(_$Invocation(
+      callee: callee == freezed
+          ? _value.callee
+          : callee // ignore: cast_nullable_to_non_nullable
+              as Expression,
+      invocations: invocations == freezed
+          ? _value._invocations
+          : invocations // ignore: cast_nullable_to_non_nullable
+              as List<List<Expression>>,
+    ));
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get callee {
+    return $ExpressionCopyWith<$Res>(_value.callee, (value) {
+      return _then(_value.copyWith(callee: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Invocation implements Invocation {
+  const _$Invocation(
+      {required this.callee, required final List<List<Expression>> invocations})
+      : _invocations = invocations;
+
+  @override
+  final Expression callee;
+  final List<List<Expression>> _invocations;
+  @override
+  List<List<Expression>> get invocations {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_invocations);
+  }
+
+  @override
+  String toString() {
+    return 'Expression.invocation(callee: $callee, invocations: $invocations)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Invocation &&
+            const DeepCollectionEquality().equals(other.callee, callee) &&
+            const DeepCollectionEquality()
+                .equals(other._invocations, _invocations));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(callee),
+      const DeepCollectionEquality().hash(_invocations));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$InvocationCopyWith<_$Invocation> get copyWith =>
+      __$$InvocationCopyWithImpl<_$Invocation>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(Token token, Expression left, Expression right)
+        binary,
+    required TResult Function(Token token, Expression expression) unary,
+    required TResult Function(Token token) variable,
+    required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
+    required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
+  }) {
+    return invocation(callee, invocations);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
+    TResult Function(Token token)? variable,
+    TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
+    TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
+  }) {
+    return invocation?.call(callee, invocations);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
+    TResult Function(Token token)? variable,
+    TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
+    TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
+    required TResult orElse(),
+  }) {
+    if (invocation != null) {
+      return invocation(callee, invocations);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Identifier value) variable,
+    required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
+    required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
+  }) {
+    return invocation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Identifier value)? variable,
+    TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
+    TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
+  }) {
+    return invocation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Identifier value)? variable,
+    TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
+    TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
+    required TResult orElse(),
+  }) {
+    if (invocation != null) {
+      return invocation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Invocation implements Expression {
+  const factory Invocation(
+      {required final Expression callee,
+      required final List<List<Expression>> invocations}) = _$Invocation;
+
+  Expression get callee;
+  List<List<Expression>> get invocations;
+  @JsonKey(ignore: true)
+  _$$InvocationCopyWith<_$Invocation> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1156,6 +1423,9 @@ class _$Grouping implements Grouping {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -1171,6 +1441,8 @@ class _$Grouping implements Grouping {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -1186,6 +1458,8 @@ class _$Grouping implements Grouping {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -1204,6 +1478,7 @@ class _$Grouping implements Grouping {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -1218,6 +1493,7 @@ class _$Grouping implements Grouping {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -1232,6 +1508,7 @@ class _$Grouping implements Grouping {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
@@ -1352,6 +1629,9 @@ class _$Assignment implements Assignment {
     required TResult Function(Token token, Expression expression) unary,
     required TResult Function(Token token) variable,
     required TResult Function(dynamic value) literal,
+    required TResult Function(
+            Expression callee, List<List<Expression>> invocations)
+        invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
   }) {
@@ -1367,6 +1647,8 @@ class _$Assignment implements Assignment {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
   }) {
@@ -1382,6 +1664,8 @@ class _$Assignment implements Assignment {
     TResult Function(Token token, Expression expression)? unary,
     TResult Function(Token token)? variable,
     TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, List<List<Expression>> invocations)?
+        invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
     required TResult orElse(),
@@ -1400,6 +1684,7 @@ class _$Assignment implements Assignment {
     required TResult Function(Unary value) unary,
     required TResult Function(Identifier value) variable,
     required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
   }) {
@@ -1414,6 +1699,7 @@ class _$Assignment implements Assignment {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
   }) {
@@ -1428,6 +1714,7 @@ class _$Assignment implements Assignment {
     TResult Function(Unary value)? unary,
     TResult Function(Identifier value)? variable,
     TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
     required TResult orElse(),
