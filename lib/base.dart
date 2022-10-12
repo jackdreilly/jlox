@@ -36,6 +36,7 @@ extension on int {
 
 extension Log<T> on T {
   T get log => and(() => print(this));
+  T tag(v) => and(() => print([v, this].unwords));
 }
 
 extension WordsExt on Iterable {

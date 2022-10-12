@@ -68,9 +68,17 @@ class _Parser {
         TT.IF: ifElse,
         TT.LEFT_BRACE: block,
         TT.PRINT: printStatement,
+        TT.BREAK: breakStatement,
       }[tokenType] ??
       expressionStatement)();
+  Token get breakToken {
+    if (breakableCount > 0) {
+      return expect(TT.BREAK);
+    }
+    throw fail("break statement must be inside for/while loop ${token.string}");
+  }
 
+  Statement breakStatement() => Statement.breakStatement(breakToken);
   Statement expressionStatement() => Statement.expression(expression());
   Statement forLoop() {
     expect(TT.FOR);
@@ -87,7 +95,7 @@ class _Parser {
       initializer: initializer().and(maybeSemi),
       predicate: predicate().and(() => expect(TT.SEMICOLON)),
       perLoop: perLoop().and(() => expect(TT.RIGHT_PAREN)),
-      body: statement(),
+      body: statement.breakable(this),
     );
   }
 
@@ -120,12 +128,14 @@ class _Parser {
     return Statement.justIf(predicate: predicate, yes: yes);
   }
 
+  int breakableCount = 0;
+
   Statement whileLoop() {
     eat;
     expect(TT.LEFT_PAREN);
     final predicate = expression();
     expect(TT.RIGHT_PAREN);
-    final body = statement();
+    final body = statement.breakable(this);
     return Statement.whileLoop(predicate: predicate, body: body);
   }
 
@@ -138,7 +148,7 @@ class _Parser {
       return expr.maybeWhen(
           variable: (token) =>
               Expression.assignment(expression: right, token: token),
-          orElse: () => fail("Invalid assignment at ${equal.string}"));
+          orElse: () => throw fail("Invalid assignment at ${equal.string}"));
     }
     return expr;
   }
@@ -170,6 +180,9 @@ class _Parser {
       ? Expression.unary(token: token.and(() => eat), expression: unary())
       : primary();
   Expression primary() {
+    if (isAtEnd) {
+      throw fail("Unexpected EOF");
+    }
     final maybeExpression = token.expression;
     if (maybeExpression != null) {
       eat;
@@ -181,13 +194,12 @@ class _Parser {
       expect(TT.RIGHT_PAREN);
       return grouping;
     }
-    fail("Expected primary, got ${token.string}");
-    return Expression.literal(null);
+    throw fail("Expected primary, got ${token.string}");
   }
 
-  fail(String message) {
+  ParseError fail(String message) {
     report(message);
-    throw ParseError();
+    return ParseError();
   }
 
   Expression starred(Expression Function() maker, Set<TT> tokens) {
@@ -200,7 +212,9 @@ class _Parser {
     return c;
   }
 
-  bool match(Iterable<TT> tokens) => tokens.contains(tokenType);
+  bool get isAtEnd => current >= tokens.length;
+
+  bool match(Iterable<TT> tokens) => !isAtEnd && tokens.contains(tokenType);
   TT get tokenType => token.tokenType;
   dynamic get literal => token.literal;
   Token get token => tokens[current];
@@ -211,5 +225,14 @@ class _Parser {
 class ParseError extends Error {
   ParseError() {
     hadError = true;
+  }
+}
+
+extension on Statement Function() {
+  Statement breakable(_Parser parser) {
+    parser.breakableCount++;
+    final value = this();
+    parser.breakableCount--;
+    return value;
   }
 }

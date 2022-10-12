@@ -1,0 +1,6 @@
+var a = 3;
+while (true) {
+    break;
+    a = 5;
+}
+a;

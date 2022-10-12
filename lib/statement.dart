@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jlox/base.dart';
+import 'package:jlox/token_type.dart';
 
 import 'expression.dart';
 import 'token.dart';
@@ -8,6 +9,7 @@ part 'statement.freezed.dart';
 
 @freezed
 class Statement with _$Statement {
+  const factory Statement.breakStatement(Token token) = Break;
   const factory Statement.expression(Expression expression) =
       ExpressionStatement;
   const factory Statement.print(Expression expression) = PrintStatement;
@@ -41,6 +43,7 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
+      breakStatement: (token) => token.tokenType.string,
       forLoop: (initializer, predicate, perLoop, body) =>
           'for (${initializer?.pretty ?? ''};${predicate?.pretty ?? ''};${perLoop?.pretty ?? ''}) ${body.pretty}',
       whileLoop: (predicate, body) =>

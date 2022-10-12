@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Statement {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -35,6 +36,7 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -50,6 +52,7 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -66,6 +69,7 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -79,6 +83,7 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -92,6 +97,7 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -119,6 +125,201 @@ class _$StatementCopyWithImpl<$Res> implements $StatementCopyWith<$Res> {
   final Statement _value;
   // ignore: unused_field
   final $Res Function(Statement) _then;
+}
+
+/// @nodoc
+abstract class _$$BreakCopyWith<$Res> {
+  factory _$$BreakCopyWith(_$Break value, $Res Function(_$Break) then) =
+      __$$BreakCopyWithImpl<$Res>;
+  $Res call({Token token});
+
+  $TokenCopyWith<$Res> get token;
+}
+
+/// @nodoc
+class __$$BreakCopyWithImpl<$Res> extends _$StatementCopyWithImpl<$Res>
+    implements _$$BreakCopyWith<$Res> {
+  __$$BreakCopyWithImpl(_$Break _value, $Res Function(_$Break) _then)
+      : super(_value, (v) => _then(v as _$Break));
+
+  @override
+  _$Break get _value => super._value as _$Break;
+
+  @override
+  $Res call({
+    Object? token = freezed,
+  }) {
+    return _then(_$Break(
+      token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as Token,
+    ));
+  }
+
+  @override
+  $TokenCopyWith<$Res> get token {
+    return $TokenCopyWith<$Res>(_value.token, (value) {
+      return _then(_value.copyWith(token: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Break implements Break {
+  const _$Break(this.token);
+
+  @override
+  final Token token;
+
+  @override
+  String toString() {
+    return 'Statement.breakStatement(token: $token)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Break &&
+            const DeepCollectionEquality().equals(other.token, token));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(token));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$BreakCopyWith<_$Break> get copyWith =>
+      __$$BreakCopyWithImpl<_$Break>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
+    required TResult Function(Expression expression) expression,
+    required TResult Function(Expression expression) print,
+    required TResult Function(Token brace, List<Statement> blocks) block,
+    required TResult Function(Token variable, Expression expression)
+        declaration,
+    required TResult Function(Token variable) uninitialized,
+    required TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)
+        forLoop,
+    required TResult Function(Expression predicate, Statement body) whileLoop,
+    required TResult Function(Expression predicate, Statement yes) justIf,
+    required TResult Function(Expression predicate, Statement yes, Statement no)
+        ifElse,
+  }) {
+    return breakStatement(token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
+    TResult Function(Expression expression)? expression,
+    TResult Function(Expression expression)? print,
+    TResult Function(Token brace, List<Statement> blocks)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
+    TResult Function(Expression predicate, Statement body)? whileLoop,
+    TResult Function(Expression predicate, Statement yes)? justIf,
+    TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
+  }) {
+    return breakStatement?.call(token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
+    TResult Function(Expression expression)? expression,
+    TResult Function(Expression expression)? print,
+    TResult Function(Token brace, List<Statement> blocks)? block,
+    TResult Function(Token variable, Expression expression)? declaration,
+    TResult Function(Token variable)? uninitialized,
+    TResult Function(Statement? initializer, Expression? predicate,
+            Expression? perLoop, Statement body)?
+        forLoop,
+    TResult Function(Expression predicate, Statement body)? whileLoop,
+    TResult Function(Expression predicate, Statement yes)? justIf,
+    TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
+    required TResult orElse(),
+  }) {
+    if (breakStatement != null) {
+      return breakStatement(token);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
+    required TResult Function(ExpressionStatement value) expression,
+    required TResult Function(PrintStatement value) print,
+    required TResult Function(BlockStatement value) block,
+    required TResult Function(DeclarationStatement value) declaration,
+    required TResult Function(Uninitialized value) uninitialized,
+    required TResult Function(ForLoop value) forLoop,
+    required TResult Function(While value) whileLoop,
+    required TResult Function(JustIf value) justIf,
+    required TResult Function(IfElse value) ifElse,
+  }) {
+    return breakStatement(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
+    TResult Function(ExpressionStatement value)? expression,
+    TResult Function(PrintStatement value)? print,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
+    TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
+    TResult Function(While value)? whileLoop,
+    TResult Function(JustIf value)? justIf,
+    TResult Function(IfElse value)? ifElse,
+  }) {
+    return breakStatement?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
+    TResult Function(ExpressionStatement value)? expression,
+    TResult Function(PrintStatement value)? print,
+    TResult Function(BlockStatement value)? block,
+    TResult Function(DeclarationStatement value)? declaration,
+    TResult Function(Uninitialized value)? uninitialized,
+    TResult Function(ForLoop value)? forLoop,
+    TResult Function(While value)? whileLoop,
+    TResult Function(JustIf value)? justIf,
+    TResult Function(IfElse value)? ifElse,
+    required TResult orElse(),
+  }) {
+    if (breakStatement != null) {
+      return breakStatement(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Break implements Statement {
+  const factory Break(final Token token) = _$Break;
+
+  Token get token;
+  @JsonKey(ignore: true)
+  _$$BreakCopyWith<_$Break> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -197,6 +398,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -217,6 +419,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -235,6 +438,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -257,6 +461,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -273,6 +478,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -289,6 +495,7 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -391,6 +598,7 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -411,6 +619,7 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -429,6 +638,7 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -451,6 +661,7 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -467,6 +678,7 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -483,6 +695,7 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -599,6 +812,7 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -619,6 +833,7 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -637,6 +852,7 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -659,6 +875,7 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -675,6 +892,7 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -691,6 +909,7 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -816,6 +1035,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -836,6 +1056,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -854,6 +1075,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -876,6 +1098,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -892,6 +1115,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -908,6 +1132,7 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1011,6 +1236,7 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -1031,6 +1257,7 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1049,6 +1276,7 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1071,6 +1299,7 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -1087,6 +1316,7 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1103,6 +1333,7 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1271,6 +1502,7 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -1291,6 +1523,7 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1309,6 +1542,7 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1331,6 +1565,7 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -1347,6 +1582,7 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1363,6 +1599,7 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1486,6 +1723,7 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -1506,6 +1744,7 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1524,6 +1763,7 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1546,6 +1786,7 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -1562,6 +1803,7 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1578,6 +1820,7 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1696,6 +1939,7 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -1716,6 +1960,7 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1734,6 +1979,7 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1756,6 +2002,7 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -1772,6 +2019,7 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1788,6 +2036,7 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -1925,6 +2174,7 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Token token) breakStatement,
     required TResult Function(Expression expression) expression,
     required TResult Function(Expression expression) print,
     required TResult Function(Token brace, List<Statement> blocks) block,
@@ -1945,6 +2195,7 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1963,6 +2214,7 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Token token)? breakStatement,
     TResult Function(Expression expression)? expression,
     TResult Function(Expression expression)? print,
     TResult Function(Token brace, List<Statement> blocks)? block,
@@ -1985,6 +2237,7 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Break value) breakStatement,
     required TResult Function(ExpressionStatement value) expression,
     required TResult Function(PrintStatement value) print,
     required TResult Function(BlockStatement value) block,
@@ -2001,6 +2254,7 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,
@@ -2017,6 +2271,7 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Break value)? breakStatement,
     TResult Function(ExpressionStatement value)? expression,
     TResult Function(PrintStatement value)? print,
     TResult Function(BlockStatement value)? block,

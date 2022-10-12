@@ -6,12 +6,21 @@ import 'package:jlox/token_type.dart';
 
 import 'base.dart';
 
+extension on Iterable {
+  get lastOrNull => isEmpty ? null : last;
+}
+
 class Interpreter {
   final env = Environment();
-  Object? interpret(Program program) =>
-      program.isEmpty ? null : program.map(interpretStatement).list.last;
+  Object? interpret(Program program) => program
+      .map(interpretStatement)
+      .takeWhile((value) => !_broken)
+      .list
+      .lastOrNull;
+  bool _broken = false;
 
   Object? interpretStatement(Statement statement) => statement.when(
+        breakStatement: (token) => _broken = true,
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
             Statement.whileLoop(
                     predicate: predicate ?? true.literal,
@@ -20,6 +29,10 @@ class Interpreter {
         whileLoop: (predicate, body) {
           while (exp(predicate).truth) {
             scopedStatement(body);
+            if (_broken) {
+              _broken = false;
+              break;
+            }
           }
           return null;
         },

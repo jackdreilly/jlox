@@ -1,0 +1,14 @@
+var a = 3;
+while (true) {
+    while (true) {
+        break;
+        a = 100;
+    }
+    if (a < 100) {
+        a = 6;
+        break;
+        a = 8;
+    }
+    a = 1000;
+}
+a;

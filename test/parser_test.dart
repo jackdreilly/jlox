@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:jlox/base.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/parser.dart';
@@ -7,6 +10,13 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('break good for brace', 'for (;;) {break}'.succeeds);
+  test('break good for', 'for (;;) break'.succeeds);
+  test('break good while brace', 'while (true) {break}'.succeeds);
+  test('break good while', 'while (true) break'.succeeds);
+  test('break count bad', 'break_count_bad'.prog.fails);
+  test('break count', 'break_count'.prog.succeeds);
+  test('break bad', 'break'.fails);
   test(
       'for',
       () => 'for'.prog.parse.pretty.equals('''
@@ -135,4 +145,20 @@ if (
 4
 5
 }'''));
+}
+
+extension on String {
+  fails() {
+    myStderr = IOSink(FakeStreamConsumer());
+    hadError = false;
+    parse;
+    expect(hadError, true);
+    hadError = false;
+  }
+
+  succeeds() {
+    hadError = false;
+    parse;
+    expect(hadError, false);
+  }
 }

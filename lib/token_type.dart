@@ -49,6 +49,7 @@ enum TokenType {
   TRUE,
   VAR,
   WHILE,
+  BREAK,
 
   EOF
 }
@@ -66,6 +67,7 @@ final reservedWords = {
   TT.PRINT,
   TT.RETURN,
   TT.SUPER,
+  TT.BREAK,
   TT.THIS,
   TT.TRUE,
   TT.VAR,

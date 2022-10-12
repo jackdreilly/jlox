@@ -9,6 +9,8 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('break two levels', () => 'break_two'.prog.interpreted.equals(6));
+  test('break', () => 'break'.prog.interpreted.equals(3));
   test('for scoped 3', 'for_scoped_3'.prog.missing);
   test('for scoped 2', () => 'for_scoped_2'.prog.interpreted.equals(3));
   test('for scoped 1', () => 'for_scoped_1'.prog.interpreted.equals(3));
