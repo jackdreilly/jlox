@@ -9,8 +9,9 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
-  test('adder',
-      () => 'fun adder(b,c){return b + c;}adder(5,8);'.interpreted.equals(13));
+  test('fib eval', () => 'fib_eval'.prog.interpreted.equals(5));
+  test('subber',
+      () => 'fun subber(b,c){return b - c;}subber(8,5);'.interpreted.equals(3));
   test('fib', () => expect('fib'.prog.state['fib'], isNotNull));
   test('break two levels', () => 'break_two'.prog.interpreted.equals(6));
   test('break', () => 'break'.prog.interpreted.equals(3));

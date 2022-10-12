@@ -11,6 +11,17 @@ import 'helpers.dart';
 
 void main() {
   test(
+      'fib',
+      () => 'fib'.prog.parse.pretty.equals('''
+fun fib(n) {
+if ((< n 2)) {
+return 1
+}
+return (+ fib((- n 1)) fib((- n 2)))
+}
+'''
+          .trim()));
+  test(
       'a(b,c)()(d,e,f)',
       () => ('a(b,c)()(d,e,f)'.parse.first as ExpressionStatement)
           .expression
