@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('times_2', () => 'times_2'.prog.state['times_2']([5])?.equals(10));
   test('fib', () => expect('fib'.prog.state['fib'], isNotNull));
   test('break two levels', () => 'break_two'.prog.interpreted.equals(6));
   test('break', () => 'break'.prog.interpreted.equals(3));
