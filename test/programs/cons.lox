@@ -1,3 +1,6 @@
+// The symbol of the end of a list
+fun null() {}
+// creates a pair (a,b)
 fun cons(a,b) {
     fun helper(c) {
         if (c) {
@@ -7,15 +10,53 @@ fun cons(a,b) {
     }
     return helper;
 }
+// Returns if your list is empty
+fun isEmpty(list) {
+    return list == null;
+}
 
-fun cat(pair) {
+// A single item list
+fun single(a) {
+    return cons(a, null);
+}
+// (1, (2, (3, null)))
+
+fun head(pair) {
     return pair(true);
 }
-fun cdr(pair) {
+fun tail(pair) {
     return pair(false);
+}
+
+fun map(fn, list) {
+    if (isEmpty(list)) {
+        return list;
+    }
+    return cons(fn(head(list)), map(fn, tail(list)));
+}
+fun fold(fn, init, list) {
+    fun helper(accumulator, rest) {
+        if (isEmpty(rest)) {
+            return accumulator;
+        }
+        return helper(fn(accumulator, head(rest)), tail(rest));
+    }
+    return helper(init, list);
+}
+fun join(joiner, list) {
+    fun helper(accumulator, value) {
+        if (accumulator == "") {
+            return value;
+        }
+        return accumulator + joiner + value;
+    }
+    return fold(helper, "", list)
 }
 var jack = "reilly";
 var olga = "kavvada";
-var a = cons(jack,olga);
-var b = cat(a);
-b;
+var athena = "ravvada";
+fun double(a) return a + a;
+var myList = cons(athena, cons(jack, single(olga)));
+var mapped = map(double, myList);
+var joined = join(", ", mapped);
+joined;

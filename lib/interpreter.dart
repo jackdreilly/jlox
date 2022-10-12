@@ -29,7 +29,7 @@ class Interpreter {
           final forked = env.clone;
           env.declare(
             functionName.literal,
-            (Iterable arguments) => scoped(() {
+            (List arguments) => scoped(() {
               parameters.zip(arguments).forEach((element) =>
                   env.declare(element.item1.literal, element.item2));
               return interpretStatement(body).and(() => _returned = false);
@@ -77,7 +77,7 @@ class Interpreter {
         invocation: (callee, arguments) {
           var value = exp(callee);
           for (final argument in arguments) {
-            value = (value as dynamic)(argument.map(exp));
+            value = (value as dynamic)(argument.map(exp).list);
           }
           return value;
         },
