@@ -15,8 +15,15 @@ class Statement with _$Statement {
       {required Token brace, required List<Statement> blocks}) = BlockStatement;
   const factory Statement.declaration(
       {required Token variable,
-      required Expression? expression,
-      required bool initialized}) = DeclarationStatement;
+      required Expression expression}) = DeclarationStatement;
+  const factory Statement.uninitialized(Token variable) = Uninitialized;
+  const factory Statement.justIf(
+      {required Expression predicate, required Statement yes}) = JustIf;
+  const factory Statement.ifElse({
+    required Expression predicate,
+    required Statement yes,
+    required Statement no,
+  }) = IfElse;
 }
 
 typedef Program = List<Statement>;
@@ -27,13 +34,19 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
-      block: (token, blocks) => ['{', blocks.pretty, '}'].unlines,
-      declaration: (variable, expression, initialized) => [
-            'var',
-            variable.literal,
-            if (initialized) '=',
-            if (initialized) expression?.pretty
+      justIf: (predicate, yes) =>
+          ['if', '(${predicate.pretty})', yes.pretty].unwords,
+      ifElse: (predicate, yes, no) => [
+            'if',
+            '(${predicate.pretty})',
+            yes.pretty,
+            'else',
+            '(${no.pretty})'
           ].unwords,
+      uninitialized: (variable) => ['var', variable.literal].unwords,
+      block: (token, blocks) => ['{', blocks.pretty, '}'].unlines,
+      declaration: (variable, expression) =>
+          ['var', variable.literal, '=', expression.pretty].unwords,
       expression: (expression) => expression.pretty,
       print: (expression) => ['print', expression.pretty].unwords);
   Program get program => [this];

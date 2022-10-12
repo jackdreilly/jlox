@@ -128,6 +128,7 @@ final ttMap = [
 extension TTExt on TokenType {
   String get string => maybeString ?? name;
   String? get maybeString => ttMap[this];
+  bool get isShortCircuit => {TT.AND, TT.OR}.contains(this);
 }
 
 extension Truthy on Object? {

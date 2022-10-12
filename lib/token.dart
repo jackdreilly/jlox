@@ -22,7 +22,7 @@ extension TokenString on Token {
 }
 
 extension OpExt on Token {
-  op(Object? a, [Object? b]) => {
+  op(a, [b]) => {
         TT.MINUS: (a, b) => n(a) - n(b),
         TT.PLUS: (a, b) {
           try {
@@ -41,6 +41,8 @@ extension OpExt on Token {
         TT.LESS: (a, b) => n(a) < n(b),
         TT.LESS_EQUAL: (a, b) => n(a) <= n(b),
         TT.COMMA: (a, b) => b,
+        TT.AND: (a, b) => _logical(a, b, true),
+        TT.OR: (a, b) => _logical(a, b, false),
       }[tokenType]
           ?.call(a, b);
   T check<T>(value) {
@@ -52,6 +54,11 @@ extension OpExt on Token {
 
   num n(v) => check<num>(v);
   String s(v) => check<String>(v);
+}
+
+_logical(Object? Function() fnA, Object? Function() fnB, bool isAnd) {
+  final a = fnA();
+  return a.truth ^ isAnd ? a : fnB();
 }
 
 class CheckTokenError extends RuntimeError {

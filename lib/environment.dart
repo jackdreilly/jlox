@@ -13,6 +13,8 @@ class VariableValue with _$VariableValue {
   const factory VariableValue.absent() = Absent;
 }
 
+const sentinel = Object();
+
 class Environment {
   final List<State> states = [{}];
   State get state => states.last;
@@ -28,8 +30,8 @@ class Environment {
             present: id,
             absent: () => throw UnitializedValueError(key),
           ));
-  void declare(String key, value, [bool initialized = true]) => state[key] =
-      initialized ? VariableValue.present(value) : VariableValue.absent();
+  void declare(String key, Object? value) => state[key] = value.wrap;
+  void define(String key) => state[key] = VariableValue.absent();
   T find<T>(String key, T Function(State state) callback) {
     for (final state in states.reversed) {
       if (state.containsKey(key)) {
@@ -38,6 +40,10 @@ class Environment {
     }
     throw MissingVariableError(key);
   }
+}
+
+extension on Object? {
+  VariableValue get wrap => VariableValue.present(this);
 }
 
 class UnitializedValueError extends RuntimeError {

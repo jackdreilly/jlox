@@ -3,14 +3,39 @@ import 'package:jlox/environment.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/interpreter.dart';
 import 'package:jlox/parser.dart';
+import 'package:jlox/token.dart';
 import 'package:test/test.dart';
 
 import 'helpers.dart';
 
 void main() {
+  test('orand', () => 'orand'.prog.interpreted.equals(100));
+  test('1 or 1', () => '1 or 1'.interpreted.equals(1));
+  test('0 or 1', () => '0 or 1'.interpreted.equals(1));
+  test('0 or 0', () => '0 or 0'.interpreted.equals(0));
+  test('0 or 0 or 1', () => '0 or 0 or 1'.interpreted.equals(1));
+  test('1 and 0', () => '1 and 0'.interpreted.equals(0));
+  test('1 and 1', () => '1 and 1'.interpreted.equals(1));
+  test('0 and 1', () => '0 and 1'.interpreted.equals(0));
+  test('1 or (3 < "asdf")', () => '1 or (3 < "asdf")'.interpreted.equals(1));
+  test('1 and (3 < "asdf")', () {
+    expect(
+        () => '1 and (3 < "asdf")'.interpreted, throwsA(isA<RuntimeError>()));
+    hadError = false;
+  });
+  test('ifno', () => 'ifno'.prog.interpreted.equals(1));
+  test('ifyes', () => 'ifyes'.prog.interpreted.equals(5));
+  test('ifelseno', () => 'ifelseno'.prog.interpreted.equals(6));
+  test('ifelseyes', () => 'ifelseyes'.prog.interpreted.equals(5));
   test('var a', () {
     'var a'.interpreted.equals(isNull);
     hadError.equals(false);
+  });
+  test('access uninit', () {
+    hadError = false;
+    expect(() => 'var a; a'.interpreted, throwsA(isA<UnitializedValueError>()));
+    hadError.equals(true);
+    hadError = false;
   });
   test('brace', () => 'brace'.prog.interpreted.equals(2799360));
   test('semi', () => '3;'.interpreted.equals(3));

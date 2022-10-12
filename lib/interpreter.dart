@@ -2,6 +2,7 @@ import 'package:jlox/environment.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/statement.dart';
 import 'package:jlox/token.dart';
+import 'package:jlox/token_type.dart';
 
 import 'base.dart';
 
@@ -11,16 +12,21 @@ class Interpreter {
       ? null
       : program
           .map((e) => e.when(
+                justIf: (predicate, yes) =>
+                    exp(predicate) as bool ? scopedStatement(yes) : null,
+                ifElse: (predicate, yes, no) => exp(predicate) as bool
+                    ? scopedStatement(yes)
+                    : scopedStatement(no),
                 block: (token, blocks) => scoped(() => interpret(blocks)),
                 expression: exp,
                 print: (expression) {
                   print(exp(expression));
-                  return null;
                 },
-                declaration: (variable, expression, initialized) {
-                  env.declare(variable.literal,
-                      expression == null ? null : exp(expression));
-                  return null;
+                uninitialized: (variable) {
+                  env.define(variable.literal);
+                },
+                declaration: (variable, expression) {
+                  env.declare(variable.literal, exp(expression));
                 },
               ))
           .list
@@ -29,7 +35,9 @@ class Interpreter {
   Object? exp(Expression expression) => expression.when(
         assignment: (token, expression) =>
             env.assign(token.literal, exp(expression)),
-        binary: (token, left, right) => token.op(exp(left), exp(right)),
+        binary: (token, left, right) => token.tokenType.isShortCircuit
+            ? token.op(() => exp(left), () => exp(right))
+            : token.op(exp(left), exp(right)),
         grouping: exp,
         variable: (token) => env.get(token.literal),
         literal: id,
@@ -44,4 +52,7 @@ class Interpreter {
     env.pop;
     return value;
   }
+
+  Object? scopedStatement(Statement statement) =>
+      scoped(() => interpret([statement]));
 }

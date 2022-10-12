@@ -7,6 +7,14 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('1 or 1', () => '1 or 1'.parse.pretty.equals('(or 1 1)'));
+  test('1 and 1', () => '1 and 1'.parse.pretty.equals('(and 1 1)'));
+  test('1 and 2 and 3',
+      () => '1 and 2 and 3'.parse.pretty.equals('(and (and 1 2) 3)'));
+  test('1 and 2 or 3',
+      () => '1 and 2 or 3'.parse.pretty.equals('(or (and 1 2) 3)'));
+  test('1 or 2 and 3',
+      () => '1 or 2 and 3'.parse.pretty.equals('(or 1 (and 2 3))'));
   test('{}', () => '{}'.parse.pretty.equals('{\n\n}'));
   test(
       'x;{x;{{{x;}{y;}}3;}y + 3;z;}t;',
@@ -83,7 +91,30 @@ t'''
       () => '1 + 2 * 3,2 + 3, 5 * 5 + 1'.parse.pretty.equals(
             '(, (, (+ 1 (* 2 3)) (+ 2 3)) (+ (* 5 5) 1))',
           ));
-  test('1;', () => '1;'.parse.pretty.shouldBe('1'));
-  test('1;2', () => '1;2'.parse.pretty.shouldBe('2'));
-  test('1;2;', () => '1;2;'.parse.pretty.shouldBe('2'));
+  test('1;', () => '1;'.parse.pretty.equals('1'));
+  test('1;2', () => '1;2'.parse.pretty.equals('1\n2'));
+  test('1;2;', () => '1;2;'.parse.pretty.equals('1\n2'));
+  test('print', () => 'print 3'.parse.pretty.equals('print 3'));
+  test('var', () => 'var x = 3'.parse.pretty.equals('var x = 3'));
+  test('exp', () => '22'.parse.pretty.equals('22'));
+  test('if', () => 'if (3) 4'.parse.pretty.equals('if (3) 4'));
+  test(
+      'if',
+      () => '''
+if (
+  3 + 3,
+  432,
+  3 ? 1 : 2
+) {
+  3;
+  4;
+  5;
+}'''
+          .parse
+          .pretty
+          .equals('''if ((, (, (+ 3 3) 432) (3 ? 1 : 2))) {
+3
+4
+5
+}'''));
 }

@@ -47,36 +47,42 @@ class _Parser {
   }
 
   Statement declaration() {
-    final Statement value;
-    if (match({TT.VAR})) {
-      eat;
-      final variable = eat;
-      final bool initialized;
-      final Expression? expression;
-      if (match({TT.EQUAL})) {
+    Statement value() {
+      if (match({TT.VAR})) {
         eat;
-        expression = this.expression();
-        initialized = true;
-      } else {
+        final variable = eat;
+        if (match({TT.EQUAL})) {
+          eat;
+          return Statement.declaration(
+              variable: variable, expression: expression());
+        }
         expect(TT.SEMICOLON, TT.EOF, false);
-        expression = null;
-        initialized = false;
+        return Statement.uninitialized(variable);
       }
-      value = Statement.declaration(
-        variable: variable,
-        expression: expression,
-        initialized: initialized,
-      );
-    } else {
-      value = statement();
+      return statement();
     }
+
+    final result = value();
     if (match({TT.SEMICOLON})) {
-      expect(TT.SEMICOLON);
+      eat;
     }
-    return value;
+    return result;
   }
 
   Statement statement() {
+    if (match({TT.IF})) {
+      eat;
+      expect(TT.LEFT_PAREN);
+      final predicate = expression();
+      expect(TT.RIGHT_PAREN);
+      final yes = statement();
+      if (match({TT.ELSE})) {
+        eat;
+        final no = statement();
+        return Statement.ifElse(predicate: predicate, yes: yes, no: no);
+      }
+      return Statement.justIf(predicate: predicate, yes: yes);
+    }
     if (match({TT.LEFT_BRACE})) {
       final brace = expect(TT.LEFT_BRACE);
       final blocks = <Statement>[];
@@ -95,7 +101,7 @@ class _Parser {
 
   Expression expression() => assignment();
   Expression assignment() {
-    final expr = comma();
+    final expr = logicOr();
     if (match({TT.EQUAL})) {
       final equal = expect(TT.EQUAL);
       final right = assignment();
@@ -107,6 +113,8 @@ class _Parser {
     return expr;
   }
 
+  Expression logicOr() => starred(logicAnd, {TT.OR});
+  Expression logicAnd() => starred(comma, {TT.AND});
   Expression comma() => starred(ternary, {TT.COMMA});
   Expression ternary() {
     final predicate = equality();
