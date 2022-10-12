@@ -128,9 +128,12 @@ final ttMap = [
 ]).asMap;
 
 extension TTExt on TokenType {
-  String get string => maybeString ?? name;
+  String get string => maybeString ?? name.toLowerCase();
   String? get maybeString => ttMap[this];
   bool get isShortCircuit => {TT.AND, TT.OR}.contains(this);
+  bool get breakable => {TT.FOR, TT.WHILE}.contains(this);
+  bool get notBreakable => returnable;
+  bool get returnable => {TT.FUN}.contains(this);
 }
 
 extension Truthy on Object? {

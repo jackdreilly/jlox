@@ -12,14 +12,24 @@ extension on Iterable {
 
 class Interpreter {
   final env = Environment();
-  Object? interpret(Program program) => program
-      .map(interpretStatement)
-      .takeWhile((value) => !_broken)
-      .list
-      .lastOrNull;
+  Object? interpret(Program program) =>
+      program.map(interpretStatement).takeWhile(shouldEvaluate).list.lastOrNull;
   bool _broken = false;
+  bool _returned = false;
 
   Object? interpretStatement(Statement statement) => statement.when(
+        returnStatement: (_, returnValue) {
+          _returned = true;
+          return exp(returnValue);
+        },
+        function: (functionName, parameters, body) => env.declare(
+            functionName.literal,
+            (Iterable callParameters) => scoped(() {
+                  parameters.zip(callParameters).forEach((element) =>
+                      env.declare(element.item1.literal, element.item2));
+                  interpretStatement(body);
+                  return null;
+                })),
         breakStatement: (token) => _broken = true,
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
             Statement.whileLoop(
@@ -79,6 +89,8 @@ class Interpreter {
 
   Object? scopedStatement(Statement statement) =>
       scoped(() => interpret([statement]));
+
+  bool shouldEvaluate(Object? _) => [_broken, _returned].every((e) => !e);
 }
 
 extension on Statement {

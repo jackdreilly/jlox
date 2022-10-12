@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('fib', () => expect('fib'.prog.state['fib'], isNotNull));
   test('break two levels', () => 'break_two'.prog.interpreted.equals(6));
   test('break', () => 'break'.prog.interpreted.equals(3));
   test('for scoped 3', 'for_scoped_3'.prog.missing);

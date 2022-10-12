@@ -17,6 +17,7 @@ extension ParserString on String {
 
 class _Parser {
   final List<Token> tokens;
+  final callStack = <Token>[];
   _Parser(this.tokens);
 
   Program get parse {
@@ -63,25 +64,78 @@ class _Parser {
   }
 
   Statement statement() => ({
+        TT.FUN: function,
         TT.FOR: forLoop,
         TT.WHILE: whileLoop,
         TT.IF: ifElse,
         TT.LEFT_BRACE: block,
         TT.PRINT: printStatement,
         TT.BREAK: breakStatement,
+        TT.RETURN: returnStatement,
       }[tokenType] ??
       expressionStatement)();
   Token get breakToken {
-    if (breakableCount > 0) {
+    if (breakable) {
       return expect(TT.BREAK);
     }
     throw fail("break statement must be inside for/while loop ${token.string}");
   }
 
+  Token get returnToken {
+    if (returnable) {
+      return expect(TT.RETURN);
+    }
+    throw fail("return statement must be inside function ${token.string}");
+  }
+
+  bool get returnable => callStack.any((element) => element.returnable);
+
+  bool get breakable {
+    for (final token in callStack.reversed) {
+      if (token.breakable) {
+        return true;
+      }
+      if (token.notBreakable) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  Statement function() {
+    final functionToken = expect(TT.FUN);
+    final functionName = expect(TT.IDENTIFIER);
+    expect(TT.LEFT_PAREN);
+    final parameters = parameterList();
+    expect(TT.RIGHT_PAREN);
+    final body = scoped(functionToken, statement);
+    return Statement.function(
+        functionName: functionName, parameters: parameters, body: body);
+  }
+
+  List<Token> parameterList() {
+    if (match({TT.RIGHT_PAREN})) {
+      return [];
+    }
+    final token = expect(TT.IDENTIFIER);
+    if (match({TT.COMMA})) {
+      expect(TT.COMMA);
+    }
+    return [token, ...parameterList()];
+  }
+
+  Statement returnStatement() => Statement.returnStatement(
+        returnToken: returnToken,
+        returnValue: match({TT.SEMICOLON})
+            ? () {
+                expect(TT.SEMICOLON);
+              }()
+            : expression(),
+      );
   Statement breakStatement() => Statement.breakStatement(breakToken);
   Statement expressionStatement() => Statement.expression(expression());
   Statement forLoop() {
-    expect(TT.FOR);
+    final forToken = expect(TT.FOR);
     expect(TT.LEFT_PAREN);
     Statement? initializer() => match({TT.SEMICOLON})
         ? null
@@ -95,7 +149,7 @@ class _Parser {
       initializer: initializer().and(maybeSemi),
       predicate: predicate().and(() => expect(TT.SEMICOLON)),
       perLoop: perLoop().and(() => expect(TT.RIGHT_PAREN)),
-      body: statement.breakable(this),
+      body: scoped(forToken, statement),
     );
   }
 
@@ -128,14 +182,12 @@ class _Parser {
     return Statement.justIf(predicate: predicate, yes: yes);
   }
 
-  int breakableCount = 0;
-
   Statement whileLoop() {
-    eat;
+    final whileToken = expect(TT.WHILE);
     expect(TT.LEFT_PAREN);
     final predicate = expression();
     expect(TT.RIGHT_PAREN);
-    final body = statement.breakable(this);
+    final body = scoped(whileToken, statement);
     return Statement.whileLoop(predicate: predicate, body: body);
   }
 
@@ -220,19 +272,17 @@ class _Parser {
   Token get token => tokens[current];
   int current = 0;
   Token get eat => token.and(() => current++);
+
+  Statement scoped(Token functionToken, Statement Function() statement) {
+    callStack.add(functionToken);
+    final value = statement();
+    callStack.remove(functionToken);
+    return value;
+  }
 }
 
 class ParseError extends Error {
   ParseError() {
     hadError = true;
-  }
-}
-
-extension on Statement Function() {
-  Statement breakable(_Parser parser) {
-    parser.breakableCount++;
-    final value = this();
-    parser.breakableCount--;
-    return value;
   }
 }

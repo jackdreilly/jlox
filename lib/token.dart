@@ -17,6 +17,9 @@ class Token with _$Token {
 }
 
 extension TokenString on Token {
+  bool get breakable => tokenType.breakable;
+  bool get notBreakable => tokenType.notBreakable;
+  bool get returnable => tokenType.returnable;
   String get string =>
       [tokenType.string, lexeme, line, this.literal].withoutNulls.unwords;
 }

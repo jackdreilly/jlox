@@ -10,6 +10,25 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('return value fail', 'return 3'.fails);
+  test('return fail', 'return'.fails);
+  test(
+      'fun return value',
+      () => 'fun x() {return;}'.parse.pretty.equals('''
+fun x() {
+return
+}
+'''
+          .trim()));
+  test(
+      'fun return',
+      () => 'fun x() {return x}'.parse.pretty.equals('''
+fun x() {
+return x
+}
+'''
+          .trim()));
+  test('fun', () => 'fun x() x'.parse.pretty.equals('fun x() x'));
   test('break good for brace', 'for (;;) {break}'.succeeds);
   test('break good for', 'for (;;) break'.succeeds);
   test('break good while brace', 'while (true) {break}'.succeeds);
