@@ -9,6 +9,8 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('while', () => 'while'.prog.interpreted.equals(10));
+  test('while scoped', () => 'while_scoped'.prog.interpreted.equals(11));
   test('orand', () => 'orand'.prog.interpreted.equals(100));
   test('1 or 1', () => '1 or 1'.interpreted.equals(1));
   test('0 or 1', () => '0 or 1'.interpreted.equals(1));

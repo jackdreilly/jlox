@@ -70,6 +70,14 @@ class _Parser {
   }
 
   Statement statement() {
+    if (match({TT.WHILE})) {
+      eat;
+      expect(TT.LEFT_PAREN);
+      final predicate = expression();
+      expect(TT.RIGHT_PAREN);
+      final body = statement();
+      return Statement.whileLoop(predicate: predicate, body: body);
+    }
     if (match({TT.IF})) {
       eat;
       expect(TT.LEFT_PAREN);

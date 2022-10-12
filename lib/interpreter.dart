@@ -12,6 +12,11 @@ class Interpreter {
       ? null
       : program
           .map((e) => e.when(
+                whileLoop: (predicate, body) {
+                  while (exp(predicate).truth) {
+                    scopedStatement(body);
+                  }
+                },
                 justIf: (predicate, yes) =>
                     exp(predicate) as bool ? scopedStatement(yes) : null,
                 ifElse: (predicate, yes, no) => exp(predicate) as bool

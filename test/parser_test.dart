@@ -97,6 +97,7 @@ t'''
   test('print', () => 'print 3'.parse.pretty.equals('print 3'));
   test('var', () => 'var x = 3'.parse.pretty.equals('var x = 3'));
   test('exp', () => '22'.parse.pretty.equals('22'));
+  test('while', () => 'while (3) 4'.parse.pretty.equals('while (3) 4'));
   test('if', () => 'if (3) 4'.parse.pretty.equals('if (3) 4'));
   test(
       'if',
