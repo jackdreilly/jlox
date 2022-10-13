@@ -5,26 +5,25 @@ import 'package:jlox/token.dart';
 import 'package:jlox/token_type.dart';
 
 import 'base.dart';
+import 'exiter.dart';
 
 class Interpreter {
   final envs = [Environment()];
   Environment get env => envs.last;
-  bool _broken = false;
-  bool _returned = false;
-  Object? interpret(Program program) {
-    Object? value;
-    for (final statement in program) {
-      if (_broken || _returned) {
-        return value;
-      }
-      value = interpretStatement(statement);
+  Object? interpret(Program program) => program.isEmpty
+      ? null
+      : exiting(() => program.map(interpretStatement).last);
+  Object? exiting(Object? Function() callback) {
+    try {
+      return callback();
+    } on Exiter catch (e) {
+      return e.value;
     }
-    return value;
   }
 
   Object? interpretStatement(Statement statement) => statement.when(
         returnStatement: (_, returnValue) =>
-            exp(returnValue).and(() => _returned = true),
+            throw Exiter.returned(exp(returnValue)),
         function: (functionName, parameters, body) {
           final forked = env.clone;
           env.declare(
@@ -32,27 +31,19 @@ class Interpreter {
             (List arguments) => scoped(() {
               parameters.zip(arguments).forEach((element) =>
                   env.declare(element.item1.literal, element.item2));
-              return interpretStatement(body).and(() => _returned = false);
+              return interpretStatement(body);
             }, forked),
           );
           return null;
         },
-        breakStatement: (token) => _broken = true,
+        breakStatement: (token) => throw Exiter.broke(),
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
             Statement.whileLoop(
                     predicate: predicate ?? true.literal,
                     body: body.blocked(perLoop?.statement, true))
                 .blocked(initializer, false)),
-        whileLoop: (predicate, body) {
-          while (exp(predicate).truth) {
-            scopedStatement(body);
-            if (_broken) {
-              _broken = false;
-              break;
-            }
-          }
-          return null;
-        },
+        whileLoop: (predicate, body) =>
+            exp(predicate).truth ? interpret([body, statement]) : null,
         justIf: (predicate, yes) =>
             exp(predicate) as bool ? scopedStatement(yes) : null,
         ifElse: (predicate, yes, no) =>
@@ -105,8 +96,6 @@ class Interpreter {
 
   Object? scopedStatement(Statement statement) =>
       scoped(() => interpret([statement]));
-
-  bool shouldEvaluate(Object? _) => !_broken;
 }
 
 extension on Statement {
