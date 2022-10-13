@@ -52,7 +52,8 @@ void main() {
   });
   test('access uninit', () {
     hadError = false;
-    expect(() => 'var a; a'.interpreted, throwsA(isA<UnitializedValueError>()));
+    expect(
+        () => 'var a; a'.interpreted, throwsA(isA<UninitializedValueError>()));
     hadError.equals(true);
     hadError = false;
   });

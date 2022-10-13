@@ -17,8 +17,6 @@ extension on VariableValue {
   Object? get value => whenOrNull(present: (value) => value);
 }
 
-const sentinel = Object();
-
 extension on State {
   Object? put(Token key, Object? value) => (this[key] = value.wrap).value;
 }
@@ -55,7 +53,7 @@ class Environment {
       key,
       (state) => state[key]?.when(
             present: id,
-            absent: () => throw UnitializedValueError(key),
+            absent: () => throw UninitializedValueError(key),
           ));
   void declare(Token key, Object? value) => state.put(key, value);
   void define(Token key) => state[key] = VariableValue.absent();
@@ -73,10 +71,10 @@ extension on Object? {
   VariableValue get wrap => VariableValue.present(this);
 }
 
-class UnitializedValueError extends RuntimeError {
+class UninitializedValueError extends RuntimeError {
   final Token token;
 
-  UnitializedValueError(this.token)
+  UninitializedValueError(this.token)
       : super('Uninitialized variable access for ${token.string}');
 }
 

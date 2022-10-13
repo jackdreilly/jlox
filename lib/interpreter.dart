@@ -25,8 +25,6 @@ class Interpreter {
     try {
       return callback();
     } on Exiter catch (e) {
-      e.tag('exited');
-      env.debug;
       return e.value;
     }
   }
