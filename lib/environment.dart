@@ -13,26 +13,54 @@ class VariableValue with _$VariableValue {
   const factory VariableValue.absent() = Absent;
 }
 
+extension on VariableValue {
+  Object? get value => whenOrNull(present: (value) => value);
+}
+
 const sentinel = Object();
+
+extension on State {
+  Object? put(String key, Object? value) => (this[key] = value.wrap).value;
+}
 
 class Environment {
   final List<State> states;
-  Environment([List<State>? states]) : states = states ?? [{}];
-  Environment get clone => Environment(states.list);
+  final String? description;
+  Environment([List<State>? states, this.description])
+      : states = states ?? [{}];
+  Environment clone([String? description]) =>
+      Environment(states.list, description);
   State get state => states.last;
   get push => states.add({});
   get pop => states.removeLast();
-  assign(String key, value) => find(key, (state) {
-        state[key] = VariableValue.present(value);
-        return value;
-      });
+  get debug {
+    for (final iState in states.enumerate) {
+      final indent = '  ' * iState.item1;
+      (iState.item1 == 0
+              ? [
+                  '',
+                  '=' * 10,
+                  ['env:', description].unwords,
+                  '=' * 10,
+                  ''
+                ].unlines
+              : [indent, 'NEXT'].join(''))
+          .log;
+      for (final entry in iState.item2.entries) {
+        [indent, entry.key, ': ', entry.value.value].join("").log;
+      }
+    }
+  }
+
+  assign(String key, Object? value) =>
+      find(key, (state) => state.put(key, value));
   get(String key) => find(
       key,
       (state) => state[key]?.when(
             present: id,
             absent: () => throw UnitializedValueError(key),
           ));
-  void declare(String key, Object? value) => state[key] = value.wrap;
+  void declare(String key, Object? value) => state.put(key, value);
   void define(String key) => state[key] = VariableValue.absent();
   T find<T>(String key, T Function(State state) callback) {
     for (final state in states.reversed) {

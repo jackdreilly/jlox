@@ -30,11 +30,9 @@ extension TE on Token {
 }
 
 fails(Function() callback) => () {
-      myStderr = IOSink(FakeStreamConsumer());
       callback();
       expect(hadError, true);
       hadError = false;
-      myStderr = stderr;
     };
 
 class FakeStreamConsumer implements StreamConsumer<List<int>> {
@@ -43,4 +41,9 @@ class FakeStreamConsumer implements StreamConsumer<List<int>> {
 
   @override
   Future close() async {}
+}
+
+get wire {
+  myStderr = IOSink(FakeStreamConsumer());
+  myStdout = IOSink(FakeStreamConsumer());
 }

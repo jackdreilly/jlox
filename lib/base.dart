@@ -14,6 +14,7 @@ extension NullIter<T> on Iterable<T?> {
 }
 
 IOSink myStderr = stderr;
+IOSink? myStdout;
 
 extension DumpString on String {
   get dump => stdout..add(codeUnits);
@@ -35,8 +36,8 @@ extension on int {
 }
 
 extension Log<T> on T {
-  T get log => and(() => print(this));
-  T tag(v) => and(() => print([v, this].unwords));
+  T get log => and(() => myStdout?.add([toString(), '\n'].join().codeUnits));
+  T tag(v) => and(() => [v, this].log);
 }
 
 extension WordsExt on Iterable {

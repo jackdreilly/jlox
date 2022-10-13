@@ -7,21 +7,23 @@ import 'package:jlox/token.dart';
 import 'package:test/test.dart';
 
 import 'helpers.dart';
+import 'or_matcher.dart';
 
 void main() {
+  wire;
   test(
       'cons',
       () => 'cons'
           .prog
           .interpreted
           .equals('ravvadaravvada, reillyreilly, kavvadakavvada'));
-  test('fib eval', () => 'fib_eval_ternary'.prog.interpreted.equals(5));
+  test('fib eval ternary', () => 'fib_eval_ternary'.prog.interpreted.equals(5));
   test('fib eval', () => 'fib_eval'.prog.interpreted.equals(5));
   test('subber',
       () => 'fun subber(b,c){return b - c;}subber(8,5);'.interpreted.equals(3));
   test('fib', () => expect('fib'.prog.state['fib'], isNotNull));
   test('break two levels', () => 'break_two'.prog.interpreted.equals(6));
-  test('break', () => 'break'.prog.interpreted.equals(3));
+  test('break basic', () => 'break'.prog.interpreted.equals(3));
   test('for scoped 3', 'for_scoped_3'.prog.missing);
   test('for scoped 2', () => 'for_scoped_2'.prog.interpreted.equals(3));
   test('for scoped 1', () => 'for_scoped_1'.prog.interpreted.equals(3));
@@ -42,7 +44,7 @@ void main() {
         () => '1 and (3 < "asdf")'.interpreted, throwsA(isA<RuntimeError>()));
     hadError = false;
   });
-  test('ifno', () => 'ifno'.prog.interpreted.equals(1));
+  test('ifno basic', () => 'ifno'.prog.interpreted.equals(1));
   test('ifyes', () => 'ifyes'.prog.interpreted.equals(5));
   test('ifelseno', () => 'ifelseno'.prog.interpreted.equals(6));
   test('ifelseyes', () => 'ifelseyes'.prog.interpreted.equals(5));
@@ -104,6 +106,6 @@ extension on String {
   Map<String, dynamic> get state =>
       (Interpreter()..interpret(parse)).env.state.map((key, value) =>
           MapEntry(key, value.when(present: id, absent: () => null)));
-  get missing =>
-      () => expect(() => interpreted, throwsA(isA<MissingVariableError>()));
+  get missing => () => expect(() => interpreted,
+      throwsA(isA<MissingTokenError>().or(isA<MissingVariableError>())));
 }

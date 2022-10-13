@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:jlox/base.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/parser.dart';
@@ -10,6 +7,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  wire;
   test(
       'fib',
       () => 'fib'.prog.parse.pretty.equals('''
@@ -186,7 +184,6 @@ if (
 
 extension on String {
   fails() {
-    myStderr = IOSink(FakeStreamConsumer());
     hadError = false;
     parse;
     expect(hadError, true);

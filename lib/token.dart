@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:jlox/base.dart';
 import 'package:jlox/errors.dart';
 
 import 'token_type.dart';
@@ -20,8 +19,11 @@ extension TokenString on Token {
   bool get breakable => tokenType.breakable;
   bool get notBreakable => tokenType.notBreakable;
   bool get returnable => tokenType.returnable;
-  String get string =>
-      [tokenType.string, lexeme, line, this.literal].withoutNulls.unwords;
+  String get string => {
+        'tt': tokenType.string,
+        'line': line + 1,
+        'value': this.literal ?? lexeme
+      }.toString();
 }
 
 extension OpExt on Token {
