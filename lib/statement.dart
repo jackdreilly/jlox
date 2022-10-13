@@ -9,10 +9,7 @@ part 'statement.freezed.dart';
 
 @freezed
 class Statement with _$Statement {
-  const factory Statement.function(
-      {required Token functionName,
-      required List<Token> parameters,
-      required Statement body}) = FunctionStatement;
+  const factory Statement.function(Statement declaration) = FunctionStatement;
   const factory Statement.breakStatement(Token token) = Break;
   const factory Statement.returnStatement(
       {required Token returnToken, required Expression? returnValue}) = Return;
@@ -49,12 +46,17 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
+      function: (declaration) => declaration.maybeWhen(
+            declaration: (variable, expression) => expression.maybeMap(
+              function: (value) => value.prettify(variable.lexeme),
+              orElse: () => "",
+            ),
+            orElse: () => "",
+          ),
       returnStatement: (returnToken, returnValue) => [
             returnToken.tokenType.string,
             returnValue?.pretty
           ].withoutNulls.unwords,
-      function: (functionName, parameters, body) =>
-          '''fun ${functionName.literal}(${parameters.map((p) => p.literal).join(', ')}) ${body.pretty}''',
       breakStatement: (token) => token.tokenType.string,
       forLoop: (initializer, predicate, perLoop, body) =>
           'for (${initializer?.pretty ?? ''};${predicate?.pretty ?? ''};${perLoop?.pretty ?? ''}) ${body.pretty}',

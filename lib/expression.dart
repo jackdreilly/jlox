@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jlox/base.dart';
 import 'package:tuple/tuple.dart';
 
+import 'statement.dart';
 import 'token.dart';
 import 'token_type.dart';
 
@@ -32,6 +33,10 @@ class Expression with _$Expression {
   const factory Expression.grouping(Expression expression) = Grouping;
   const factory Expression.assignment(
       {required Token token, required Expression expression}) = Assignment;
+  const factory Expression.function(
+      {required Token token,
+      required List<Token> parameters,
+      required Statement body}) = FunctionExpression;
 }
 
 extension on Iterable {
@@ -40,6 +45,7 @@ extension on Iterable {
 
 extension ExpressionString on Expression {
   String get pretty => when(
+        function: (_, __, ___) => (this as FunctionExpression).prettify(),
         invocation: (callee, arguments) =>
             '${callee.pretty}${arguments.map((e) => '(${e.map((e) => e.pretty).join(',')})').join()}',
         assignment: (token, expression) =>
@@ -104,4 +110,9 @@ extension TokenExpressionExtension on Token {
 extension on Token {
   String get pretty =>
       tokenType.maybeString ?? this.literal?.toString() ?? tokenType.name;
+}
+
+extension FunctionExpressionExt on FunctionExpression {
+  String prettify([String name = ""]) =>
+      '''fun $name(${parameters.map((p) => p.literal).join(', ')}) ${body.pretty}''';
 }

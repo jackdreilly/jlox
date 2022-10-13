@@ -1,62 +1,39 @@
 // The symbol of the end of a list
 fun null() {}
 // creates a pair (a,b)
-fun cons(a,b) {
-    fun helper(c) {
-        if (c) {
-            return a;
-        }
-        return b;
-    }
-    return helper;
-}
+fun cons(a,b) fun(c) c ? a : b
 // Returns if your list is empty
-fun isEmpty(list) {
-    return list == null;
-}
+fun isEmpty(list) list == null
 
 // A single item list
-fun single(a) {
-    return cons(a, null);
-}
+fun single(a) cons(a, null)
 // (1, (2, (3, null)))
 
-fun head(pair) {
-    return pair(true);
-}
-fun tail(pair) {
-    return pair(false);
-}
+fun head(pair) pair(true)
+fun tail(pair) pair(false)
 
-fun map(fn, list) {
-    if (isEmpty(list)) {
-        return list;
-    }
-    return cons(fn(head(list)), map(fn, tail(list)));
-}
+fun map(fn, list) isEmpty(list) ? list : cons(fn(head(list)), map(fn, tail(list)))
+
 fun fold(fn, init, list) {
-    fun helper(accumulator, rest) {
-        if (isEmpty(rest)) {
-            return accumulator;
-        }
-        return helper(fn(accumulator, head(rest)), tail(rest));
-    }
-    return helper(init, list);
+    var helper = fun (accumulator, rest) isEmpty(rest) ? accumulator : helper(fn(accumulator, head(rest)), tail(rest));
+    helper(init, list);
 }
-fun join(joiner, list) {
-    fun helper(accumulator, value) {
-        if (accumulator == "") {
-            return value;
-        }
-        return accumulator + joiner + value;
-    }
-    return fold(helper, "", list)
-}
+fun join(joiner, list) fold(
+    fun (accumulator, value)
+        {accumulator == ""
+            ? value
+            : accumulator + joiner + value}
+    ,
+    "",
+    list
+)
 var jack = "reilly";
 var olga = "kavvada";
 var athena = "ravvada";
-fun double(a) return a + a;
-var myList = cons(athena, cons(jack, single(olga)));
-var mapped = map(double, myList);
-var joined = join(", ", mapped);
-joined;
+join(
+    ", ",
+    map(
+        fun (a) {a + a},
+        cons(athena, cons(jack, single(olga)))
+    )
+);

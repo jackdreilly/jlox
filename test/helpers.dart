@@ -43,7 +43,7 @@ class FakeStreamConsumer implements StreamConsumer<List<int>> {
   Future close() async {}
 }
 
-get wire {
+get testWire {
   myStderr = IOSink(FakeStreamConsumer());
   myStdout = IOSink(FakeStreamConsumer());
 }

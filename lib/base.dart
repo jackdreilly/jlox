@@ -16,6 +16,11 @@ extension NullIter<T> on Iterable<T?> {
 IOSink myStderr = stderr;
 IOSink? myStdout;
 
+get wire {
+  myStderr = stderr;
+  myStdout = stdout;
+}
+
 extension DumpString on String {
   get dump => stdout..add(codeUnits);
   get err => myStderr..add(codeUnits);
@@ -66,7 +71,7 @@ Iterable<int> get ints sync* {
 
 get newline => '\n'.dump;
 
-extension Tupe<T> on T {
+extension Tupe<T extends Object?> on T {
   Tuple2<T, S> tupe<S>(S s) => Tuple2(this, s);
   T and(Function() fn) {
     fn();

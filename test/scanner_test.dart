@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
-  wire;
+  testWire;
   test(
       'ternary',
       '3 * 5 < 2 ? "yes" + "you" : "no" + "boom"'

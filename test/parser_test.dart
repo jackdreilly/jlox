@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
-  wire;
+  testWire;
   test(
       'fib',
       () => 'fib'.prog.parse.pretty.equals('''

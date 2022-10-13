@@ -24,24 +24,9 @@ class Interpreter {
   }
 
   Object? interpretStatement(Statement statement) => statement.when(
+        function: (declaration) => interpretStatement(declaration),
         returnStatement: (token, returnValue) =>
             throw Exiter.returned(value: exp(returnValue), token: token),
-        function: (functionName, parameters, body) {
-          final forked = env.clone(functionName.lexeme);
-          env.declare(
-            functionName.literal,
-            ((List arguments) => scoped(() {
-                  parameters.zip(arguments).forEach((element) =>
-                      env.declare(element.item1.literal, element.item2));
-                  ['CALLING', functionName.lexeme, functionName.line]
-                      .unwords
-                      .log;
-                  env.debug;
-                  return exiting(() => interpretStatement(body));
-                }, forked)).loxFunction(functionName),
-          );
-          return null;
-        },
         breakStatement: (token) => throw Exiter.broke(token: token),
         forLoop: (initializer, predicate, perLoop, body) => interpretStatement(
             Statement.whileLoop(
@@ -72,6 +57,16 @@ class Interpreter {
       );
 
   Object? exp(Expression? expression) => expression?.when(
+        function: (token, parameters, body) {
+          final clone = env.clone(token.lexeme);
+          return ((List arguments) => scoped(() {
+                parameters.zip(arguments).forEach((element) =>
+                    env.declare(element.item1.literal, element.item2));
+                ['CALLING', token.lexeme, token.line + 1].unwords.log;
+                env.debug;
+                return exiting(() => interpretStatement(body));
+              }, clone)).loxFunction(token);
+        },
         invocation: (callee, arguments) {
           var value = exp(callee);
           for (final argument in arguments) {

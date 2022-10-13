@@ -1,6 +1,7 @@
 import 'package:jlox/base.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/token.dart';
+import 'package:tuple/tuple.dart';
 
 import 'expression.dart';
 import 'scanner.dart';
@@ -55,6 +56,16 @@ class _Parser {
       .and(maybeSemi);
   Token? maybeSemi() => match({TT.SEMICOLON}) ? eat : null;
 
+  Statement function() {
+    final pair = functionExpressionHelper();
+    return Statement.function(Statement.declaration(
+        variable: pair.item1!,
+        expression: pair.item2.maybeMap(
+          orElse: () => pair.item2,
+          function: (value) => value.copyWith(token: pair.item1!),
+        )));
+  }
+
   Statement variableDeclaration() {
     eat;
     final variable = eat;
@@ -105,15 +116,15 @@ class _Parser {
     return false;
   }
 
-  Statement function() {
-    final functionToken = expect(TT.FUN);
-    final functionName = expect(TT.IDENTIFIER);
+  Tuple2<Token?, Expression> functionExpressionHelper() {
+    final token = expect(TT.FUN);
+    final identifier = match({TT.IDENTIFIER}) ? expect(TT.IDENTIFIER) : null;
     expect(TT.LEFT_PAREN);
     final parameters = parameterList();
     expect(TT.RIGHT_PAREN);
-    final body = scoped(functionToken, statement);
-    return Statement.function(
-        functionName: functionName, parameters: parameters, body: body);
+    final body = scoped(token, statement);
+    return identifier.tupe(
+        Expression.function(token: token, parameters: parameters, body: body));
   }
 
   List<Token> parameterList() {
@@ -271,6 +282,9 @@ class _Parser {
       eat;
       return maybeExpression;
     }
+    if (match({TT.FUN})) {
+      return functionExpression();
+    }
     if (match({TT.LEFT_PAREN})) {
       eat;
       final grouping = Expression.grouping(expression());
@@ -279,6 +293,8 @@ class _Parser {
     }
     throw fail("Expected primary, got ${token.string}");
   }
+
+  Expression functionExpression() => functionExpressionHelper().item2;
 
   ParseError fail(String message) {
     report(message);
@@ -308,6 +324,13 @@ class _Parser {
     callStack.add(functionToken);
     final value = statement();
     callStack.remove(functionToken);
+    return value;
+  }
+
+  Token? peek({required int lookAhead, required TokenType expectedTokenType}) {
+    current += lookAhead;
+    final value = expect(expectedTokenType);
+    current -= lookAhead;
     return value;
   }
 }

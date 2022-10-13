@@ -10,7 +10,7 @@ import 'helpers.dart';
 import 'or_matcher.dart';
 
 void main() {
-  wire;
+  testWire;
   test(
       'cons',
       () => 'cons'
