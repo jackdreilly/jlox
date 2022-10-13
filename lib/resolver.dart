@@ -4,20 +4,16 @@ import 'base.dart';
 import 'statement.dart';
 import 'token.dart';
 
-typedef Resolver = Map<Token, Token?>;
-
-extension ProgramExt on Program {
-  Resolver get resolve => _Resolver(this).resolver;
+mixin Resolver {
+  void interpret(Program program);
+  Token resolveVariable(Token token);
+  Map<Token, Token?> get testDump;
+  static Resolver get make => _ResolverImpl();
 }
 
-class _Resolver {
-  final Program program;
+class _ResolverImpl with Resolver {
   final List<Map<String, Token>> stack = [{}];
-  final Resolver resolver = {};
-
-  _Resolver(this.program) {
-    program.forEach(proc);
-  }
+  final Map<Token, Token?> resolver = {};
 
   env(Function() callback) {
     stack.add({});
@@ -88,6 +84,15 @@ class _Resolver {
 
   Token? resolve(Token element) =>
       stack.reversed.map((e) => e[element.lexeme]).withoutNulls.firstOrNull;
+
+  @override
+  void interpret(Program program) => program.forEach(proc);
+
+  @override
+  Token resolveVariable(Token token) => resolver[token] ?? token;
+
+  @override
+  Map<Token, Token?> get testDump => resolver;
 }
 
 extension<T> on Iterable<T> {

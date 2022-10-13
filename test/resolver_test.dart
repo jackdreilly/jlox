@@ -1,9 +1,15 @@
 import 'package:jlox/base.dart';
 import 'package:jlox/parser.dart';
 import 'package:jlox/resolver.dart';
+import 'package:jlox/statement.dart';
+import 'package:jlox/token.dart';
 import 'package:test/test.dart';
 
 import 'helpers.dart';
+
+extension on Program {
+  Map<Token, Token?> get resolve => (Resolver.make..interpret(this)).testDump;
+}
 
 void main() {
   wire;

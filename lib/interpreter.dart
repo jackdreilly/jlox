@@ -12,10 +12,10 @@ import 'exiter.dart';
 class Interpreter {
   final envs = [Environment()];
 
-  late Resolver resolver;
+  final resolver = Resolver.make;
   Environment get env => envs.last;
   Object? interpret(Program program) {
-    resolver = program.resolve;
+    resolver.interpret(program);
     return _interpret(program);
   }
 
@@ -106,7 +106,7 @@ class Interpreter {
   Object? scopedStatement(Statement statement) =>
       scoped(() => _interpret([statement]));
 
-  Token resolve(Token token) => resolver[token] ?? token;
+  Token resolve(Token token) => resolver.resolveVariable(token);
 }
 
 extension on Statement {
