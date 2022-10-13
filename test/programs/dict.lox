@@ -1,7 +1,10 @@
 // The symbol of the end of a list
 fun null() {}
 // creates a pair (a,b)
-fun cons(a,b) fun(c) c ? a : b
+fun cons(a,b) {
+    fun consHelper(c) c ? a : b
+    return consHelper;
+}
 // Returns if your list is empty
 fun isEmpty(list) list == null
 
@@ -11,8 +14,9 @@ fun single(a) cons(a, null)
 
 fun head(pair) pair(true)
 fun tail(pair) pair(false)
+fun map(fn, list) isEmpty(list) ? list : cons(fn(head(list)), map(fn, tail(list)))
 
-var makeDict = null;
+fun makeDict() null;
 var makeKV = cons;
 var getKey = head;
 var getValue = tail;
@@ -24,13 +28,13 @@ fun dictMatchesCurrently(k,dict)
     getKey(nextItem(dict)) == k
 fun get(k,dict)
     dictIsEmpty(dict)
-        ? dict 
+        ? null 
         : dictMatchesCurrently(k,dict)
             ? getValue(nextItem(dict))
             : get(k, restOfItems(dict))
 fun put(k,v,dict)
     dictIsEmpty(dict)
-        ? makeKV(k,v)
+        ? addItem(makeKV(k,v), dict)
         : dictMatchesCurrently(k,dict)
             ? addItem(
                 makeKV(k,v),
@@ -63,3 +67,8 @@ fun join(joiner, list) fold(
 )
 print join(", ", keys(d));
 print join(", ", values(d));
+print get("jack", d);
+print get("asdf", d);
+fun flip(fn) fun(a,b) fn(b,a)
+fun reverse(l) fold(flip(cons), null, l)
+print join(", ", reverse(keys(d)));
