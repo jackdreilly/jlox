@@ -32,7 +32,7 @@ final doubles = {
 
 class _Scanner {
   final String string;
-  var line = 0;
+  var line = 1;
   var current = 0;
   var start = 0;
 

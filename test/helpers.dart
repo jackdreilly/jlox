@@ -14,7 +14,7 @@ extension SE on String {
 
 final progs = 'test' / 'programs';
 
-Token get eof => Token(tokenType: TT.EOF, lexeme: '', line: 0, literal: '');
+Token get eof => Token(tokenType: TT.EOF, lexeme: '', line: 1, literal: '');
 
 extension TestE on Object? {
   equals(dynamic value) => expect(this, value);

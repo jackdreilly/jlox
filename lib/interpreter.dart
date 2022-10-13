@@ -1,6 +1,7 @@
 import 'package:jlox/environment.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/lox_function.dart';
+import 'package:jlox/resolver.dart';
 import 'package:jlox/statement.dart';
 import 'package:jlox/token.dart';
 import 'package:jlox/token_type.dart';
@@ -10,8 +11,15 @@ import 'exiter.dart';
 
 class Interpreter {
   final envs = [Environment()];
+
+  late Resolver resolver;
   Environment get env => envs.last;
-  Object? interpret(Program program) =>
+  Object? interpret(Program program) {
+    resolver = program.resolve;
+    return _interpret(program);
+  }
+
+  Object? _interpret(Program program) =>
       program.isEmpty ? null : program.map(interpretStatement).list.last;
   T exiting<T>(Callback<T> callback) {
     try {
@@ -34,35 +42,32 @@ class Interpreter {
                     body: body.blocked(perLoop?.statement, true))
                 .blocked(initializer, false)),
         whileLoop: (predicate, body) => exp(predicate).truth
-            ? exiting(() => interpret([body, statement]))
+            ? exiting(() => _interpret([body, statement]))
             : null,
         justIf: (predicate, yes) =>
             exp(predicate) as bool ? scopedStatement(yes) : null,
         ifElse: (predicate, yes, no) =>
             exp(predicate) as bool ? scopedStatement(yes) : scopedStatement(no),
-        block: (token, blocks) => scoped(() => interpret(blocks)),
+        block: (token, blocks) => scoped(() => _interpret(blocks)),
         expression: exp,
-        print: (expression) {
-          print(exp(expression));
-          return null;
-        },
+        print: (expression) => print(exp(expression)),
         uninitialized: (variable) {
-          env.define(variable.literal);
+          env.define(variable);
           return null;
         },
         declaration: (variable, expression) {
-          env.declare(variable.literal, exp(expression));
+          env.declare(variable, exp(expression));
           return null;
         },
       );
 
   Object? exp(Expression? expression) => expression?.when(
         function: (token, parameters, body) {
-          final clone = env.clone(token.lexeme);
+          final clone = env.clone(token);
           return ((List arguments) => scoped(() {
-                parameters.zip(arguments).forEach((element) =>
-                    env.declare(element.item1.literal, element.item2));
-                ['CALLING', token.lexeme, token.line + 1].unwords.log;
+                parameters.zip(arguments).forEach(
+                    (element) => env.declare(element.item1, element.item2));
+                ['CALLING', token.lexeme, token.line].unwords.log;
                 env.debug;
                 return exiting(() => interpretStatement(body));
               }, clone)).loxFunction(token);
@@ -75,12 +80,12 @@ class Interpreter {
           return value;
         },
         assignment: (token, expression) =>
-            env.assign(token.literal, exp(expression)),
+            env.assign(resolve(token), exp(expression)),
         binary: (token, left, right) => token.tokenType.isShortCircuit
             ? token.op(() => exp(left), () => exp(right))
             : token.op(exp(left), exp(right)),
         grouping: exp,
-        variable: (token) => recatch(token, () => env.get(token.literal)),
+        variable: (token) => env.get(resolve(token)),
         literal: id,
         ternary: (predicate, yes, no) =>
             exp(predicate) as bool ? exp(yes) : exp(no),
@@ -100,18 +105,10 @@ class Interpreter {
     return value;
   }
 
-  T recatch<T>(Token token, Callback<T> callback) {
-    try {
-      return callback();
-    } on MissingVariableError catch (e) {
-      e.tag('missing var');
-      env.debug;
-      throw MissingTokenError(token, e);
-    }
-  }
-
   Object? scopedStatement(Statement statement) =>
-      scoped(() => interpret([statement]));
+      scoped(() => _interpret([statement]));
+
+  Token resolve(Token token) => resolver[token] ?? token;
 }
 
 extension on Statement {
@@ -124,16 +121,3 @@ extension on Statement {
 }
 
 typedef Callback<T> = T Function();
-
-class MissingTokenError extends RuntimeError {
-  final Token token;
-
-  final MissingVariableError caught;
-  MissingTokenError(this.token, this.caught) : super(string(token, caught));
-
-  @override
-  String toString() => string(token, caught);
-
-  static String string(Token token, MissingVariableError caught) =>
-      [caught, token.string].unwords;
-}

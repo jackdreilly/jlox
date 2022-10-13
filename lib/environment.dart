@@ -5,7 +5,7 @@ import 'base.dart';
 
 part 'environment.freezed.dart';
 
-typedef State = Map<String, VariableValue>;
+typedef State = Map<Token, VariableValue>;
 
 @freezed
 class VariableValue with _$VariableValue {
@@ -20,16 +20,14 @@ extension on VariableValue {
 const sentinel = Object();
 
 extension on State {
-  Object? put(String key, Object? value) => (this[key] = value.wrap).value;
+  Object? put(Token key, Object? value) => (this[key] = value.wrap).value;
 }
 
 class Environment {
   final List<State> states;
-  final String? description;
-  Environment([List<State>? states, this.description])
-      : states = states ?? [{}];
-  Environment clone([String? description]) =>
-      Environment(states.list, description);
+  final Token? token;
+  Environment([List<State>? states, this.token]) : states = states ?? [{}];
+  Environment clone([Token? token]) => Environment(states.list, token);
   State get state => states.last;
   get push => states.add({});
   get pop => states.removeLast();
@@ -37,38 +35,37 @@ class Environment {
     for (final iState in states.enumerate) {
       final indent = '  ' * iState.item1;
       (iState.item1 == 0
-              ? [
-                  '',
-                  '=' * 10,
-                  ['env:', description].unwords,
-                  '=' * 10,
-                  ''
-                ].unlines
-              : [indent, 'NEXT'].join(''))
-          .log;
+          ? [
+              '',
+              '=' * 10,
+              ['env:', token?.string ?? "unnamed"].unwords,
+              '=' * 10,
+              ''
+            ].unlines
+          : [indent, 'NEXT'].join(''));
       for (final entry in iState.item2.entries) {
-        [indent, entry.key, ': ', entry.value.value].join("").log;
+        [indent, entry.key, ': ', entry.value.value].join("");
       }
     }
   }
 
-  assign(String key, Object? value) =>
+  assign(Token key, Object? value) =>
       find(key, (state) => state.put(key, value));
-  get(String key) => find(
+  get(Token key) => find(
       key,
       (state) => state[key]?.when(
             present: id,
             absent: () => throw UnitializedValueError(key),
           ));
-  void declare(String key, Object? value) => state.put(key, value);
-  void define(String key) => state[key] = VariableValue.absent();
-  T find<T>(String key, T Function(State state) callback) {
+  void declare(Token key, Object? value) => state.put(key, value);
+  void define(Token key) => state[key] = VariableValue.absent();
+  T find<T>(Token key, T Function(State state) callback) {
     for (final state in states.reversed) {
       if (state.containsKey(key)) {
         return callback(state);
       }
     }
-    throw MissingVariableError(key);
+    throw MissingTokenError(key);
   }
 }
 
@@ -77,14 +74,13 @@ extension on Object? {
 }
 
 class UnitializedValueError extends RuntimeError {
-  final String key;
+  final Token token;
 
-  UnitializedValueError(this.key)
-      : super('Uninitialized variable access for $key');
+  UnitializedValueError(this.token)
+      : super('Uninitialized variable access for ${token.string}');
 }
 
-class MissingVariableError extends RuntimeError {
-  final String variableName;
-  MissingVariableError(this.variableName)
-      : super('Undefined variable $variableName');
+class MissingTokenError extends RuntimeError {
+  final Token token;
+  MissingTokenError(this.token) : super('Missing token ${token.string}');
 }

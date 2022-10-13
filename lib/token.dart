@@ -19,11 +19,8 @@ extension TokenString on Token {
   bool get breakable => tokenType.breakable;
   bool get notBreakable => tokenType.notBreakable;
   bool get returnable => tokenType.returnable;
-  String get string => {
-        'tt': tokenType.string,
-        'line': line + 1,
-        'value': this.literal ?? lexeme
-      }.toString();
+  String get string =>
+      '[$line] ${tokenType.string} (${this.literal ?? lexeme})';
 }
 
 extension OpExt on Token {

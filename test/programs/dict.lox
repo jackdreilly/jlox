@@ -1,0 +1,65 @@
+// The symbol of the end of a list
+fun null() {}
+// creates a pair (a,b)
+fun cons(a,b) fun(c) c ? a : b
+// Returns if your list is empty
+fun isEmpty(list) list == null
+
+// A single item list
+fun single(a) cons(a, null)
+// (1, (2, (3, null)))
+
+fun head(pair) pair(true)
+fun tail(pair) pair(false)
+
+var makeDict = null;
+var makeKV = cons;
+var getKey = head;
+var getValue = tail;
+var nextItem = head;
+var restOfItems = tail;
+var dictIsEmpty = isEmpty;
+var addItem = cons;
+fun dictMatchesCurrently(k,dict)
+    getKey(nextItem(dict)) == k
+fun get(k,dict)
+    dictIsEmpty(dict)
+        ? dict 
+        : dictMatchesCurrently(k,dict)
+            ? getValue(nextItem(dict))
+            : get(k, restOfItems(dict))
+fun put(k,v,dict)
+    dictIsEmpty(dict)
+        ? makeKV(k,v)
+        : dictMatchesCurrently(k,dict)
+            ? addItem(
+                makeKV(k,v),
+                restOfItems(dict)
+            )
+            : addItem(
+                nextItem(dict),
+                put(k,v,restOfItems(dict))
+            )
+fun keys(dict) map(head, dict);
+fun values(dict) map(tail, dict);
+
+var d = makeDict();
+d = put("jack", "r", d);
+d = put("olga", "k", d);
+d = put("athena", "a", d);
+
+fun fold(fn, init, list) {
+    var helper = fun (accumulator, rest) isEmpty(rest) ? accumulator : helper(fn(accumulator, head(rest)), tail(rest));
+    helper(init, list);
+}
+fun join(joiner, list) fold(
+    fun (accumulator, value)
+        {accumulator == ""
+            ? value
+            : accumulator + joiner + value}
+    ,
+    "",
+    list
+)
+print join(", ", keys(d));
+print join(", ", values(d));

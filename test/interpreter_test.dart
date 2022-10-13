@@ -1,4 +1,3 @@
-import 'package:jlox/base.dart';
 import 'package:jlox/environment.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/interpreter.dart';
@@ -7,10 +6,9 @@ import 'package:jlox/token.dart';
 import 'package:test/test.dart';
 
 import 'helpers.dart';
-import 'or_matcher.dart';
 
 void main() {
-  testWire;
+  test('min rec', () => 'min_rec'.prog.interpreted.equals(1));
   test(
       'cons',
       () => 'cons'
@@ -21,14 +19,13 @@ void main() {
   test('fib eval', () => 'fib_eval'.prog.interpreted.equals(5));
   test('subber',
       () => 'fun subber(b,c){return b - c;}subber(8,5);'.interpreted.equals(3));
-  test('fib', () => expect('fib'.prog.state['fib'], isNotNull));
   test('break two levels', () => 'break_two'.prog.interpreted.equals(6));
   test('break basic', () => 'break'.prog.interpreted.equals(3));
   test('for scoped 3', 'for_scoped_3'.prog.missing);
   test('for scoped 2', () => 'for_scoped_2'.prog.interpreted.equals(3));
   test('for scoped 1', () => 'for_scoped_1'.prog.interpreted.equals(3));
   test('for', () => 'for'.prog.interpreted.equals(18));
-  test('while', () => 'while'.prog.interpreted.equals(10));
+  test('while basic', () => 'while'.prog.interpreted.equals(10));
   test('while scoped', () => 'while_scoped'.prog.interpreted.equals(11));
   test('orand', () => 'orand'.prog.interpreted.equals(100));
   test('1 or 1', () => '1 or 1'.interpreted.equals(1));
@@ -49,6 +46,7 @@ void main() {
   test('ifelseno', () => 'ifelseno'.prog.interpreted.equals(6));
   test('ifelseyes', () => 'ifelseyes'.prog.interpreted.equals(5));
   test('var a', () {
+    hadError = false;
     'var a'.interpreted.equals(isNull);
     hadError.equals(false);
   });
@@ -61,8 +59,8 @@ void main() {
   test('brace', () => 'brace'.prog.interpreted.equals(2799360));
   test('semi', () => '3;'.interpreted.equals(3));
   test('semi', () => '3;4'.interpreted.equals(4));
-  test('semi', () => '3;4'.state.equals({}));
   test('var semi', () {
+    hadError = false;
     'var x = 3;'.interpreted.equals(isNull);
     hadError.equals(false);
   });
@@ -87,7 +85,6 @@ void main() {
   test('!!""', () => '!!""'.interpreted.equals(false));
   test('!!"yo"', () => '!!"yo"'.interpreted.equals(true));
   test('"hi " + "you"', () => '"hi " + "you"'.interpreted.equals('hi you'));
-  test('two vars', () => expect('var x = 3; var y = 5 + x'.state['y'], 8));
   test('empty', () {
     hadError = false;
     expect(''.interpreted, isNull);
@@ -97,15 +94,10 @@ void main() {
   test('x missing', 'x'.missing);
   test('x = 3 missing', 'x = 3'.missing);
   test('y missing', 'var x = 3; y = 5'.missing);
-  test('var x = 3; var y = x = 5',
-      () => 'var x = 3; var y = x = 5'.state == {'x': 5, 'y': 5});
 }
 
 extension on String {
   Object? get interpreted => Interpreter().interpret(parse);
-  Map<String, dynamic> get state =>
-      (Interpreter()..interpret(parse)).env.state.map((key, value) =>
-          MapEntry(key, value.when(present: id, absent: () => null)));
-  get missing => () => expect(() => interpreted,
-      throwsA(isA<MissingTokenError>().or(isA<MissingVariableError>())));
+  get missing =>
+      () => expect(() => interpreted, throwsA(isA<MissingTokenError>()));
 }
