@@ -57,16 +57,26 @@ void main() {
             TT.RIGHT_PAREN,
             TT.EOF,
           ].map((e) => e.token).list));
-  test('comment', 'comment'.prog.scan.list.shouldBe([eof.onLine(6)]));
+  test('comment', 'comment'.prog.scan.list.shouldBe([eof]));
   test('>=', '>='.scan.list.shouldBe([TT.GREATER_EQUAL.token, eof]));
   test('==', '=='.scan.list.shouldBe([TT.EQUAL_EQUAL.token, eof]));
   test('=', '='.scan.list.shouldBe([TT.EQUAL.token, eof]));
   test(
       'two_lines',
       'two_lines'.prog.scan.list.shouldBe([
-        Token(lexeme: '5', line: 1, literal: 5, tokenType: TT.NUMBER),
-        Token(lexeme: '3', line: 3, literal: 3, tokenType: TT.NUMBER),
-        eof.onLine(3),
+        Token(
+            lexeme: '5',
+            position: 1,
+            line: 1,
+            literal: 5,
+            tokenType: TT.NUMBER),
+        Token(
+            lexeme: '3',
+            position: 4,
+            line: 3,
+            literal: 3,
+            tokenType: TT.NUMBER),
+        eof,
       ]));
   test('front matter', () {
     'assign'.prog.equals('test/programs/assign.lox');
@@ -76,138 +86,65 @@ void main() {
     'assign'.prog.equals('test/programs/assign.lox');
     r'\w*'.re.matchAsPrefix('print', 0)?.group(0)?.length.equals(5);
     expect(''.scan, [eof]);
-    expect('print'.scan, [
-      Token(tokenType: TT.PRINT, lexeme: 'print', line: 1, literal: 'print'),
-      eof
-    ]);
+    expect('print'.scan, [TT.PRINT.token, eof]);
   });
   test(
       'assign',
       () => 'assign'.prog.scan.list.equals([
             Token(
-                tokenType: TT.IDENTIFIER, lexeme: 'xy', line: 1, literal: 'xy'),
-            Token(tokenType: TT.EQUAL, lexeme: '=', line: 1, literal: '='),
-            Token(tokenType: TT.NUMBER, lexeme: '35', line: 1, literal: 35),
+                tokenType: TT.IDENTIFIER,
+                lexeme: 'xy',
+                position: 2,
+                line: 1,
+                literal: 'xy'),
+            Token(
+                tokenType: TT.EQUAL,
+                lexeme: '=',
+                position: 4,
+                line: 1,
+                literal: '='),
+            Token(
+                tokenType: TT.NUMBER,
+                lexeme: '35',
+                position: 7,
+                line: 1,
+                literal: 35),
             eof
           ]));
   test(
       'fib',
-      'fib'.prog.scan.list.shouldBe([
-        Token(tokenType: TokenType.FUN, lexeme: "fun", literal: "fun", line: 1),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "fib",
-            literal: "fib",
-            line: 1),
-        Token(
-            tokenType: TokenType.LEFT_PAREN,
-            lexeme: "(",
-            literal: "(",
-            line: 1),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "n",
-            literal: "n",
-            line: 1),
-        Token(
-            tokenType: TokenType.RIGHT_PAREN,
-            lexeme: ")",
-            literal: ")",
-            line: 1),
-        Token(
-            tokenType: TokenType.LEFT_BRACE,
-            lexeme: "{",
-            literal: "{",
-            line: 1),
-        Token(tokenType: TokenType.IF, lexeme: "if", literal: "if", line: 2),
-        Token(
-            tokenType: TokenType.LEFT_PAREN,
-            lexeme: "(",
-            literal: "(",
-            line: 2),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "n",
-            literal: "n",
-            line: 2),
-        Token(tokenType: TokenType.LESS, lexeme: "<", literal: "<", line: 2),
-        Token(tokenType: TokenType.NUMBER, lexeme: "2", literal: 2, line: 2),
-        Token(
-            tokenType: TokenType.RIGHT_PAREN,
-            lexeme: ")",
-            literal: ")",
-            line: 2),
-        Token(
-            tokenType: TokenType.LEFT_BRACE,
-            lexeme: "{",
-            literal: "{",
-            line: 2),
-        Token(
-            tokenType: TokenType.RETURN,
-            lexeme: "return",
-            literal: "return",
-            line: 3),
-        Token(tokenType: TokenType.NUMBER, lexeme: "1", literal: 1, line: 3),
-        Token(
-            tokenType: TokenType.RIGHT_BRACE,
-            lexeme: "}",
-            literal: "}",
-            line: 4),
-        Token(
-            tokenType: TokenType.RETURN,
-            lexeme: "return",
-            literal: "return",
-            line: 5),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "fib",
-            literal: "fib",
-            line: 5),
-        Token(
-            tokenType: TokenType.LEFT_PAREN,
-            lexeme: "(",
-            literal: "(",
-            line: 5),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "n",
-            literal: "n",
-            line: 5),
-        Token(tokenType: TokenType.MINUS, lexeme: "-", literal: "-", line: 5),
-        Token(tokenType: TokenType.NUMBER, lexeme: "1", literal: 1, line: 5),
-        Token(
-            tokenType: TokenType.RIGHT_PAREN,
-            lexeme: ")",
-            literal: ")",
-            line: 5),
-        Token(tokenType: TokenType.PLUS, lexeme: "+", literal: "+", line: 5),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "fib",
-            literal: "fib",
-            line: 5),
-        Token(
-            tokenType: TokenType.LEFT_PAREN,
-            lexeme: "(",
-            literal: "(",
-            line: 5),
-        Token(
-            tokenType: TokenType.IDENTIFIER,
-            lexeme: "n",
-            literal: "n",
-            line: 5),
-        Token(tokenType: TokenType.MINUS, lexeme: "-", literal: "-", line: 5),
-        Token(tokenType: TokenType.NUMBER, lexeme: "2", literal: 2, line: 5),
-        Token(
-            tokenType: TokenType.RIGHT_PAREN,
-            lexeme: ")",
-            literal: ")",
-            line: 5),
-        Token(
-            tokenType: TokenType.RIGHT_BRACE,
-            lexeme: "}",
-            literal: "}",
-            line: 6),
-        Token(tokenType: TokenType.EOF, lexeme: "", literal: "", line: 6)
+      'fib'.prog.scan.list.map((e) => e.tokenType).list.shouldBe([
+        TokenType.FUN,
+        TokenType.IDENTIFIER,
+        TokenType.LEFT_PAREN,
+        TokenType.IDENTIFIER,
+        TokenType.RIGHT_PAREN,
+        TokenType.LEFT_BRACE,
+        TokenType.IF,
+        TokenType.LEFT_PAREN,
+        TokenType.IDENTIFIER,
+        TokenType.LESS,
+        TokenType.NUMBER,
+        TokenType.RIGHT_PAREN,
+        TokenType.LEFT_BRACE,
+        TokenType.RETURN,
+        TokenType.NUMBER,
+        TokenType.RIGHT_BRACE,
+        TokenType.RETURN,
+        TokenType.IDENTIFIER,
+        TokenType.LEFT_PAREN,
+        TokenType.IDENTIFIER,
+        TokenType.MINUS,
+        TokenType.NUMBER,
+        TokenType.RIGHT_PAREN,
+        TokenType.PLUS,
+        TokenType.IDENTIFIER,
+        TokenType.LEFT_PAREN,
+        TokenType.IDENTIFIER,
+        TokenType.MINUS,
+        TokenType.NUMBER,
+        TokenType.RIGHT_PAREN,
+        TokenType.RIGHT_BRACE,
+        TokenType.EOF,
       ]));
 }

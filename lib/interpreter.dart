@@ -116,7 +116,11 @@ extension on Statement {
       ? this
       : Statement.block(
           brace: Token(
-              lexeme: "{", literal: null, line: 0, tokenType: TT.LEFT_BRACE),
+              position: 0,
+              lexeme: "{",
+              literal: null,
+              line: 0,
+              tokenType: TT.LEFT_BRACE),
           blocks: front ? [this, other] : [other, this]);
 }
 

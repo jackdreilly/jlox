@@ -20,6 +20,7 @@ mixin _$Token {
   String get lexeme => throw _privateConstructorUsedError;
   dynamic get literal => throw _privateConstructorUsedError;
   int get line => throw _privateConstructorUsedError;
+  int get position => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TokenCopyWith<Token> get copyWith => throw _privateConstructorUsedError;
@@ -29,7 +30,12 @@ mixin _$Token {
 abstract class $TokenCopyWith<$Res> {
   factory $TokenCopyWith(Token value, $Res Function(Token) then) =
       _$TokenCopyWithImpl<$Res>;
-  $Res call({TokenType tokenType, String lexeme, dynamic literal, int line});
+  $Res call(
+      {TokenType tokenType,
+      String lexeme,
+      dynamic literal,
+      int line,
+      int position});
 }
 
 /// @nodoc
@@ -46,6 +52,7 @@ class _$TokenCopyWithImpl<$Res> implements $TokenCopyWith<$Res> {
     Object? lexeme = freezed,
     Object? literal = freezed,
     Object? line = freezed,
+    Object? position = freezed,
   }) {
     return _then(_value.copyWith(
       tokenType: tokenType == freezed
@@ -64,6 +71,10 @@ class _$TokenCopyWithImpl<$Res> implements $TokenCopyWith<$Res> {
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as int,
+      position: position == freezed
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -73,7 +84,12 @@ abstract class _$$_TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
   factory _$$_TokenCopyWith(_$_Token value, $Res Function(_$_Token) then) =
       __$$_TokenCopyWithImpl<$Res>;
   @override
-  $Res call({TokenType tokenType, String lexeme, dynamic literal, int line});
+  $Res call(
+      {TokenType tokenType,
+      String lexeme,
+      dynamic literal,
+      int line,
+      int position});
 }
 
 /// @nodoc
@@ -91,6 +107,7 @@ class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
     Object? lexeme = freezed,
     Object? literal = freezed,
     Object? line = freezed,
+    Object? position = freezed,
   }) {
     return _then(_$_Token(
       tokenType: tokenType == freezed
@@ -109,6 +126,10 @@ class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
               as int,
+      position: position == freezed
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -120,7 +141,8 @@ class _$_Token implements _Token {
       {required this.tokenType,
       required this.lexeme,
       required this.literal,
-      required this.line});
+      required this.line,
+      required this.position});
 
   @override
   final TokenType tokenType;
@@ -130,10 +152,12 @@ class _$_Token implements _Token {
   final dynamic literal;
   @override
   final int line;
+  @override
+  final int position;
 
   @override
   String toString() {
-    return 'Token(tokenType: $tokenType, lexeme: $lexeme, literal: $literal, line: $line)';
+    return 'Token(tokenType: $tokenType, lexeme: $lexeme, literal: $literal, line: $line, position: $position)';
   }
 
   @override
@@ -144,7 +168,8 @@ class _$_Token implements _Token {
             const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
             const DeepCollectionEquality().equals(other.lexeme, lexeme) &&
             const DeepCollectionEquality().equals(other.literal, literal) &&
-            const DeepCollectionEquality().equals(other.line, line));
+            const DeepCollectionEquality().equals(other.line, line) &&
+            const DeepCollectionEquality().equals(other.position, position));
   }
 
   @override
@@ -153,7 +178,8 @@ class _$_Token implements _Token {
       const DeepCollectionEquality().hash(tokenType),
       const DeepCollectionEquality().hash(lexeme),
       const DeepCollectionEquality().hash(literal),
-      const DeepCollectionEquality().hash(line));
+      const DeepCollectionEquality().hash(line),
+      const DeepCollectionEquality().hash(position));
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +192,8 @@ abstract class _Token implements Token {
       {required final TokenType tokenType,
       required final String lexeme,
       required final dynamic literal,
-      required final int line}) = _$_Token;
+      required final int line,
+      required final int position}) = _$_Token;
 
   @override
   TokenType get tokenType;
@@ -176,6 +203,8 @@ abstract class _Token implements Token {
   dynamic get literal;
   @override
   int get line;
+  @override
+  int get position;
   @override
   @JsonKey(ignore: true)
   _$$_TokenCopyWith<_$_Token> get copyWith =>

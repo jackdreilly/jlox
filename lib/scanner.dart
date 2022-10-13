@@ -40,7 +40,11 @@ class _Scanner {
 
   get where => "";
   Token token(TT tt, [dynamic literal]) => Token(
-      tokenType: tt, lexeme: lexeme, literal: literal ?? lexeme, line: line);
+      tokenType: tt,
+      lexeme: lexeme,
+      literal: literal ?? lexeme,
+      line: line,
+      position: current);
   String get lexeme => string.slice(start, min(string.length, current));
   get fail => report("Unexpected character", line: line);
   bool match(String s) =>

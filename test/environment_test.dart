@@ -4,8 +4,12 @@ import 'package:jlox/token_type.dart';
 import 'package:test/test.dart';
 
 extension on String {
-  Token get t =>
-      Token(tokenType: TT.IDENTIFIER, lexeme: this, literal: this, line: 1);
+  Token get t => Token(
+      tokenType: TT.IDENTIFIER,
+      lexeme: this,
+      literal: this,
+      line: 1,
+      position: 0);
 }
 
 void main() {

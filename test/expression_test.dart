@@ -10,7 +10,7 @@ typedef E = Expression;
 
 extension on TT {
   Token get fakeToken =>
-      Token(tokenType: this, lexeme: "", literal: null, line: 0);
+      Token(tokenType: this, lexeme: "", literal: null, line: 0, position: 0);
 }
 
 extension on num {
@@ -32,7 +32,11 @@ void main() {
       'x = 3',
       () => Expression.assignment(
               token: Token(
-                  lexeme: 'x', literal: 'x', line: 0, tokenType: TT.IDENTIFIER),
+                  position: 0,
+                  lexeme: 'x',
+                  literal: 'x',
+                  line: 0,
+                  tokenType: TT.IDENTIFIER),
               expression: 3.literal)
           .pretty
           .equals('x = 3'));
@@ -40,9 +44,14 @@ void main() {
       'x = y = 3',
       () => Expression.assignment(
               token: Token(
-                  lexeme: 'x', literal: 'x', line: 0, tokenType: TT.IDENTIFIER),
+                  position: 0,
+                  lexeme: 'x',
+                  literal: 'x',
+                  line: 0,
+                  tokenType: TT.IDENTIFIER),
               expression: Expression.assignment(
                   token: Token(
+                      position: 0,
                       lexeme: 'y',
                       literal: 'y',
                       line: 0,
@@ -70,5 +79,9 @@ void main() {
 extension on String {
   Expression get identifier => Expression.variable(
       token: Token(
-          lexeme: this, literal: this, tokenType: TT.IDENTIFIER, line: 0));
+          position: 0,
+          lexeme: this,
+          literal: this,
+          tokenType: TT.IDENTIFIER,
+          line: 0));
 }

@@ -12,6 +12,7 @@ class Token with _$Token {
     required String lexeme,
     required dynamic literal,
     required int line,
+    required int position,
   }) = _Token;
 }
 
