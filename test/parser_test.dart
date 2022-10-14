@@ -8,6 +8,7 @@ import 'helpers.dart';
 
 void main() {
   testWire;
+  test('fun (c) c', () => 'fun (c) c'.parse.pretty.equals('fun (c) c'));
   test(
       'a.b(c.d(),e.f().g()).h.i(j)',
       () => 'a.b(c.d(),e.f().g()).h.i(j)'

@@ -1,7 +1,6 @@
 import 'package:jlox/base.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/token.dart';
-import 'package:tuple/tuple.dart';
 
 import 'expression.dart';
 import 'scanner.dart';
@@ -65,13 +64,10 @@ class _Parser {
   Token? maybeSemi() => match({TT.SEMICOLON}) ? eat : null;
 
   Statement function() {
-    final pair = functionExpressionHelper();
-    return Statement.function(Statement.declaration(
-        variable: pair.item1!,
-        expression: pair.item2.maybeMap(
-          orElse: () => pair.item2,
-          function: (value) => value.copyWith(nameToken: pair.item1!),
-        )));
+    final function = functionExpression() as FunctionExpression;
+    return function.isAnonymous
+        ? Statement.expression(function)
+        : Statement.function(nameToken: function.nameToken, function: function);
   }
 
   Statement variableDeclaration() {
@@ -124,19 +120,20 @@ class _Parser {
     return false;
   }
 
-  Tuple2<Token?, Expression> functionExpressionHelper() {
-    final token = expect(TT.FUN);
-    final identifier = match({TT.IDENTIFIER}) ? expect(TT.IDENTIFIER) : null;
+  Expression functionExpression() {
+    final typeToken = expect(TT.FUN);
+    final nameToken =
+        match({TT.IDENTIFIER}) ? expect(TT.IDENTIFIER) : typeToken;
     expect(TT.LEFT_PAREN);
     final parameters = parameterList();
     expect(TT.RIGHT_PAREN);
-    final body = scoped(token, statement);
-    return identifier.tupe(Expression.function(
-      typeToken: token,
-      nameToken: token,
+    final body = scoped(typeToken, statement);
+    return Expression.function(
+      typeToken: typeToken,
+      nameToken: nameToken,
       parameters: parameters,
       body: body,
-    ));
+    );
   }
 
   List<Token> parameterList() {
@@ -280,8 +277,6 @@ class _Parser {
     throw fail("Expected primary, got ${token.string}");
   }
 
-  Expression functionExpression() => functionExpressionHelper().item2;
-
   ParseError fail(String message) {
     report(message);
     return ParseError();
@@ -327,14 +322,16 @@ class _Parser {
   Calling calling() => eat.tokenType == TT.DOT ? dot() : paren();
   Calling paren() => Calling.paren(arguments: arguments().list);
   Iterable<Expression> arguments() sync* {
-    if (tokenType == TT.RIGHT_PAREN) {
+    if (match({TT.RIGHT_PAREN})) {
       eat;
       return;
     }
     yield assignment();
-    if (match({TT.COMMA})) {
-      eat;
+    if (!match({TT.COMMA})) {
+      expect(TT.RIGHT_PAREN);
+      return;
     }
+    expect(TT.COMMA);
     yield* arguments();
   }
 

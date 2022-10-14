@@ -52,14 +52,16 @@ class _ResolverImpl with Resolver {
           eProc(body);
         },
         breakStatement: (token) => null,
-        function: proc,
+        function: declare,
         block: (brace, blocks) => env(() => blocks.forEach(proc)),
-        declaration: (variable, expression) {
-          // TODO: switch order of statements
-          define(variable);
-          procExp(expression);
-        },
+        declaration: declare,
       );
+
+  void declare(Token token, Expression expression) {
+    // TODO: switch order of statements
+    define(token);
+    procExp(expression);
+  }
 
   void eProc(Statement statement) => env(() => proc(statement));
 

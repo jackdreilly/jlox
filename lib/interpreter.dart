@@ -33,7 +33,10 @@ class Interpreter {
   Object? interpretStatement(Statement statement) => statement.when(
         classDeclaration: (name, block) =>
             env.declare(name, LoxClass(name, block)),
-        function: (declaration) => interpretStatement(declaration),
+        function: (nameToken, function) {
+          env.declare(nameToken, exp(function));
+          return null;
+        },
         returnStatement: (token, returnValue) =>
             throw Exiter.returned(value: exp(returnValue), token: token),
         breakStatement: (token) => throw Exiter.broke(token: token),

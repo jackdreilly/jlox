@@ -131,4 +131,5 @@ extension on Token {
 extension FunctionExpressionExt on FunctionExpression {
   String prettify([String name = ""]) =>
       '''fun $name(${parameters.map((p) => p.literal).join(', ')}) ${body.pretty}''';
+  bool get isAnonymous => nameToken.tokenType != TT.IDENTIFIER;
 }

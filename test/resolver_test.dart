@@ -14,6 +14,11 @@ extension on Program {
 void main() {
   wire;
   test(
+      'nested',
+      'nested'.shouldBe({
+        ['c', 1, 1]
+      }));
+  test(
       'resolver',
       'resolver'.shouldBe({
         ['a', 5, 1],
