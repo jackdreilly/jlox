@@ -22,6 +22,10 @@ class _ResolverImpl with Resolver {
   }
 
   proc(Statement? statement) => statement?.when(
+        classDeclaration: (name, block) {
+          define(name);
+          proc(block);
+        },
         expression: procExp,
         forLoop: (initializer, predicate, perLoop, body) {
           env(() {

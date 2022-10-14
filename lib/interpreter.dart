@@ -8,6 +8,7 @@ import 'package:jlox/token_type.dart';
 
 import 'base.dart';
 import 'exiter.dart';
+import 'lox_class.dart';
 
 class Interpreter {
   final envs = [Environment()];
@@ -30,6 +31,8 @@ class Interpreter {
   }
 
   Object? interpretStatement(Statement statement) => statement.when(
+        classDeclaration: (name, block) =>
+            env.declare(name, LoxClass(name, block)),
         function: (declaration) => interpretStatement(declaration),
         returnStatement: (token, returnValue) =>
             throw Exiter.returned(value: exp(returnValue), token: token),

@@ -9,6 +9,12 @@ import 'helpers.dart';
 void main() {
   testWire;
   test(
+      'a.b(c.d(),e.f().g()).h.i(j)',
+      () => 'a.b(c.d(),e.f().g()).h.i(j)'
+          .parse
+          .pretty
+          .equals('a.b(c.d(),e.f().g()).h.i(j)'));
+  test(
       'fib',
       () => 'fib'.prog.parse.pretty.equals('''
 fun fib(n) {

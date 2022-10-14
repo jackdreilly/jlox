@@ -9,6 +9,8 @@ part 'statement.freezed.dart';
 
 @freezed
 class Statement with _$Statement {
+  const factory Statement.classDeclaration(
+      {required Token name, required Statement body}) = ClassDeclaration;
   const factory Statement.function(Statement declaration) = FunctionStatement;
   const factory Statement.breakStatement(Token token) = Break;
   const factory Statement.returnStatement(
@@ -46,6 +48,7 @@ extension ProgramExtension on Program {
 
 extension StatementExtension on Statement {
   String get pretty => when(
+      classDeclaration: (name, block) => 'class ${name.lexeme} ${block.pretty}',
       function: (declaration) => declaration.maybeWhen(
             declaration: (variable, expression) => expression.maybeMap(
               function: (value) => value.prettify(variable.lexeme),

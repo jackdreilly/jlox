@@ -1,6 +1,7 @@
 import 'package:jlox/environment.dart';
 import 'package:jlox/errors.dart';
 import 'package:jlox/interpreter.dart';
+import 'package:jlox/lox_class.dart';
 import 'package:jlox/parser.dart';
 import 'package:jlox/token.dart';
 import 'package:test/test.dart';
@@ -8,6 +9,7 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
+  test('class', () => 'class'.prog.interpreted.equals(isA<LoxClass>()));
   test('min rec', () => 'min_rec'.prog.interpreted.equals(1));
   test(
       'cons',

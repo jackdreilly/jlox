@@ -48,7 +48,15 @@ class _Parser {
     return [declaration(), ...program()];
   }
 
+  Statement classDeclaration() {
+    final classToken = expect(TT.CLASS);
+    final name = expect(TT.IDENTIFIER);
+    final body = statement();
+    return Statement.classDeclaration(name: name, body: body);
+  }
+
   Statement declaration() => ({
+            TT.CLASS: classDeclaration,
             TT.VAR: variableDeclaration,
             TT.FUN: function,
           }[tokenType] ??
