@@ -70,13 +70,11 @@ class Interpreter {
                 return exiting(() => interpretStatement(body));
               }, clone)).loxFunction(token);
         },
-        invocation: (callee, arguments) {
-          var value = exp(callee);
-          for (final argument in arguments) {
-            value = (value as dynamic)(argument.map(exp).list);
-          }
-          return value;
-        },
+        invocation: (callee, arguments) =>
+            (exp(callee) as dynamic)(arguments.when(
+          dot: (identifier) => [identifier],
+          paren: (arguments) => arguments.map(exp).list,
+        )),
         assignment: (token, expression) =>
             env.assign(resolve(token), exp(expression)),
         binary: (token, left, right) => token.tokenType.isShortCircuit

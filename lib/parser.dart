@@ -245,33 +245,7 @@ class _Parser {
   Expression unary() => match({TT.MINUS, TT.BANG})
       ? Expression.unary(token: token.and(() => eat), expression: unary())
       : invocation();
-  Expression invocation() {
-    final callee = primary();
-    final invocations = <List<Expression>>[];
-    while (match({TT.LEFT_PAREN})) {
-      eat;
-      if (match({TT.RIGHT_PAREN})) {
-        eat;
-        invocations.add([]);
-        continue;
-      }
-      final arguments = <Expression>[];
-      while (true) {
-        arguments.add(assignment());
-        if (match({TT.COMMA})) {
-          eat;
-          continue;
-        }
-        expect(TT.RIGHT_PAREN);
-        break;
-      }
-      invocations.add(arguments);
-    }
-    if (invocations.isEmpty) {
-      return callee;
-    }
-    return Expression.invocation(callee: callee, invocations: invocations);
-  }
+  Expression invocation() => _invocation(primary());
 
   Expression primary() {
     if (isAtEnd) {
@@ -333,6 +307,26 @@ class _Parser {
     current -= lookAhead;
     return value;
   }
+
+  Expression _invocation(Expression primary) => !match({TT.DOT, TT.LEFT_PAREN})
+      ? primary
+      : _invocation(Expression.invocation(callee: primary, calling: calling()));
+
+  Calling calling() => eat.tokenType == TT.DOT ? dot() : paren();
+  Calling paren() => Calling.paren(arguments: arguments().list);
+  Iterable<Expression> arguments() sync* {
+    if (tokenType == TT.RIGHT_PAREN) {
+      eat;
+      return;
+    }
+    yield assignment();
+    if (match({TT.COMMA})) {
+      eat;
+    }
+    yield* arguments();
+  }
+
+  Calling dot() => Calling.dot(identifier: expect(TT.IDENTIFIER));
 }
 
 class ParseError extends Error {

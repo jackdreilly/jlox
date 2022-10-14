@@ -11,6 +11,12 @@ part 'expression.freezed.dart';
 typedef Star<T extends Expression> = Iterable<Tuple2<TT, T>>;
 
 @freezed
+class Calling with _$Calling {
+  const factory Calling.dot({required Token identifier}) = Dot;
+  const factory Calling.paren({required List<Expression> arguments}) = Paren;
+}
+
+@freezed
 class Expression with _$Expression {
   const factory Expression.ternary(
       {required Expression predicate,
@@ -28,7 +34,7 @@ class Expression with _$Expression {
   const factory Expression.literal(value) = Literal;
   const factory Expression.invocation({
     required Expression callee,
-    required List<List<Expression>> invocations,
+    required Calling calling,
   }) = Invocation;
   const factory Expression.grouping(Expression expression) = Grouping;
   const factory Expression.assignment(
@@ -46,8 +52,16 @@ extension on Iterable {
 extension ExpressionString on Expression {
   String get pretty => when(
         function: (_, __, ___) => (this as FunctionExpression).prettify(),
-        invocation: (callee, arguments) =>
-            '${callee.pretty}${arguments.map((e) => '(${e.map((e) => e.pretty).join(',')})').join()}',
+        invocation: (callee, calling) {
+          return [
+            callee.pretty,
+            calling.when(
+              dot: (id) => '.${id.lexeme}',
+              paren: (arguments) =>
+                  [arguments.map((e) => e.pretty).join(',')].paren,
+            )
+          ].join();
+        },
         assignment: (token, expression) =>
             [token.pretty, '=', expression.pretty].unwords,
         variable: (token) => token.lexeme,

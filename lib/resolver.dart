@@ -70,8 +70,12 @@ class _ResolverImpl with Resolver {
         variable: associate,
         ternary: (predicate, yes, no) => [predicate, yes, no].forEach(procExp),
         literal: (value) => null,
-        invocation: (callee, invocations) =>
-            [callee, ...invocations.expand(id)].forEach(procExp),
+        invocation: (callee, calling) {
+          procExp(callee);
+          calling.when(
+              dot: associate, paren: (arguments) => arguments.forEach(procExp));
+          return null;
+        },
         function: (token, parameters, body) => env(() {
           parameters.forEach(define);
           eProc(body);
