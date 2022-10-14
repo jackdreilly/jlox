@@ -70,7 +70,7 @@ class _Parser {
         variable: pair.item1!,
         expression: pair.item2.maybeMap(
           orElse: () => pair.item2,
-          function: (value) => value.copyWith(token: pair.item1!),
+          function: (value) => value.copyWith(nameToken: pair.item1!),
         )));
   }
 
@@ -131,8 +131,12 @@ class _Parser {
     final parameters = parameterList();
     expect(TT.RIGHT_PAREN);
     final body = scoped(token, statement);
-    return identifier.tupe(
-        Expression.function(token: token, parameters: parameters, body: body));
+    return identifier.tupe(Expression.function(
+      typeToken: token,
+      nameToken: token,
+      parameters: parameters,
+      body: body,
+    ));
   }
 
   List<Token> parameterList() {

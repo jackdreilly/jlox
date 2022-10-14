@@ -63,7 +63,7 @@ class Interpreter {
       );
 
   Object? exp(Expression? expression) => expression?.when(
-        function: (token, parameters, body) {
+        function: (_, token, parameters, body) {
           final clone = env.clone(token);
           return ((List arguments) => scoped(() {
                 parameters.zip(arguments).forEach(

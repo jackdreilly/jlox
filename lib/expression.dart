@@ -39,10 +39,12 @@ class Expression with _$Expression {
   const factory Expression.grouping(Expression expression) = Grouping;
   const factory Expression.assignment(
       {required Token token, required Expression expression}) = Assignment;
-  const factory Expression.function(
-      {required Token token,
-      required List<Token> parameters,
-      required Statement body}) = FunctionExpression;
+  const factory Expression.function({
+    required Token typeToken,
+    required Token nameToken,
+    required List<Token> parameters,
+    required Statement body,
+  }) = FunctionExpression;
 }
 
 extension on Iterable {
@@ -51,7 +53,7 @@ extension on Iterable {
 
 extension ExpressionString on Expression {
   String get pretty => when(
-        function: (_, __, ___) => (this as FunctionExpression).prettify(),
+        function: (_, __, ___, ____) => (this as FunctionExpression).prettify(),
         invocation: (callee, calling) {
           return [
             callee.pretty,

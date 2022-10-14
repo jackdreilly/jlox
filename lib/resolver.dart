@@ -80,7 +80,7 @@ class _ResolverImpl with Resolver {
               dot: associate, paren: (arguments) => arguments.forEach(procExp));
           return null;
         },
-        function: (token, parameters, body) => env(() {
+        function: (_, token, parameters, body) => env(() {
           parameters.forEach(define);
           eProc(body);
         }),
