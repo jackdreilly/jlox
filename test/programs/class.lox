@@ -1,2 +1,9 @@
-class a{}
-a;
+class a {
+hi() {
+return " " + this.hello.hi;
+}
+}
+var b = a()
+b.hello = a()
+b.hello.hi = "jack"
+b.hello.hi + b.hi()

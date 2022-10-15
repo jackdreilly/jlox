@@ -1,6 +1,8 @@
 import 'package:jlox/environment.dart';
+import 'package:jlox/environment_key.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/lox_function.dart';
+import 'package:jlox/lox_instance.dart';
 import 'package:jlox/resolver.dart';
 import 'package:jlox/statement.dart';
 import 'package:jlox/token.dart';
@@ -31,10 +33,20 @@ class Interpreter {
   }
 
   Object? interpretStatement(Statement statement) => statement.when(
-        classDeclaration: (name, block) =>
-            env.declare(name, LoxClass(name, block)),
+        classDeclaration: (name, methods) => env.declare(name.key, scoped(() {
+          final cloned = env.clone(name.string);
+          return LoxClass(
+              name,
+              methods
+                  .map((e) => LoxFunction(
+                        interpreter: this,
+                        function: e.function as FunctionExpression,
+                        environment: cloned,
+                      ))
+                  .list);
+        })),
         function: (nameToken, function) {
-          env.declare(nameToken, exp(function));
+          env.declare(nameToken.key, exp(function));
           return null;
         },
         returnStatement: (token, returnValue) =>
@@ -56,31 +68,30 @@ class Interpreter {
         expression: exp,
         print: (expression) => print(exp(expression)),
         uninitialized: (variable) {
-          env.define(variable);
+          env.define(variable.key);
           return null;
         },
         declaration: (variable, expression) {
-          env.declare(variable, exp(expression));
+          env.declare(variable.key, exp(expression));
           return null;
         },
       );
 
   Object? exp(Expression? expression) => expression?.when(
-        function: (_, token, parameters, body) {
-          final clone = env.clone(token);
-          return ((List arguments) => scoped(() {
-                parameters.zip(arguments).forEach(
-                    (element) => env.declare(element.item1, element.item2));
-                ['CALLING', token.lexeme, token.line].unwords.log;
-                env.debug;
-                return exiting(() => interpretStatement(body));
-              }, clone)).loxFunction(token);
+        setter: (callee, identifier, right) =>
+            (exp(callee) as LoxInstance).setProperty(identifier, exp(right)),
+        function: (_, token, ___, ____) => LoxFunction(
+            interpreter: this,
+            function: expression as FunctionExpression,
+            environment: env.clone(token.string)),
+        invocation: (callee, calling) {
+          final calleeValue = exp(callee);
+          return calling.when(
+            dot: (token) => (calleeValue as LoxInstance).getField(token),
+            paren: (arguments) =>
+                (calleeValue as LoxCallable).call(arguments.map(exp).list),
+          );
         },
-        invocation: (callee, arguments) =>
-            (exp(callee) as dynamic)(arguments.when(
-          dot: (identifier) => [identifier],
-          paren: (arguments) => arguments.map(exp).list,
-        )),
         assignment: (token, expression) =>
             env.assign(resolve(token), exp(expression)),
         binary: (token, left, right) => token.tokenType.isShortCircuit
@@ -110,7 +121,7 @@ class Interpreter {
   Object? scopedStatement(Statement statement) =>
       scoped(() => _interpret([statement]));
 
-  Token resolve(Token token) => resolver.resolveVariable(token);
+  EnvironmentKey resolve(Token token) => resolver.resolveVariable(token.key);
 }
 
 extension on Statement {

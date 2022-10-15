@@ -1,0 +1,17 @@
+class A {
+    a() {
+        print this.c.d;
+    }
+    set(c) {
+        this.c = c;
+    }
+}
+class B {
+    c() {
+        this.d = "asdf";
+        this.e = A();
+        this.e.set(this);
+        return this;
+    }
+}
+B().c().e.a();

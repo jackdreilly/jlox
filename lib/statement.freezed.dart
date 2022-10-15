@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Statement {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -40,7 +41,8 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -60,7 +62,8 @@ mixin _$Statement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -153,10 +156,9 @@ abstract class _$$ClassDeclarationCopyWith<$Res> {
   factory _$$ClassDeclarationCopyWith(
           _$ClassDeclaration value, $Res Function(_$ClassDeclaration) then) =
       __$$ClassDeclarationCopyWithImpl<$Res>;
-  $Res call({Token name, Statement body});
+  $Res call({Token name, List<FunctionStatement> methods});
 
   $TokenCopyWith<$Res> get name;
-  $StatementCopyWith<$Res> get body;
 }
 
 /// @nodoc
@@ -173,17 +175,17 @@ class __$$ClassDeclarationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? body = freezed,
+    Object? methods = freezed,
   }) {
     return _then(_$ClassDeclaration(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as Token,
-      body: body == freezed
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as Statement,
+      methods: methods == freezed
+          ? _value._methods
+          : methods // ignore: cast_nullable_to_non_nullable
+              as List<FunctionStatement>,
     ));
   }
 
@@ -193,28 +195,27 @@ class __$$ClassDeclarationCopyWithImpl<$Res>
       return _then(_value.copyWith(name: value));
     });
   }
-
-  @override
-  $StatementCopyWith<$Res> get body {
-    return $StatementCopyWith<$Res>(_value.body, (value) {
-      return _then(_value.copyWith(body: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$ClassDeclaration implements ClassDeclaration {
-  const _$ClassDeclaration({required this.name, required this.body});
+  const _$ClassDeclaration(
+      {required this.name, required final List<FunctionStatement> methods})
+      : _methods = methods;
 
   @override
   final Token name;
+  final List<FunctionStatement> _methods;
   @override
-  final Statement body;
+  List<FunctionStatement> get methods {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_methods);
+  }
 
   @override
   String toString() {
-    return 'Statement.classDeclaration(name: $name, body: $body)';
+    return 'Statement.classDeclaration(name: $name, methods: $methods)';
   }
 
   @override
@@ -223,14 +224,14 @@ class _$ClassDeclaration implements ClassDeclaration {
         (other.runtimeType == runtimeType &&
             other is _$ClassDeclaration &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.body, body));
+            const DeepCollectionEquality().equals(other._methods, _methods));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(body));
+      const DeepCollectionEquality().hash(_methods));
 
   @JsonKey(ignore: true)
   @override
@@ -240,7 +241,8 @@ class _$ClassDeclaration implements ClassDeclaration {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -259,13 +261,14 @@ class _$ClassDeclaration implements ClassDeclaration {
     required TResult Function(Expression predicate, Statement yes, Statement no)
         ifElse,
   }) {
-    return classDeclaration(name, body);
+    return classDeclaration(name, methods);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -282,13 +285,14 @@ class _$ClassDeclaration implements ClassDeclaration {
     TResult Function(Expression predicate, Statement yes)? justIf,
     TResult Function(Expression predicate, Statement yes, Statement no)? ifElse,
   }) {
-    return classDeclaration?.call(name, body);
+    return classDeclaration?.call(name, methods);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -307,7 +311,7 @@ class _$ClassDeclaration implements ClassDeclaration {
     required TResult orElse(),
   }) {
     if (classDeclaration != null) {
-      return classDeclaration(name, body);
+      return classDeclaration(name, methods);
     }
     return orElse();
   }
@@ -380,10 +384,10 @@ class _$ClassDeclaration implements ClassDeclaration {
 abstract class ClassDeclaration implements Statement {
   const factory ClassDeclaration(
       {required final Token name,
-      required final Statement body}) = _$ClassDeclaration;
+      required final List<FunctionStatement> methods}) = _$ClassDeclaration;
 
   Token get name;
-  Statement get body;
+  List<FunctionStatement> get methods;
   @JsonKey(ignore: true)
   _$$ClassDeclarationCopyWith<_$ClassDeclaration> get copyWith =>
       throw _privateConstructorUsedError;
@@ -481,7 +485,8 @@ class _$FunctionStatement implements FunctionStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -506,7 +511,8 @@ class _$FunctionStatement implements FunctionStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -529,7 +535,8 @@ class _$FunctionStatement implements FunctionStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -701,7 +708,8 @@ class _$Break implements Break {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -726,7 +734,8 @@ class _$Break implements Break {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -749,7 +758,8 @@ class _$Break implements Break {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -941,7 +951,8 @@ class _$Return implements Return {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -966,7 +977,8 @@ class _$Return implements Return {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -989,7 +1001,8 @@ class _$Return implements Return {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1166,7 +1179,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -1191,7 +1205,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1214,7 +1229,8 @@ class _$ExpressionStatement implements ExpressionStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1387,7 +1403,8 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -1412,7 +1429,8 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1435,7 +1453,8 @@ class _$PrintStatement implements PrintStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1622,7 +1641,8 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -1647,7 +1667,8 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1670,7 +1691,8 @@ class _$BlockStatement implements BlockStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1866,7 +1888,8 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -1891,7 +1914,8 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -1914,7 +1938,8 @@ class _$DeclarationStatement implements DeclarationStatement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2088,7 +2113,8 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -2113,7 +2139,8 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2136,7 +2163,8 @@ class _$Uninitialized implements Uninitialized {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2375,7 +2403,8 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -2400,7 +2429,8 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2423,7 +2453,8 @@ class _$ForLoop implements ForLoop {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2617,7 +2648,8 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -2642,7 +2674,8 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2665,7 +2698,8 @@ class _$While implements While {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2854,7 +2888,8 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -2879,7 +2914,8 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -2902,7 +2938,8 @@ class _$JustIf implements JustIf {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -3110,7 +3147,8 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Token name, Statement body) classDeclaration,
+    required TResult Function(Token name, List<FunctionStatement> methods)
+        classDeclaration,
     required TResult Function(Token nameToken, Expression function) function,
     required TResult Function(Token token) breakStatement,
     required TResult Function(Token returnToken, Expression? returnValue)
@@ -3135,7 +3173,8 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?
@@ -3158,7 +3197,8 @@ class _$IfElse implements IfElse {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Token name, Statement body)? classDeclaration,
+    TResult Function(Token name, List<FunctionStatement> methods)?
+        classDeclaration,
     TResult Function(Token nameToken, Expression function)? function,
     TResult Function(Token token)? breakStatement,
     TResult Function(Token returnToken, Expression? returnValue)?

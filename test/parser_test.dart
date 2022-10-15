@@ -8,6 +8,24 @@ import 'helpers.dart';
 
 void main() {
   testWire;
+  test('smallclass',
+      () => 'class a{b(c,d) e}'.parse.pretty.equals('class a {b(c, d) e}'));
+  test('this', 'this'.fails);
+  test('class method',
+      () => 'class a {hi() 3}'.parse.pretty.equals('class a {hi() 3}'));
+
+  test(
+      "class prog",
+      () => 'class'.prog.parse.pretty.equals('''
+class a {hi() {
+return (+ " " this.hello.hi)
+}}
+var b = a()
+b.hello = a()
+b.hello.hi = "jack"
+(+ b.hello.hi b.hi())
+'''
+          .trim()));
   test('fun (c) c', () => 'fun (c) c'.parse.pretty.equals('fun (c) c'));
   test(
       'a.b(c.d(),e.f().g()).h.i(j)',

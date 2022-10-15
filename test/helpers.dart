@@ -6,6 +6,7 @@ import 'package:jlox/errors.dart';
 import 'package:jlox/token.dart';
 import 'package:jlox/token_type.dart';
 import 'package:test/test.dart';
+export 'package:jlox/base.dart' show wire;
 
 extension SE on String {
   String operator /(String other) => [this, other].join('/');
@@ -44,6 +45,10 @@ class FakeStreamConsumer implements StreamConsumer<List<int>> {
 }
 
 get testWire {
+  if (Platform.environment["W"] != null) {
+    wire;
+    return;
+  }
   myStderr = IOSink(FakeStreamConsumer());
   myStdout = IOSink(FakeStreamConsumer());
 }

@@ -1,0 +1,12 @@
+class A {
+    b() {
+        print this.a;
+        return this.a == 0 ? 0 : this.a.b();
+    }
+}
+var a = A();
+var b = A();
+b.a = 0;
+a.a = b;
+a.b();
+a.b();

@@ -50,8 +50,25 @@ class _Parser {
   Statement classDeclaration() {
     final classToken = expect(TT.CLASS);
     final name = expect(TT.IDENTIFIER);
-    final body = statement();
-    return Statement.classDeclaration(name: name, body: body);
+    return scoped(classToken, () {
+      return Statement.classDeclaration(
+        name: name,
+        methods: methods().list,
+      );
+    });
+  }
+
+  Iterable<FunctionStatement> methods() sync* {
+    final classToken = callStack.reversed.firstWhere(
+      (element) => element.tokenType == TT.CLASS,
+      orElse: () =>
+          throw fail("Could not find expected class context for method"),
+    );
+    expect(TT.LEFT_BRACE);
+    while (!match({TT.RIGHT_BRACE})) {
+      yield function(classToken) as FunctionStatement;
+    }
+    expect(TT.RIGHT_BRACE);
   }
 
   Statement declaration() => ({
@@ -63,8 +80,8 @@ class _Parser {
       .and(maybeSemi);
   Token? maybeSemi() => match({TT.SEMICOLON}) ? eat : null;
 
-  Statement function() {
-    final function = functionExpression() as FunctionExpression;
+  Statement function([Token? classToken]) {
+    final function = functionExpression(classToken) as FunctionExpression;
     return function.isAnonymous
         ? Statement.expression(function)
         : Statement.function(nameToken: function.nameToken, function: function);
@@ -99,6 +116,13 @@ class _Parser {
     throw fail("break statement must be inside for/while loop ${token.string}");
   }
 
+  Token get thisToken {
+    if (thisable) {
+      return expect(TT.THIS);
+    }
+    throw fail("this statement must be inside class ${token.string}");
+  }
+
   Token get returnToken {
     if (returnable) {
       return expect(TT.RETURN);
@@ -107,6 +131,7 @@ class _Parser {
   }
 
   bool get returnable => callStack.any((element) => element.returnable);
+  bool get thisable => callStack.any((element) => element.thisable);
 
   bool get breakable {
     for (final token in callStack.reversed) {
@@ -120,14 +145,21 @@ class _Parser {
     return false;
   }
 
-  Expression functionExpression() {
-    final typeToken = expect(TT.FUN);
+  Expression functionExpression([Token? inputTypeToken]) {
+    final typeToken = inputTypeToken ?? expect(TT.FUN);
     final nameToken =
         match({TT.IDENTIFIER}) ? expect(TT.IDENTIFIER) : typeToken;
     expect(TT.LEFT_PAREN);
     final parameters = parameterList();
     expect(TT.RIGHT_PAREN);
-    final body = scoped(typeToken, statement);
+    final body = scoped(
+        Token(
+            tokenType: TT.FUN,
+            lexeme: 'fake',
+            literal: 'fake',
+            line: -1,
+            position: -1),
+        statement);
     return Expression.function(
       typeToken: typeToken,
       nameToken: nameToken,
@@ -217,16 +249,23 @@ class _Parser {
   Expression expression() => comma();
   Expression comma() => starred(assignment, {TT.COMMA});
   Expression assignment() {
-    final expr = logicOr();
+    final left = logicOr();
     if (match({TT.EQUAL})) {
       final equal = expect(TT.EQUAL);
       final right = assignment();
-      return expr.maybeWhen(
+      return left.maybeWhen(
+          invocation: (callee, calling) => Expression.setter(
+              right: right,
+              callee: callee,
+              identifier: calling.when(
+                  dot: id,
+                  paren: (_) => throw RuntimeError(
+                      "Can not assign to parenthases accessors ${equal.string}"))),
           variable: (token) =>
               Expression.assignment(expression: right, token: token),
           orElse: () => throw fail("Invalid assignment at ${equal.string}"));
     }
-    return expr;
+    return left;
   }
 
   Expression logicOr() => starred(logicAnd, {TT.OR});
@@ -273,6 +312,9 @@ class _Parser {
       final grouping = Expression.grouping(expression());
       expect(TT.RIGHT_PAREN);
       return grouping;
+    }
+    if (match({TT.THIS})) {
+      return Expression.variable(token: thisToken);
     }
     throw fail("Expected primary, got ${token.string}");
   }

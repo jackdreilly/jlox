@@ -39,6 +39,10 @@ class Expression with _$Expression {
   const factory Expression.grouping(Expression expression) = Grouping;
   const factory Expression.assignment(
       {required Token token, required Expression expression}) = Assignment;
+  const factory Expression.setter(
+      {required Expression callee,
+      required Token identifier,
+      required Expression right}) = Setter;
   const factory Expression.function({
     required Token typeToken,
     required Token nameToken,
@@ -53,6 +57,11 @@ extension on Iterable {
 
 extension ExpressionString on Expression {
   String get pretty => when(
+        setter: (callee, identifier, right) => [
+          [callee.pretty, identifier.lexeme].join("."),
+          '=',
+          right.pretty
+        ].unwords,
         function: (_, __, ___, ____) => (this as FunctionExpression).prettify(),
         invocation: (callee, calling) {
           return [
@@ -129,7 +138,14 @@ extension on Token {
 }
 
 extension FunctionExpressionExt on FunctionExpression {
-  String prettify([String name = ""]) =>
-      '''fun $name(${parameters.map((p) => p.literal).join(', ')}) ${body.pretty}''';
+  String prettify([String name = ""]) => [
+        if (!isMethod) "fun ",
+        if (!isAnonymous) name,
+        '(',
+        parameters.map((e) => e.pretty).join(', '),
+        ') ',
+        body.pretty
+      ].join();
+  bool get isMethod => typeToken.tokenType == TT.CLASS;
   bool get isAnonymous => nameToken.tokenType != TT.IDENTIFIER;
 }

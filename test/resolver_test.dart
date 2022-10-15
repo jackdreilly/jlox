@@ -1,18 +1,36 @@
-import 'package:jlox/base.dart';
+import 'package:jlox/environment_key.dart';
 import 'package:jlox/parser.dart';
 import 'package:jlox/resolver.dart';
 import 'package:jlox/statement.dart';
 import 'package:jlox/token.dart';
+import 'package:jlox/token_type.dart';
 import 'package:test/test.dart';
 
 import 'helpers.dart';
 
+extension on EnvironmentKey {
+  TT get tokenType =>
+      map(identifier: (_) => TT.IDENTIFIER, thisKey: (_) => TT.THIS);
+  int get line =>
+      maybeWhen(orElse: () => -1, identifier: (name, line, position) => line);
+  int get position => maybeWhen(
+      orElse: () => -1, identifier: (name, line, position) => position);
+  Token get token => Token(
+      tokenType: tokenType,
+      lexeme: scopeKey,
+      literal: scopeKey,
+      line: line,
+      position: position);
+}
+
 extension on Program {
-  Map<Token, Token?> get resolve => (Resolver.make..interpret(this)).testDump;
+  Map<Token, Token?> get resolve => (Resolver.make..interpret(this))
+      .testDump
+      .map((key, value) => MapEntry(key.token, value?.token));
 }
 
 void main() {
-  wire;
+  testWire;
   test(
       'nested',
       'nested'.shouldBe({

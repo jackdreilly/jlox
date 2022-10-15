@@ -9,7 +9,17 @@ import 'package:test/test.dart';
 import 'helpers.dart';
 
 void main() {
-  test('class', () => 'class'.prog.interpreted.equals(isA<LoxClass>()));
+  testWire;
+  test(
+      'list',
+      () => 'list'
+          .prog
+          .interpreted
+          .equals('athenaathena,  - and stuff, reillyreilly,  - and stuff'));
+  test('small class',
+      () => 'class a {b(c, d) c + d} a().b(4,5)'.interpreted.equals(9));
+  test('class class', () => 'class a{} a;'.interpreted.equals(isA<LoxClass>()));
+  test('class instance', () => 'class'.prog.interpreted.equals("jack jack"));
   test('min rec', () => 'min_rec'.prog.interpreted.equals(1));
   test(
       'cons',
@@ -101,6 +111,6 @@ void main() {
 
 extension on String {
   Object? get interpreted => Interpreter().interpret(parse);
-  get missing =>
-      () => expect(() => interpreted, throwsA(isA<MissingTokenError>()));
+  get missing => () =>
+      expect(() => interpreted, throwsA(isA<MissingEnvironmentKeyError>()));
 }

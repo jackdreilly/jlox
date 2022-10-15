@@ -1,15 +1,17 @@
 import 'package:jlox/environment.dart';
+import 'package:jlox/environment_key.dart';
 import 'package:jlox/token.dart';
 import 'package:jlox/token_type.dart';
 import 'package:test/test.dart';
 
 extension on String {
-  Token get t => Token(
-      tokenType: TT.IDENTIFIER,
-      lexeme: this,
-      literal: this,
-      line: 1,
-      position: 0);
+  EnvironmentKey get t => Token(
+          tokenType: TT.IDENTIFIER,
+          lexeme: this,
+          literal: this,
+          line: 1,
+          position: 0)
+      .key;
 }
 
 void main() {
@@ -17,8 +19,8 @@ void main() {
     final env = Environment();
     final y = 'y'.t;
     final z = 'z'.t;
-    expect(() => env.get(y), throwsA(isA<MissingTokenError>()));
-    expect(() => env.assign(y, 3), throwsA(isA<MissingTokenError>()));
+    expect(() => env.get(y), throwsA(isA<MissingEnvironmentKeyError>()));
+    expect(() => env.assign(y, 3), throwsA(isA<MissingEnvironmentKeyError>()));
     env.declare(y, 3);
     env.declare(z, 10);
     expect(env.get(y), 3);
@@ -37,7 +39,7 @@ void main() {
     expect(env.get(z), 100);
     env.pop;
     expect(env.get(y), 1);
-    expect(() => env.get(next), throwsA(isA<MissingTokenError>()));
+    expect(() => env.get(next), throwsA(isA<MissingEnvironmentKeyError>()));
     expect(env.get(z), 10);
   });
 }

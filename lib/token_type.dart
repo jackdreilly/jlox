@@ -134,6 +134,7 @@ extension TTExt on TokenType {
   bool get breakable => {TT.FOR, TT.WHILE}.contains(this);
   bool get notBreakable => returnable;
   bool get returnable => {TT.FUN}.contains(this);
+  bool get thisable => {TT.CLASS}.contains(this);
 }
 
 extension Truthy on Object? {

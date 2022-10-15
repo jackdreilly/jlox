@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:jlox/token.dart';
+import 'package:jlox/environment_key.dart';
 
 import 'base.dart';
+import 'token.dart';
 
 part 'environment.freezed.dart';
 
-typedef State = Map<Token, VariableValue>;
+typedef State = Map<EnvironmentKey, VariableValue>;
 
 @freezed
 class VariableValue with _$VariableValue {
@@ -18,52 +19,57 @@ extension on VariableValue {
 }
 
 extension on State {
-  Object? put(Token key, Object? value) => (this[key] = value.wrap).value;
+  Object? put(EnvironmentKey key, Object? value) =>
+      (this[key] = value.wrap).value;
 }
 
 class Environment {
   final List<State> states;
-  final Token? token;
-  Environment([List<State>? states, this.token]) : states = states ?? [{}];
-  Environment clone([Token? token]) => Environment(states.list, token);
+  final String? description;
+  Environment([List<State>? states, this.description])
+      : states = states ?? [{}];
+  Environment clone([String? description]) =>
+      Environment(states.list, description);
   State get state => states.last;
   get push => states.add({});
   get pop => states.removeLast();
-  get debug {
+  Environment get debug {
     for (final iState in states.enumerate) {
       final indent = '  ' * iState.item1;
       (iState.item1 == 0
-          ? [
-              '',
-              '=' * 10,
-              ['env:', token?.string ?? "unnamed"].unwords,
-              '=' * 10,
-              ''
-            ].unlines
-          : [indent, 'NEXT'].join(''));
+              ? [
+                  '',
+                  '=' * 10,
+                  ['env:', description ?? "global", hashCode % 10000].unwords,
+                  '=' * 10,
+                  ''
+                ].unlines
+              : [indent, 'NEXT'].join(''))
+          .log;
       for (final entry in iState.item2.entries) {
-        [indent, entry.key, ': ', entry.value.value].join("");
+        [indent, entry.key, ': ', entry.value.value].join("").log;
       }
     }
+    return this;
   }
 
-  assign(Token key, Object? value) =>
+  assign(EnvironmentKey key, Object? value) =>
       find(key, (state) => state.put(key, value));
-  get(Token key) => find(
+  get(EnvironmentKey key) => find(
       key,
       (state) => state[key]?.when(
             present: id,
             absent: () => throw UninitializedValueError(key),
           ));
-  void declare(Token key, Object? value) => state.put(key, value);
-  void define(Token key) => state[key] = VariableValue.absent();
-  T find<T>(Token key, T Function(State state) callback) {
+  void declare(EnvironmentKey key, Object? value) => state.put(key, value);
+  void define(EnvironmentKey key) => state[key] = VariableValue.absent();
+  T find<T>(EnvironmentKey key, T Function(State state) callback) {
     for (final state in states.reversed) {
       if (state.containsKey(key)) {
         return callback(state);
       }
     }
-    throw MissingTokenError(key);
+    throw MissingEnvironmentKeyError(key);
   }
 }
 
@@ -72,13 +78,14 @@ extension on Object? {
 }
 
 class UninitializedValueError extends RuntimeError {
-  final Token token;
+  final EnvironmentKey environmentKey;
 
-  UninitializedValueError(this.token)
-      : super('Uninitialized variable access for ${token.string}');
+  UninitializedValueError(this.environmentKey)
+      : super('Uninitialized variable access for $environmentKey');
 }
 
-class MissingTokenError extends RuntimeError {
-  final Token token;
-  MissingTokenError(this.token) : super('Missing token ${token.string}');
+class MissingEnvironmentKeyError extends RuntimeError {
+  final EnvironmentKey environmentKey;
+  MissingEnvironmentKeyError(this.environmentKey)
+      : super('Missing environmentkey $environmentKey');
 }

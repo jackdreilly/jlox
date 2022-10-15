@@ -22,7 +22,11 @@ int main(List<String> args) {
 }
 
 int runProgram(String last) {
-  return run(last.read ?? last);
+  final value = run(last.read ?? last);
+  if (value != 0) {
+    return value;
+  }
+  return runPrompt();
 }
 
 int run(String program) {

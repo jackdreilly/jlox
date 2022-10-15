@@ -362,6 +362,9 @@ mixin _$Expression {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -378,6 +381,8 @@ mixin _$Expression {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -394,6 +399,8 @@ mixin _$Expression {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -410,6 +417,7 @@ mixin _$Expression {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) =>
       throw _privateConstructorUsedError;
@@ -423,6 +431,7 @@ mixin _$Expression {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) =>
       throw _privateConstructorUsedError;
@@ -436,6 +445,7 @@ mixin _$Expression {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) =>
@@ -576,6 +586,9 @@ class _$Ternary implements Ternary {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -595,6 +608,8 @@ class _$Ternary implements Ternary {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -614,6 +629,8 @@ class _$Ternary implements Ternary {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -636,6 +653,7 @@ class _$Ternary implements Ternary {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return ternary(this);
@@ -652,6 +670,7 @@ class _$Ternary implements Ternary {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return ternary?.call(this);
@@ -668,6 +687,7 @@ class _$Ternary implements Ternary {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -810,6 +830,9 @@ class _$Binary implements Binary {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -829,6 +852,8 @@ class _$Binary implements Binary {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -848,6 +873,8 @@ class _$Binary implements Binary {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -870,6 +897,7 @@ class _$Binary implements Binary {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return binary(this);
@@ -886,6 +914,7 @@ class _$Binary implements Binary {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return binary?.call(this);
@@ -902,6 +931,7 @@ class _$Binary implements Binary {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -1027,6 +1057,9 @@ class _$Unary implements Unary {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -1046,6 +1079,8 @@ class _$Unary implements Unary {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1065,6 +1100,8 @@ class _$Unary implements Unary {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1087,6 +1124,7 @@ class _$Unary implements Unary {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return unary(this);
@@ -1103,6 +1141,7 @@ class _$Unary implements Unary {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return unary?.call(this);
@@ -1119,6 +1158,7 @@ class _$Unary implements Unary {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -1224,6 +1264,9 @@ class _$Identifier implements Identifier {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -1243,6 +1286,8 @@ class _$Identifier implements Identifier {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1262,6 +1307,8 @@ class _$Identifier implements Identifier {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1284,6 +1331,7 @@ class _$Identifier implements Identifier {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return variable(this);
@@ -1300,6 +1348,7 @@ class _$Identifier implements Identifier {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return variable?.call(this);
@@ -1316,6 +1365,7 @@ class _$Identifier implements Identifier {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -1405,6 +1455,9 @@ class _$Literal implements Literal {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -1424,6 +1477,8 @@ class _$Literal implements Literal {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1443,6 +1498,8 @@ class _$Literal implements Literal {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1465,6 +1522,7 @@ class _$Literal implements Literal {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return literal(this);
@@ -1481,6 +1539,7 @@ class _$Literal implements Literal {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return literal?.call(this);
@@ -1497,6 +1556,7 @@ class _$Literal implements Literal {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -1618,6 +1678,9 @@ class _$Invocation implements Invocation {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -1637,6 +1700,8 @@ class _$Invocation implements Invocation {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1656,6 +1721,8 @@ class _$Invocation implements Invocation {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1678,6 +1745,7 @@ class _$Invocation implements Invocation {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return invocation(this);
@@ -1694,6 +1762,7 @@ class _$Invocation implements Invocation {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return invocation?.call(this);
@@ -1710,6 +1779,7 @@ class _$Invocation implements Invocation {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -1816,6 +1886,9 @@ class _$Grouping implements Grouping {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -1835,6 +1908,8 @@ class _$Grouping implements Grouping {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1854,6 +1929,8 @@ class _$Grouping implements Grouping {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -1876,6 +1953,7 @@ class _$Grouping implements Grouping {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return grouping(this);
@@ -1892,6 +1970,7 @@ class _$Grouping implements Grouping {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return grouping?.call(this);
@@ -1908,6 +1987,7 @@ class _$Grouping implements Grouping {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -2030,6 +2110,9 @@ class _$Assignment implements Assignment {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -2049,6 +2132,8 @@ class _$Assignment implements Assignment {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -2068,6 +2153,8 @@ class _$Assignment implements Assignment {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -2090,6 +2177,7 @@ class _$Assignment implements Assignment {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return assignment(this);
@@ -2106,6 +2194,7 @@ class _$Assignment implements Assignment {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return assignment?.call(this);
@@ -2122,6 +2211,7 @@ class _$Assignment implements Assignment {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {
@@ -2141,6 +2231,251 @@ abstract class Assignment implements Expression {
   Expression get expression;
   @JsonKey(ignore: true)
   _$$AssignmentCopyWith<_$Assignment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetterCopyWith<$Res> {
+  factory _$$SetterCopyWith(_$Setter value, $Res Function(_$Setter) then) =
+      __$$SetterCopyWithImpl<$Res>;
+  $Res call({Expression callee, Token identifier, Expression right});
+
+  $ExpressionCopyWith<$Res> get callee;
+  $TokenCopyWith<$Res> get identifier;
+  $ExpressionCopyWith<$Res> get right;
+}
+
+/// @nodoc
+class __$$SetterCopyWithImpl<$Res> extends _$ExpressionCopyWithImpl<$Res>
+    implements _$$SetterCopyWith<$Res> {
+  __$$SetterCopyWithImpl(_$Setter _value, $Res Function(_$Setter) _then)
+      : super(_value, (v) => _then(v as _$Setter));
+
+  @override
+  _$Setter get _value => super._value as _$Setter;
+
+  @override
+  $Res call({
+    Object? callee = freezed,
+    Object? identifier = freezed,
+    Object? right = freezed,
+  }) {
+    return _then(_$Setter(
+      callee: callee == freezed
+          ? _value.callee
+          : callee // ignore: cast_nullable_to_non_nullable
+              as Expression,
+      identifier: identifier == freezed
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as Token,
+      right: right == freezed
+          ? _value.right
+          : right // ignore: cast_nullable_to_non_nullable
+              as Expression,
+    ));
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get callee {
+    return $ExpressionCopyWith<$Res>(_value.callee, (value) {
+      return _then(_value.copyWith(callee: value));
+    });
+  }
+
+  @override
+  $TokenCopyWith<$Res> get identifier {
+    return $TokenCopyWith<$Res>(_value.identifier, (value) {
+      return _then(_value.copyWith(identifier: value));
+    });
+  }
+
+  @override
+  $ExpressionCopyWith<$Res> get right {
+    return $ExpressionCopyWith<$Res>(_value.right, (value) {
+      return _then(_value.copyWith(right: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Setter implements Setter {
+  const _$Setter(
+      {required this.callee, required this.identifier, required this.right});
+
+  @override
+  final Expression callee;
+  @override
+  final Token identifier;
+  @override
+  final Expression right;
+
+  @override
+  String toString() {
+    return 'Expression.setter(callee: $callee, identifier: $identifier, right: $right)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Setter &&
+            const DeepCollectionEquality().equals(other.callee, callee) &&
+            const DeepCollectionEquality()
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality().equals(other.right, right));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(callee),
+      const DeepCollectionEquality().hash(identifier),
+      const DeepCollectionEquality().hash(right));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SetterCopyWith<_$Setter> get copyWith =>
+      __$$SetterCopyWithImpl<_$Setter>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Expression predicate, Expression yes, Expression no)
+        ternary,
+    required TResult Function(Token token, Expression left, Expression right)
+        binary,
+    required TResult Function(Token token, Expression expression) unary,
+    required TResult Function(Token token) variable,
+    required TResult Function(dynamic value) literal,
+    required TResult Function(Expression callee, Calling calling) invocation,
+    required TResult Function(Expression expression) grouping,
+    required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
+    required TResult Function(Token typeToken, Token nameToken,
+            List<Token> parameters, Statement body)
+        function,
+  }) {
+    return setter(callee, identifier, right);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
+    TResult Function(Token token)? variable,
+    TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, Calling calling)? invocation,
+    TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
+    TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
+            Statement body)?
+        function,
+  }) {
+    return setter?.call(callee, identifier, right);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expression predicate, Expression yes, Expression no)?
+        ternary,
+    TResult Function(Token token, Expression left, Expression right)? binary,
+    TResult Function(Token token, Expression expression)? unary,
+    TResult Function(Token token)? variable,
+    TResult Function(dynamic value)? literal,
+    TResult Function(Expression callee, Calling calling)? invocation,
+    TResult Function(Expression expression)? grouping,
+    TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
+    TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
+            Statement body)?
+        function,
+    required TResult orElse(),
+  }) {
+    if (setter != null) {
+      return setter(callee, identifier, right);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Ternary value) ternary,
+    required TResult Function(Binary value) binary,
+    required TResult Function(Unary value) unary,
+    required TResult Function(Identifier value) variable,
+    required TResult Function(Literal value) literal,
+    required TResult Function(Invocation value) invocation,
+    required TResult Function(Grouping value) grouping,
+    required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
+    required TResult Function(FunctionExpression value) function,
+  }) {
+    return setter(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Identifier value)? variable,
+    TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
+    TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
+    TResult Function(FunctionExpression value)? function,
+  }) {
+    return setter?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Ternary value)? ternary,
+    TResult Function(Binary value)? binary,
+    TResult Function(Unary value)? unary,
+    TResult Function(Identifier value)? variable,
+    TResult Function(Literal value)? literal,
+    TResult Function(Invocation value)? invocation,
+    TResult Function(Grouping value)? grouping,
+    TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
+    TResult Function(FunctionExpression value)? function,
+    required TResult orElse(),
+  }) {
+    if (setter != null) {
+      return setter(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Setter implements Expression {
+  const factory Setter(
+      {required final Expression callee,
+      required final Token identifier,
+      required final Expression right}) = _$Setter;
+
+  Expression get callee;
+  Token get identifier;
+  Expression get right;
+  @JsonKey(ignore: true)
+  _$$SetterCopyWith<_$Setter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2289,6 +2624,9 @@ class _$FunctionExpression implements FunctionExpression {
     required TResult Function(Expression callee, Calling calling) invocation,
     required TResult Function(Expression expression) grouping,
     required TResult Function(Token token, Expression expression) assignment,
+    required TResult Function(
+            Expression callee, Token identifier, Expression right)
+        setter,
     required TResult Function(Token typeToken, Token nameToken,
             List<Token> parameters, Statement body)
         function,
@@ -2308,6 +2646,8 @@ class _$FunctionExpression implements FunctionExpression {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -2327,6 +2667,8 @@ class _$FunctionExpression implements FunctionExpression {
     TResult Function(Expression callee, Calling calling)? invocation,
     TResult Function(Expression expression)? grouping,
     TResult Function(Token token, Expression expression)? assignment,
+    TResult Function(Expression callee, Token identifier, Expression right)?
+        setter,
     TResult Function(Token typeToken, Token nameToken, List<Token> parameters,
             Statement body)?
         function,
@@ -2349,6 +2691,7 @@ class _$FunctionExpression implements FunctionExpression {
     required TResult Function(Invocation value) invocation,
     required TResult Function(Grouping value) grouping,
     required TResult Function(Assignment value) assignment,
+    required TResult Function(Setter value) setter,
     required TResult Function(FunctionExpression value) function,
   }) {
     return function(this);
@@ -2365,6 +2708,7 @@ class _$FunctionExpression implements FunctionExpression {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
   }) {
     return function?.call(this);
@@ -2381,6 +2725,7 @@ class _$FunctionExpression implements FunctionExpression {
     TResult Function(Invocation value)? invocation,
     TResult Function(Grouping value)? grouping,
     TResult Function(Assignment value)? assignment,
+    TResult Function(Setter value)? setter,
     TResult Function(FunctionExpression value)? function,
     required TResult orElse(),
   }) {

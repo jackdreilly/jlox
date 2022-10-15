@@ -1,3 +1,4 @@
+import 'package:jlox/environment_key.dart';
 import 'package:jlox/expression.dart';
 
 import 'base.dart';
@@ -6,14 +7,14 @@ import 'token.dart';
 
 mixin Resolver {
   void interpret(Program program);
-  Token resolveVariable(Token token);
-  Map<Token, Token?> get testDump;
+  EnvironmentKey resolveVariable(EnvironmentKey token);
+  Map<EnvironmentKey, EnvironmentKey?> get testDump;
   static Resolver get make => _ResolverImpl();
 }
 
 class _ResolverImpl with Resolver {
-  final List<Map<String, Token>> stack = [{}];
-  final Map<Token, Token?> resolver = {};
+  final List<Map<ScopeKey, EnvironmentKey>> stack = [{}];
+  final Map<EnvironmentKey, EnvironmentKey?> resolver = {};
 
   env(Function() callback) {
     stack.add({});
@@ -23,8 +24,11 @@ class _ResolverImpl with Resolver {
 
   proc(Statement? statement) => statement?.when(
         classDeclaration: (name, block) {
-          define(name);
-          proc(block);
+          define(name.key);
+          env(() {
+            define(thisKey);
+            block.forEach(proc);
+          });
         },
         expression: procExp,
         forLoop: (initializer, predicate, perLoop, body) {
@@ -46,7 +50,7 @@ class _ResolverImpl with Resolver {
         },
         print: procExp,
         returnStatement: (returnToken, returnValue) => procExp(returnValue),
-        uninitialized: define,
+        uninitialized: (variable) => define(variable.key),
         whileLoop: (predicate, body) {
           procExp(predicate);
           eProc(body);
@@ -59,50 +63,57 @@ class _ResolverImpl with Resolver {
 
   void declare(Token token, Expression expression) {
     // TODO: switch order of statements
-    define(token);
+    define(token.key);
     procExp(expression);
   }
 
   void eProc(Statement statement) => env(() => proc(statement));
 
   void procExp(Expression? expression) => expression?.when(
+        setter: (callee, identifier, right) {
+          procExp(callee);
+          procExp(right);
+          return null;
+        },
         assignment: (token, expression) {
-          associate(token);
+          associate(token.key);
           return procExp(expression);
         },
         binary: (token, left, right) => [left, right].forEach(procExp),
         unary: (token, expression) => procExp(expression),
         grouping: procExp,
-        variable: associate,
+        variable: (token) => associate(token.key),
         ternary: (predicate, yes, no) => [predicate, yes, no].forEach(procExp),
         literal: (value) => null,
         invocation: (callee, calling) {
           procExp(callee);
-          calling.when(
-              dot: associate, paren: (arguments) => arguments.forEach(procExp));
+          calling.whenOrNull(paren: (arguments) => arguments.forEach(procExp));
           return null;
         },
         function: (_, token, parameters, body) => env(() {
-          parameters.forEach(define);
+          parameters.map((t) => t.key).forEach(define);
           eProc(body);
         }),
       );
 
-  void define(Token variable) => stack.last[variable.lexeme] = variable;
+  void define(EnvironmentKey variable) =>
+      stack.last[variable.scopeKey] = variable;
 
-  void associate(Token element) => resolver[element] = resolve(element);
+  void associate(EnvironmentKey element) =>
+      resolver[element] = resolve(element);
 
-  Token? resolve(Token element) =>
-      stack.reversed.map((e) => e[element.lexeme]).withoutNulls.firstOrNull;
+  EnvironmentKey? resolve(EnvironmentKey element) =>
+      stack.reversed.map((e) => e[element.scopeKey]).withoutNulls.firstOrNull;
 
   @override
   void interpret(Program program) => program.forEach(proc);
 
   @override
-  Token resolveVariable(Token token) => resolver[token] ?? token;
+  EnvironmentKey resolveVariable(EnvironmentKey token) =>
+      resolver[token] ?? token;
 
   @override
-  Map<Token, Token?> get testDump => resolver;
+  Map<EnvironmentKey, EnvironmentKey?> get testDump => resolver;
 }
 
 extension<T> on Iterable<T> {
