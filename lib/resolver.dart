@@ -25,13 +25,22 @@ class _ResolverImpl with Resolver {
   proc(Statement? statement) => statement?.when(
         classDeclaration: (name, superClass, block) {
           define(name.key);
+          callback() => env(() {
+                define(thisKey);
+                block.forEach(proc);
+              });
+
           if (superClass != null) {
             associate((superClass as Identifier).token.key);
+            env(
+              () {
+                define(superKey);
+                callback();
+              },
+            );
+            return;
           }
-          env(() {
-            define(thisKey);
-            block.forEach(proc);
-          });
+          callback();
         },
         expression: procExp,
         forLoop: (initializer, predicate, perLoop, body) {

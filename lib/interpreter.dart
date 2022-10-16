@@ -1,6 +1,7 @@
 import 'package:jlox/environment.dart';
 import 'package:jlox/environment_key.dart';
 import 'package:jlox/expression.dart';
+import 'package:jlox/lox_fieldable.dart';
 import 'package:jlox/lox_function.dart';
 import 'package:jlox/lox_instance.dart';
 import 'package:jlox/parser.dart';
@@ -12,6 +13,7 @@ import 'package:jlox/token_type.dart';
 import 'base.dart';
 import 'exiter.dart';
 import 'lox_class.dart';
+import 'lox_super.dart';
 
 class Interpreter {
   final envs = [Environment()];
@@ -40,12 +42,14 @@ class Interpreter {
 
   Object? interpretStatement(Statement statement) => statement.when(
         classDeclaration: (name, superClass, methods) {
-          LoxClass? loxSuper;
-          if (superClass != null) {
-            loxSuper = exp(superClass) as LoxClass;
-          }
           env.declare(name.key, scoped(() {
-            final cloned = env.clone(name.string);
+            LoxClass? loxSuper;
+            Environment cloned = env.clone(name.string);
+            if (superClass != null) {
+              loxSuper = exp(superClass) as LoxClass;
+              cloned.push;
+              cloned.declare(superKey, loxSuper);
+            }
             return LoxClass(
                 name,
                 loxSuper,
@@ -100,8 +104,9 @@ class Interpreter {
             environment: env.clone(token.string)),
         invocation: (callee, calling) {
           final calleeValue = exp(callee);
+
           return calling.when(
-            dot: (token) => (calleeValue as LoxInstance).getField(token),
+            dot: (token) => (calleeValue as LoxFieldable).getField(token),
             paren: (arguments) =>
                 (calleeValue as LoxCallable).call(arguments.map(exp).list),
           );
@@ -112,7 +117,14 @@ class Interpreter {
             ? token.op(() => exp(left), () => exp(right))
             : token.op(exp(left), exp(right)),
         grouping: exp,
-        variable: (token) => env.get(resolve(token)),
+        variable: (token) {
+          final result = env.get(resolve(token));
+          if (token.tokenType == TT.SUPER) {
+            return LoxSuper(
+                env.get(thisKey) as LoxInstance, result as LoxClass);
+          }
+          return result;
+        },
         literal: id,
         ternary: (predicate, yes, no) =>
             exp(predicate) as bool ? exp(yes) : exp(no),

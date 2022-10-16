@@ -34,9 +34,10 @@ final doubles = {
 
 class _Scanner {
   final String string;
-  var line = 1;
-  var current = 0;
-  var start = 0;
+  int line = 1;
+  int current = 0;
+  int start = 0;
+  int lastLineBreak = 0;
 
   _Scanner(this.string);
 
@@ -46,7 +47,8 @@ class _Scanner {
       lexeme: lexeme,
       literal: literal ?? lexeme,
       line: line,
-      position: current);
+      position: position);
+  int get position => start - lastLineBreak + 1;
   String get lexeme => string.slice(start, min(string.length, current));
   get fail => report("Unexpected character", line: line);
   bool match(String s) =>
@@ -122,7 +124,14 @@ class _Scanner {
     failed("Unexpected lexeme ($lexeme)");
   }
 
-  get linify => line += lexeme.count('\n');
+  get linify {
+    final count = lexeme.count('\n');
+    line += count;
+    if (count == 0) {
+      return;
+    }
+    lastLineBreak = current - lexeme.lastIndexOf('\n') + 1;
+  }
 
   void failed(String s) => report(s,
       line: line, where: {'start': start, 'current': current}.toString());

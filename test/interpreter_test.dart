@@ -10,7 +10,7 @@ import 'helpers.dart';
 
 void main() {
   testWire;
-  test('super', () => 'super'.prog.interpreted.equals(3));
+  test('super', () => 'super'.prog.interpreted.equals('A'));
   test('constructor repeat', () {
     final interpreter = Interpreter();
     interpreter.interpret('list'.prog.parse);

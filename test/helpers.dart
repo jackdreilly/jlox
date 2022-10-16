@@ -19,7 +19,6 @@ Matcher get eof => TT.EOF.token;
 
 extension TestE on Object? {
   equals(dynamic value) => expect(this, value);
-  shouldBe(dynamic value) => () => equals(value);
 }
 
 extension TTE on TT {

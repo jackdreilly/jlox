@@ -1,7 +1,19 @@
 class A {
-    hi() {
-        return 3;
-    }
+  method() {
+    return "A";
+  }
 }
-class B < A {}
-B().hi();
+
+class B < A {
+  method() {
+    return "B";
+  }
+
+  test() {
+    return super.method();
+  }
+}
+
+class C < B {}
+
+C().test();

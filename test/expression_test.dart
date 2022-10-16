@@ -61,17 +61,17 @@ void main() {
           .equals('x = y = 3'));
   test('x', () => 'x'.identifier.expression!.pretty.equals('x'));
   test('xxx', () => 'xxx'.identifier.expression!.pretty.equals('xxx'));
-  test('1 exp', 1.literal.shouldBe(Expression.literal(1)));
-  test("a", "a".literal.pretty.shouldBe('"a"'));
-  test("(a)", "a".literal.grouping.pretty.shouldBe('(group "a")'));
-  test('-123', 123.neg.pretty.shouldBe('(- 123)'));
-  test(
-      'rpn', 1.plus(2).times(4.minus(3)).rpn.unwords.shouldBe('1 2 + 4 3 - *'));
+  test('1 exp', () => 1.literal.equals(Expression.literal(1)));
+  test("a", () => "a".literal.pretty.equals('"a"'));
+  test("(a)", () => "a".literal.grouping.pretty.equals('(group "a")'));
+  test('-123', () => 123.neg.pretty.equals('(- 123)'));
+  test('rpn',
+      () => 1.plus(2).times(4.minus(3)).rpn.unwords.equals('1 2 + 4 3 - *'));
   test(
       '(* (- 123) (group 45.67))',
-      123
+      () => 123
           .neg
           .times(45.67.literal.grouping)
           .pretty
-          .shouldBe('(* (- 123) (group 45.67))'));
+          .equals('(* (- 123) (group 45.67))'));
 }

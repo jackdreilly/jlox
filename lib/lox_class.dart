@@ -1,4 +1,6 @@
 import 'package:jlox/environment.dart';
+import 'package:jlox/environment_key.dart';
+import 'package:jlox/expression.dart';
 import 'package:jlox/lox_function.dart';
 import 'package:jlox/lox_instance.dart';
 import 'package:jlox/token.dart';
@@ -15,15 +17,12 @@ class LoxClass implements LoxCallable {
 
   @override
   LoxInstance call(List arguments) {
-    final instance = LoxInstance(this, arguments);
-    final method = methods['init']?.functionName;
-    if (method != null) {
-      instance.getMethod(method).call(arguments);
-    }
-    return instance;
+    return LoxInstance(this, arguments)..getMethod(initToken)?.call(arguments);
   }
 
-  LoxFunction getMethod(Token token) =>
-      methods[token.lexeme] ?? superClass?.getMethod(token) ?? fail(token);
-  LoxFunction fail(token) => throw MissingEnvironmentKeyError(token.key);
+  LoxFunction? getMethod(Token token) =>
+      methods[token.lexeme] ?? superClass?.getMethod(token);
+  LoxFunction fail(Token token) => throw MissingEnvironmentKeyError(token.key);
 }
+
+final initToken = 'init'.identifier;
