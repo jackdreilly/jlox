@@ -11,6 +11,7 @@ part 'statement.freezed.dart';
 class Statement with _$Statement {
   const factory Statement.classDeclaration(
       {required Token name,
+      required Expression? superClass,
       required List<FunctionStatement> methods}) = ClassDeclaration;
   const factory Statement.function(
       {required Token nameToken,
@@ -53,8 +54,13 @@ extension StatementExtension on Statement {
   String get pretty => when(
       function: (nameToken, function) =>
           (function as FunctionExpression).prettify(nameToken.lexeme),
-      classDeclaration: (name, block) =>
-          'class ${name.lexeme} {${block.pretty}}',
+      classDeclaration: (name, superClass, block) => [
+            'class',
+            name.lexeme,
+            if (superClass != null) '<',
+            if (superClass != null) superClass.pretty,
+            '{${block.pretty}}'
+          ].unwords,
       returnStatement: (returnToken, returnValue) => [
             returnToken.tokenType.string,
             returnValue?.pretty

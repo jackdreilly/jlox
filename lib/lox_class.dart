@@ -6,8 +6,9 @@ import 'package:jlox/token.dart';
 
 class LoxClass implements LoxCallable {
   final Token name;
+  final LoxClass? superClass;
   final Map<String, LoxFunction> methods;
-  LoxClass(this.name, List<LoxFunction> methods)
+  LoxClass(this.name, this.superClass, List<LoxFunction> methods)
       : methods = Map.fromEntries(
             methods.map((e) => MapEntry(e.functionName.lexeme, e)));
   @override
@@ -23,11 +24,7 @@ class LoxClass implements LoxCallable {
     return instance;
   }
 
-  LoxFunction getMethod(Token token) {
-    final result = methods[token.lexeme];
-    if (result != null) {
-      return result;
-    }
-    throw MissingEnvironmentKeyError(token.key);
-  }
+  LoxFunction getMethod(Token token) =>
+      methods[token.lexeme] ?? superClass?.getMethod(token) ?? fail(token);
+  LoxFunction fail(token) => throw MissingEnvironmentKeyError(token.key);
 }

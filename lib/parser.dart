@@ -50,9 +50,15 @@ class _Parser {
   Statement classDeclaration() {
     final classToken = expect(TT.CLASS);
     final name = expect(TT.IDENTIFIER);
+    Expression? superClass;
+    if (match({TT.LESS})) {
+      eat;
+      superClass = expect(TT.IDENTIFIER).expression!;
+    }
     return scoped(classToken, () {
       return Statement.classDeclaration(
         name: name,
+        superClass: superClass,
         methods: methods().list,
       );
     });

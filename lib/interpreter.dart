@@ -39,18 +39,26 @@ class Interpreter {
   }
 
   Object? interpretStatement(Statement statement) => statement.when(
-        classDeclaration: (name, methods) => env.declare(name.key, scoped(() {
-          final cloned = env.clone(name.string);
-          return LoxClass(
-              name,
-              methods
-                  .map((e) => LoxFunction(
-                        interpreter: this,
-                        function: e.function as FunctionExpression,
-                        environment: cloned,
-                      ))
-                  .list);
-        })),
+        classDeclaration: (name, superClass, methods) {
+          LoxClass? loxSuper;
+          if (superClass != null) {
+            loxSuper = exp(superClass) as LoxClass;
+          }
+          env.declare(name.key, scoped(() {
+            final cloned = env.clone(name.string);
+            return LoxClass(
+                name,
+                loxSuper,
+                methods
+                    .map((e) => LoxFunction(
+                          interpreter: this,
+                          function: e.function as FunctionExpression,
+                          environment: cloned,
+                        ))
+                    .list);
+          }));
+          return null;
+        },
         function: (nameToken, function) {
           env.declare(nameToken.key, exp(function));
           return null;

@@ -23,8 +23,11 @@ class _ResolverImpl with Resolver {
   }
 
   proc(Statement? statement) => statement?.when(
-        classDeclaration: (name, block) {
+        classDeclaration: (name, superClass, block) {
           define(name.key);
+          if (superClass != null) {
+            associate((superClass as Identifier).token.key);
+          }
           env(() {
             define(thisKey);
             block.forEach(proc);

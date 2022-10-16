@@ -1,0 +1,7 @@
+class A {
+    hi() {
+        return 3;
+    }
+}
+class B < A {}
+B().hi();

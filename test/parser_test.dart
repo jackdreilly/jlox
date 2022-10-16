@@ -8,6 +8,12 @@ import 'helpers.dart';
 
 void main() {
   testWire;
+  test(
+      'super',
+      () => 'class A {} class B < A {}'
+          .parse
+          .pretty
+          .equals('class A {}\nclass B < A {}'));
   test('smallclass',
       () => 'class a{b(c,d) e}'.parse.pretty.equals('class a {b(c, d) e}'));
   test('this', 'this'.fails);
