@@ -18,7 +18,7 @@ import 'lox_super.dart';
 class Interpreter {
   final envs = [Environment()];
   Interpreter() {
-    interpret('prelude.lox'.read!.parse);
+    interpret('/Users/jack/jlox/prelude.lox'.read!.parse);
     env.swap(
         'toString', ((List arguments) => arguments.first.toString()).callable);
   }

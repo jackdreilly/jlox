@@ -1,0 +1,2 @@
+#!/bin/sh
+dart run $HOME/jlox/bin/jlox.dart $1;

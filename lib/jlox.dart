@@ -22,13 +22,7 @@ int main(List<String> args) {
   return runProgram(args.last);
 }
 
-int runProgram(String last) {
-  final value = run(last.read ?? last);
-  if (value != 0) {
-    return value;
-  }
-  return runPrompt();
-}
+int runProgram(String last) => run(last.read ?? last);
 
 int run(String program) {
   final scanned = program.scan;
