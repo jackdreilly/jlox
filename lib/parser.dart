@@ -51,11 +51,12 @@ class _Parser {
     final classToken = expect(TT.CLASS);
     final name = expect(TT.IDENTIFIER);
     Expression? superClass;
+    Token? superLess;
     if (match({TT.LESS})) {
-      eat;
+      superLess = expect(TT.LESS);
       superClass = expect(TT.IDENTIFIER).expression!;
     }
-    return scoped(classToken, () {
+    return listScoped([classToken, superLess].withoutNulls, () {
       return Statement.classDeclaration(
         name: name,
         superClass: superClass,
@@ -127,6 +128,16 @@ class _Parser {
       return expect(TT.THIS);
     }
     throw fail("this statement must be inside class ${token.string}");
+  }
+
+  Token get superToken {
+    if (!callStack.any((element) => element.superable)) {
+      throw fail(
+          "super statement must be inside class with a superclass ${tokenType.string}");
+    }
+    final token = expect(TT.SUPER);
+    expect(TT.DOT, null, false);
+    return token;
   }
 
   Token get returnToken {
@@ -324,6 +335,9 @@ class _Parser {
     if (match({TT.THIS})) {
       return Expression.variable(token: thisToken);
     }
+    if (match({TT.SUPER})) {
+      return Expression.variable(token: superToken);
+    }
     if (match({TT.LEFT_SQUARE_BRACKET})) {
       return list();
     }
@@ -354,10 +368,13 @@ class _Parser {
   int current = 0;
   Token get eat => token.and(() => current++);
 
-  Statement scoped(Token functionToken, Statement Function() statement) {
-    callStack.add(functionToken);
-    final value = statement();
-    callStack.remove(functionToken);
+  Statement scoped(Token functionToken, Statement Function() callback) =>
+      listScoped([functionToken], callback);
+
+  Statement listScoped(Iterable<Token> tokens, Statement Function() callback) {
+    tokens.forEach(callStack.add);
+    final value = callback();
+    tokens.forEach(callStack.remove);
     return value;
   }
 

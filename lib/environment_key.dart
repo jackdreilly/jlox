@@ -12,24 +12,30 @@ class EnvironmentKey with _$EnvironmentKey {
       {required String name,
       required int line,
       required int position}) = IdentifierKey;
-  const factory EnvironmentKey.thisKey() = ThisKey;
+  const factory EnvironmentKey.tokenType(TT tokenType) = TokenTypeKey;
   @override
   String toString() => when(
       identifier: (name, line, position) => '[$line:$position] $scopeKey',
-      thisKey: () => scopeKey);
+      tokenType: (_) => scopeKey);
 }
 
 typedef ScopeKey = String;
 
 extension EKey on EnvironmentKey {
-  ScopeKey get scopeKey =>
-      when(identifier: (name, line, position) => name, thisKey: () => 'this');
+  ScopeKey get scopeKey => when(
+      identifier: (name, line, position) => name,
+      tokenType: (tokenType) => tokenType.string);
 }
 
 extension EKeyToken on Token {
-  EnvironmentKey get key => tokenType == TT.THIS
-      ? thisKey
-      : EnvironmentKey.identifier(name: lexeme, line: line, position: position);
+  EnvironmentKey get key => tokenType == TT.IDENTIFIER
+      ? EnvironmentKey.identifier(name: lexeme, line: line, position: position)
+      : tokenType.key;
 }
 
-final thisKey = EnvironmentKey.thisKey();
+extension on TT {
+  EnvironmentKey get key => EnvironmentKey.tokenType(this);
+}
+
+final thisKey = TT.THIS.key;
+final superKey = TT.SUPER.key;

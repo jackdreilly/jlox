@@ -1,3 +1,4 @@
+import 'package:jlox/base.dart';
 import 'package:jlox/environment_key.dart';
 import 'package:jlox/parser.dart';
 import 'package:jlox/resolver.dart';
@@ -10,7 +11,7 @@ import 'helpers.dart';
 
 extension on EnvironmentKey {
   TT get tokenType =>
-      map(identifier: (_) => TT.IDENTIFIER, thisKey: (_) => TT.THIS);
+      when(identifier: (a, b, c) => TT.IDENTIFIER, tokenType: id);
   int get line =>
       maybeWhen(orElse: () => -1, identifier: (name, line, position) => line);
   int get position => maybeWhen(

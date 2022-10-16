@@ -21,6 +21,7 @@ extension TokenString on Token {
   bool get notBreakable => tokenType.notBreakable;
   bool get returnable => tokenType.returnable;
   bool get thisable => tokenType.thisable;
+  bool get superable => tokenType == TT.LESS;
   String get string =>
       '[$line:$position] ${tokenType.string} (${this.literal ?? lexeme})';
 }

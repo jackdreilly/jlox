@@ -8,6 +8,11 @@ import 'helpers.dart';
 
 void main() {
   testWire;
+  test('ok super', 'class A{hi(){}} class B < A{hi() {super.hi()}}'.succeeds);
+  test('bad super without dot after',
+      'class A{} class B < A{hi() {super}}'.fails);
+  test('bad super inside class', 'class A{hi(){super.hi();}}'.fails);
+  test('bad super', 'super'.fails);
   test(
       'super',
       () => 'class A {} class B < A {}'

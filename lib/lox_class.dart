@@ -1,5 +1,4 @@
 import 'package:jlox/environment.dart';
-import 'package:jlox/environment_key.dart';
 import 'package:jlox/lox_function.dart';
 import 'package:jlox/lox_instance.dart';
 import 'package:jlox/token.dart';

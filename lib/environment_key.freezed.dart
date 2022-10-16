@@ -19,38 +19,38 @@ mixin _$EnvironmentKey {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, int line, int position) identifier,
-    required TResult Function() thisKey,
+    required TResult Function(TokenType tokenType) tokenType,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name, int line, int position)? identifier,
-    TResult Function()? thisKey,
+    TResult Function(TokenType tokenType)? tokenType,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, int line, int position)? identifier,
-    TResult Function()? thisKey,
+    TResult Function(TokenType tokenType)? tokenType,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IdentifierKey value) identifier,
-    required TResult Function(ThisKey value) thisKey,
+    required TResult Function(TokenTypeKey value) tokenType,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(IdentifierKey value)? identifier,
-    TResult Function(ThisKey value)? thisKey,
+    TResult Function(TokenTypeKey value)? tokenType,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IdentifierKey value)? identifier,
-    TResult Function(ThisKey value)? thisKey,
+    TResult Function(TokenTypeKey value)? tokenType,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,7 +155,7 @@ class _$IdentifierKey extends IdentifierKey {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, int line, int position) identifier,
-    required TResult Function() thisKey,
+    required TResult Function(TokenType tokenType) tokenType,
   }) {
     return identifier(name, line, position);
   }
@@ -164,7 +164,7 @@ class _$IdentifierKey extends IdentifierKey {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name, int line, int position)? identifier,
-    TResult Function()? thisKey,
+    TResult Function(TokenType tokenType)? tokenType,
   }) {
     return identifier?.call(name, line, position);
   }
@@ -173,7 +173,7 @@ class _$IdentifierKey extends IdentifierKey {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, int line, int position)? identifier,
-    TResult Function()? thisKey,
+    TResult Function(TokenType tokenType)? tokenType,
     required TResult orElse(),
   }) {
     if (identifier != null) {
@@ -186,7 +186,7 @@ class _$IdentifierKey extends IdentifierKey {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IdentifierKey value) identifier,
-    required TResult Function(ThisKey value) thisKey,
+    required TResult Function(TokenTypeKey value) tokenType,
   }) {
     return identifier(this);
   }
@@ -195,7 +195,7 @@ class _$IdentifierKey extends IdentifierKey {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(IdentifierKey value)? identifier,
-    TResult Function(ThisKey value)? thisKey,
+    TResult Function(TokenTypeKey value)? tokenType,
   }) {
     return identifier?.call(this);
   }
@@ -204,7 +204,7 @@ class _$IdentifierKey extends IdentifierKey {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IdentifierKey value)? identifier,
-    TResult Function(ThisKey value)? thisKey,
+    TResult Function(TokenTypeKey value)? tokenType,
     required TResult orElse(),
   }) {
     if (identifier != null) {
@@ -230,62 +230,89 @@ abstract class IdentifierKey extends EnvironmentKey {
 }
 
 /// @nodoc
-abstract class _$$ThisKeyCopyWith<$Res> {
-  factory _$$ThisKeyCopyWith(_$ThisKey value, $Res Function(_$ThisKey) then) =
-      __$$ThisKeyCopyWithImpl<$Res>;
+abstract class _$$TokenTypeKeyCopyWith<$Res> {
+  factory _$$TokenTypeKeyCopyWith(
+          _$TokenTypeKey value, $Res Function(_$TokenTypeKey) then) =
+      __$$TokenTypeKeyCopyWithImpl<$Res>;
+  $Res call({TokenType tokenType});
 }
 
 /// @nodoc
-class __$$ThisKeyCopyWithImpl<$Res> extends _$EnvironmentKeyCopyWithImpl<$Res>
-    implements _$$ThisKeyCopyWith<$Res> {
-  __$$ThisKeyCopyWithImpl(_$ThisKey _value, $Res Function(_$ThisKey) _then)
-      : super(_value, (v) => _then(v as _$ThisKey));
+class __$$TokenTypeKeyCopyWithImpl<$Res>
+    extends _$EnvironmentKeyCopyWithImpl<$Res>
+    implements _$$TokenTypeKeyCopyWith<$Res> {
+  __$$TokenTypeKeyCopyWithImpl(
+      _$TokenTypeKey _value, $Res Function(_$TokenTypeKey) _then)
+      : super(_value, (v) => _then(v as _$TokenTypeKey));
 
   @override
-  _$ThisKey get _value => super._value as _$ThisKey;
+  _$TokenTypeKey get _value => super._value as _$TokenTypeKey;
+
+  @override
+  $Res call({
+    Object? tokenType = freezed,
+  }) {
+    return _then(_$TokenTypeKey(
+      tokenType == freezed
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as TokenType,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$ThisKey extends ThisKey {
-  const _$ThisKey() : super._();
+class _$TokenTypeKey extends TokenTypeKey {
+  const _$TokenTypeKey(this.tokenType) : super._();
+
+  @override
+  final TokenType tokenType;
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ThisKey);
+        (other.runtimeType == runtimeType &&
+            other is _$TokenTypeKey &&
+            const DeepCollectionEquality().equals(other.tokenType, tokenType));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(tokenType));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$TokenTypeKeyCopyWith<_$TokenTypeKey> get copyWith =>
+      __$$TokenTypeKeyCopyWithImpl<_$TokenTypeKey>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name, int line, int position) identifier,
-    required TResult Function() thisKey,
+    required TResult Function(TokenType tokenType) tokenType,
   }) {
-    return thisKey();
+    return tokenType(this.tokenType);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String name, int line, int position)? identifier,
-    TResult Function()? thisKey,
+    TResult Function(TokenType tokenType)? tokenType,
   }) {
-    return thisKey?.call();
+    return tokenType?.call(this.tokenType);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name, int line, int position)? identifier,
-    TResult Function()? thisKey,
+    TResult Function(TokenType tokenType)? tokenType,
     required TResult orElse(),
   }) {
-    if (thisKey != null) {
-      return thisKey();
+    if (tokenType != null) {
+      return tokenType(this.tokenType);
     }
     return orElse();
   }
@@ -294,35 +321,40 @@ class _$ThisKey extends ThisKey {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IdentifierKey value) identifier,
-    required TResult Function(ThisKey value) thisKey,
+    required TResult Function(TokenTypeKey value) tokenType,
   }) {
-    return thisKey(this);
+    return tokenType(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(IdentifierKey value)? identifier,
-    TResult Function(ThisKey value)? thisKey,
+    TResult Function(TokenTypeKey value)? tokenType,
   }) {
-    return thisKey?.call(this);
+    return tokenType?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IdentifierKey value)? identifier,
-    TResult Function(ThisKey value)? thisKey,
+    TResult Function(TokenTypeKey value)? tokenType,
     required TResult orElse(),
   }) {
-    if (thisKey != null) {
-      return thisKey(this);
+    if (tokenType != null) {
+      return tokenType(this);
     }
     return orElse();
   }
 }
 
-abstract class ThisKey extends EnvironmentKey {
-  const factory ThisKey() = _$ThisKey;
-  const ThisKey._() : super._();
+abstract class TokenTypeKey extends EnvironmentKey {
+  const factory TokenTypeKey(final TokenType tokenType) = _$TokenTypeKey;
+  const TokenTypeKey._() : super._();
+
+  TokenType get tokenType;
+  @JsonKey(ignore: true)
+  _$$TokenTypeKeyCopyWith<_$TokenTypeKey> get copyWith =>
+      throw _privateConstructorUsedError;
 }

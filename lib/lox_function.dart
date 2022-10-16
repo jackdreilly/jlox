@@ -49,7 +49,7 @@ class LoxFunction with _$LoxFunction implements LoxCallable {
           final value = interpreter
               .exiting(() => interpreter.interpretStatement(function.body));
           if (function.isInitializer) {
-            return interpreter.env.get(EnvironmentKey.thisKey());
+            return interpreter.env.get(thisKey);
           }
           return value;
         },
