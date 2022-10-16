@@ -1,6 +1,9 @@
 import 'base.dart';
 
 enum TokenType {
+  // List
+  LEFT_SQUARE_BRACKET,
+  RIGHT_SQUARE_BRACKET,
   // Ternary
   COLON,
   QUESTION_MARK,
@@ -51,7 +54,7 @@ enum TokenType {
   WHILE,
   BREAK,
 
-  EOF
+  EOF,
 }
 
 final reservedWords = {
@@ -103,6 +106,8 @@ final ttMap = [
   TT.GREATER_EQUAL,
   TT.LESS,
   TT.LESS_EQUAL,
+  TT.LEFT_SQUARE_BRACKET,
+  TT.RIGHT_SQUARE_BRACKET,
 ].zip([
   ':',
   '?',
@@ -125,6 +130,8 @@ final ttMap = [
   '>=',
   '<',
   '<=',
+  '[',
+  ']',
 ]).asMap;
 
 extension TTExt on TokenType {

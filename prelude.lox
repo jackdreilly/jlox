@@ -1,0 +1,72 @@
+class null{}
+
+// Stub to be swapped later.
+fun toString(x) x
+
+fun isEmpty(list) {
+    return list == null;
+}
+fun pair(a,b) {
+    fun pairDispatch(isHead) {
+        if (isHead) {
+            return a;
+        }
+        return b;
+    }
+    return pairDispatch;
+}
+fun head(pair) {
+    return pair(true);
+}
+fun tail(pair) {
+    return pair(false);
+}
+fun length(pair) {
+    if (isEmpty(pair)) {
+        return 0;
+    }
+    return 1 + length(tail(pair));
+}
+fun map(fn, list) {
+    if (isEmpty(list)) {
+        return list;
+    }
+    return pair(fn(head(list)), map(fn, tail(list)));
+}
+fun fold(fn, initialValue, list) {
+    if (isEmpty(list)) {
+        return initialValue;
+    }
+    return fold(fn, fn(initialValue, head(list)), tail(list));
+}
+fun reduce(fn, list) {
+    return fold(fn, head(list), tail(list));
+}
+fun join(separator, list) isEmpty(list) ? "" : reduce((fun (a,b) a + separator + b), map(toString, list))
+fun show(list) "[" + join(", ", list) + "]"
+fun add(a,b) a + b
+fun sum(list) reduce(add, list)
+fun take(n, list) (isEmpty(list) or n == 0) ? null : pair(head(list), take(n-1, tail(list)))
+fun drop(n, list) (isEmpty(list) or n == 0) ? list : drop(n-1, tail(list))
+fun slice(a, b, list) take(b - a, drop(a, list))
+fun range(start, end) start == end ? null : pair(start, range(start + 1, end))
+fun filter(fn, list)
+    isEmpty(list) ?
+        list :
+        fn(head(list)) ?
+            pair(
+                head(list),
+                filter(fn, tail(list))
+            ) : 
+            filter(fn, tail(list))
+fun first(fn, list)
+    isEmpty(list) ?
+        null :
+        fn(head(list)) ?
+            head(list) :
+                first(
+                    fn,
+                    tail(list),
+                )
+fun flip(fn) fun(a,b) fn(b,a)
+fun reverse(list) fold(flip(pair), null, list)

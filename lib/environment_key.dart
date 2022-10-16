@@ -14,7 +14,9 @@ class EnvironmentKey with _$EnvironmentKey {
       required int position}) = IdentifierKey;
   const factory EnvironmentKey.thisKey() = ThisKey;
   @override
-  String toString() => scopeKey;
+  String toString() => when(
+      identifier: (name, line, position) => '[$line:$position] $scopeKey',
+      thisKey: () => scopeKey);
 }
 
 typedef ScopeKey = String;

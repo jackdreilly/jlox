@@ -149,3 +149,16 @@ extension FunctionExpressionExt on FunctionExpression {
   bool get isMethod => typeToken.tokenType == TT.CLASS;
   bool get isAnonymous => nameToken.tokenType != TT.IDENTIFIER;
 }
+
+final nullExpression = 'null'.identifier.expression!;
+final pairExpression = 'pair'.identifier.expression!;
+
+extension IdentifierString on String {
+  Token get identifier => Token(
+        literal: this,
+        lexeme: this,
+        line: -1,
+        position: -1,
+        tokenType: TT.IDENTIFIER,
+      );
+}

@@ -11,6 +11,7 @@ import 'errors.dart';
 final interpreter = Interpreter();
 
 int main(List<String> args) {
+  // wire;
   if (args.length > 1) {
     print('usage: jlox [script]');
     return 64;

@@ -3,6 +3,7 @@ import 'package:jlox/environment_key.dart';
 import 'package:jlox/expression.dart';
 import 'package:jlox/lox_function.dart';
 import 'package:jlox/lox_instance.dart';
+import 'package:jlox/parser.dart';
 import 'package:jlox/resolver.dart';
 import 'package:jlox/statement.dart';
 import 'package:jlox/token.dart';
@@ -14,6 +15,11 @@ import 'lox_class.dart';
 
 class Interpreter {
   final envs = [Environment()];
+  Interpreter() {
+    interpret('prelude.lox'.read!.parse);
+    env.swap(
+        'toString', ((List arguments) => arguments.first.toString()).callable);
+  }
 
   final resolver = Resolver.make;
   Environment get env => envs.last;

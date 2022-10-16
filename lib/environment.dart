@@ -71,6 +71,10 @@ class Environment {
     }
     throw MissingEnvironmentKeyError(key);
   }
+
+  void swap(String key, Object? value) =>
+      state[state.keys.firstWhere((element) => element.scopeKey == key)] =
+          value.wrap;
 }
 
 extension on Object? {

@@ -59,8 +59,8 @@ void main() {
                   expression: 3.literal))
           .pretty
           .equals('x = y = 3'));
-  test('x', () => 'x'.identifier.pretty.equals('x'));
-  test('xxx', () => 'xxx'.identifier.pretty.equals('xxx'));
+  test('x', () => 'x'.identifier.expression!.pretty.equals('x'));
+  test('xxx', () => 'xxx'.identifier.expression!.pretty.equals('xxx'));
   test('1 exp', 1.literal.shouldBe(Expression.literal(1)));
   test("a", "a".literal.pretty.shouldBe('"a"'));
   test("(a)", "a".literal.grouping.pretty.shouldBe('(group "a")'));
@@ -74,14 +74,4 @@ void main() {
           .times(45.67.literal.grouping)
           .pretty
           .shouldBe('(* (- 123) (group 45.67))'));
-}
-
-extension on String {
-  Expression get identifier => Expression.variable(
-      token: Token(
-          position: 0,
-          lexeme: this,
-          literal: this,
-          tokenType: TT.IDENTIFIER,
-          line: 0));
 }

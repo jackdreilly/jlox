@@ -316,6 +316,9 @@ class _Parser {
     if (match({TT.THIS})) {
       return Expression.variable(token: thisToken);
     }
+    if (match({TT.LEFT_SQUARE_BRACKET})) {
+      return list();
+    }
     throw fail("Expected primary, got ${token.string}");
   }
 
@@ -378,6 +381,29 @@ class _Parser {
   }
 
   Calling dot() => Calling.dot(identifier: expect(TT.IDENTIFIER));
+
+  Expression list() {
+    expect(TT.LEFT_SQUARE_BRACKET);
+    return elements().list.reversed.fold<Expression>(
+        nullExpression,
+        (previousValue, element) => Expression.invocation(
+            callee: pairExpression,
+            calling: Calling.paren(arguments: [element, previousValue])));
+  }
+
+  Iterable<Expression> elements() sync* {
+    if (match({TT.RIGHT_SQUARE_BRACKET})) {
+      eat;
+      return;
+    }
+    yield assignment();
+    if (match({TT.RIGHT_SQUARE_BRACKET})) {
+      eat;
+      return;
+    }
+    expect(TT.COMMA);
+    yield* elements();
+  }
 }
 
 class ParseError extends Error {

@@ -13,6 +13,18 @@ mixin LoxCallable {
   Object? call(List<dynamic> arguments);
 }
 
+class _Wrapper implements LoxCallable {
+  final Object? Function(List<dynamic> arguments) caller;
+
+  _Wrapper(this.caller);
+  @override
+  Object? call(List arguments) => caller(arguments);
+}
+
+extension CallableExtension on Object? Function(List<dynamic> arguments) {
+  LoxCallable get callable => _Wrapper(this);
+}
+
 @freezed
 class LoxFunction with _$LoxFunction implements LoxCallable {
   const LoxFunction._();
