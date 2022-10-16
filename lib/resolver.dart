@@ -90,7 +90,7 @@ class _ResolverImpl with Resolver {
           calling.whenOrNull(paren: (arguments) => arguments.forEach(procExp));
           return null;
         },
-        function: (_, token, parameters, body) => env(() {
+        function: (__, _, token, parameters, body) => env(() {
           parameters.map((t) => t.key).forEach(define);
           eProc(body);
         }),

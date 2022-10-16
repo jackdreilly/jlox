@@ -161,6 +161,8 @@ class _Parser {
             position: -1),
         statement);
     return Expression.function(
+      isInitializer:
+          typeToken.tokenType == TT.CLASS && nameToken.lexeme == 'init',
       typeToken: typeToken,
       nameToken: nameToken,
       parameters: parameters,

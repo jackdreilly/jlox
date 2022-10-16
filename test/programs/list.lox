@@ -7,23 +7,13 @@ class Pair {
     head() this._head
     tail() this._tail
 }
-fun pair(a,b) {
-    var pair = Pair();
-    pair.init(a,b);
-    return pair;
-}
 class List {
     init() {
         this.pair = _null;
     }
-    list() {
-        var list = List();
-        list.init();
-        return list;
-    }
     empty() this.pair == _null
     add(item) {
-        this.pair = pair(item, this.clone());
+        this.pair = Pair(item, this.clone());
         return this;
     }
     clone() {
@@ -43,33 +33,28 @@ class List {
         rest.add(a);
         return rest;
     }()
-    expand(fn) this.fold(fun (a,b){a.extend(fn(b))}, this.list())
+    expand(fn) this.fold(fun (a,b){a.extend(fn(b))}, List())
     extend(a) a.empty() ? this : this.add(a.head()).extend(a.tail())
     reverse() this.fold(fun (acc, x) {
         acc.add(x);
         return acc;
-    }, this.list())
+    }, List())
     slice(start, end) this.drop(start).take(end - start)
     drop(i) i == 0 ? this : this.tail().drop(i  - 1)
-    take(i) i == 0 ? this.list() : fun(){
+    take(i) i == 0 ? List() : fun(){
         var rest = this.tail().take(i-1);
         rest.add(this.head());
         return rest;
     }()
 }
-fun list() {
-    var list = List();
-    list.init();
-    return list;
-}
-var l = list();
+var l = List();
 l.add("jack");
 l.add("olga");
 l.add("athena");
 l.add("reilly");
 l.add("kavvada");
 l.map(fun (a) a + a).slice(1,3).expand(fun (a) {
-    var l = list();
+    var l = List();
     l.add(a);
     l.add(" - and stuff");
     return l;

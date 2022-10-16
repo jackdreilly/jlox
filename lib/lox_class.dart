@@ -14,7 +14,14 @@ class LoxClass implements LoxCallable {
   String toString() => '<class ${name.lexeme}>';
 
   @override
-  LoxInstance call(List arguments) => LoxInstance(this, arguments);
+  LoxInstance call(List arguments) {
+    final instance = LoxInstance(this, arguments);
+    final method = methods['init']?.functionName;
+    if (method != null) {
+      instance.getMethod(method).call(arguments);
+    }
+    return instance;
+  }
 
   LoxFunction getMethod(Token token) {
     final result = methods[token.lexeme];

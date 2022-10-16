@@ -10,6 +10,20 @@ import 'helpers.dart';
 
 void main() {
   testWire;
+  test('constructor repeat', () {
+    final interpreter = Interpreter();
+    interpreter.interpret('list'.prog.parse);
+    interpreter
+        .interpret('var l = List(); l.add(3); l.init().length();'.parse)
+        .equals(0);
+  });
+  test('list add', () {
+    final interpreter = Interpreter();
+    interpreter.interpret('list'.prog.parse);
+    interpreter
+        .interpret('var l = List(); l.add(3); l.length();'.parse)
+        .equals(1);
+  });
   test(
       'list',
       () => 'list'

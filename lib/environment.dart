@@ -91,5 +91,5 @@ class UninitializedValueError extends RuntimeError {
 class MissingEnvironmentKeyError extends RuntimeError {
   final EnvironmentKey environmentKey;
   MissingEnvironmentKeyError(this.environmentKey)
-      : super('Missing environmentkey $environmentKey');
+      : super('Missing var $environmentKey');
 }

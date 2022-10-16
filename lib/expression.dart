@@ -44,6 +44,7 @@ class Expression with _$Expression {
       required Token identifier,
       required Expression right}) = Setter;
   const factory Expression.function({
+    required bool isInitializer,
     required Token typeToken,
     required Token nameToken,
     required List<Token> parameters,
@@ -62,7 +63,8 @@ extension ExpressionString on Expression {
           '=',
           right.pretty
         ].unwords,
-        function: (_, __, ___, ____) => (this as FunctionExpression).prettify(),
+        function: (i, _, __, ___, ____) =>
+            (this as FunctionExpression).prettify(),
         invocation: (callee, calling) {
           return [
             callee.pretty,

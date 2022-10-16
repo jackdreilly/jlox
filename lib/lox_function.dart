@@ -42,17 +42,16 @@ class LoxFunction with _$LoxFunction implements LoxCallable {
   @override
   Object? call(List arguments) => interpreter.scoped(
         () {
-          tag("j1m")
-              .function
-              .parameters
-              .tag("j1p")
-              .zip(arguments.tag("j1a"))
-              .forEach((element) =>
-                  environment.declare(element.item1.key, element.item2));
+          function.parameters.zip(arguments).forEach((element) =>
+              environment.declare(element.item1.key, element.item2));
           ['CALLING', token.lexeme, token.line].unwords.log;
           environment.debug;
-          return interpreter
+          final value = interpreter
               .exiting(() => interpreter.interpretStatement(function.body));
+          if (function.isInitializer) {
+            return interpreter.env.get(EnvironmentKey.thisKey());
+          }
+          return value;
         },
         environment,
       );

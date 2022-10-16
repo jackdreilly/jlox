@@ -86,7 +86,7 @@ class Interpreter {
   Object? exp(Expression? expression) => expression?.when(
         setter: (callee, identifier, right) =>
             (exp(callee) as LoxInstance).setProperty(identifier, exp(right)),
-        function: (_, token, ___, ____) => LoxFunction(
+        function: (i, _, token, ___, ____) => LoxFunction(
             interpreter: this,
             function: expression as FunctionExpression,
             environment: env.clone(token.string)),

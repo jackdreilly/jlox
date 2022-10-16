@@ -1,5 +1,4 @@
 import 'package:jlox/base.dart';
-import 'package:jlox/environment.dart';
 import 'package:jlox/environment_key.dart';
 import 'package:jlox/token.dart';
 
@@ -15,7 +14,7 @@ class LoxInstance {
   @override
   String toString() => '<instance ${loxClass.name.lexeme} ${hashCode % 1000}>';
 
-  LoxFunction? getMethod(Token token) =>
+  LoxFunction getMethod(Token token) =>
       methods.putIfAbsent(token.key.scopeKey, () {
         final method = loxClass.getMethod(token);
         final newEnvironment =
@@ -29,11 +28,7 @@ class LoxInstance {
     if (fields.containsKey(key)) {
       return fields[key];
     }
-    final method = getMethod(token);
-    if (method != null) {
-      return method;
-    }
-    throw MissingEnvironmentKeyError(token.key);
+    return getMethod(token);
   }
 
   setProperty(Token identifier, Object? value) =>
